@@ -1,0 +1,56 @@
+name: Core
+version: 1.3.0
+main: core.CoreMain
+api-version: 1.13
+commands :
+  Gamemode:
+    description: changes the Gamemode of the User
+    aliases: [gm]
+  Weather:
+    description: changes the weather on the Server
+  time:
+    description: changes the time on the server
+  core:
+    description: show information on the CorePlugin
+  allow:
+    description: lets every op set the permission to use other commands
+  disallow:
+    description: takes away the power to use commands
+  hub:
+    aliases: [l,lobby]
+    description: moves player to Lobby
+  heal:
+    description: heals the Player
+  difficulty:
+    description: sets difficulty in world
+  tps:
+    description: show recent tps
+  advancements:
+    description: show or hide the advancement message
+  invsee:
+  ping:
+  permissions:
+permissions:
+  core.*:
+    children:
+      core.canChangeGamemode: true
+      core.caanChangeWeather: true
+      core.canChangeTime: true
+      core.canHeal: true
+      core.canChangeDifficulty: true
+      core.canShowTPS: true
+      core.canSeeInv: true
+  core.canChangeGamemode:
+    default: false
+  core.canChangeWeather:
+    default: false
+  core.canChangeTime:
+    default: false
+  core.canHeal:
+    default: false
+  core.canChangeDifficulty:
+    default: false
+  core.canShowTPS:
+    default: false
+  core.canSeeInv:
+    default: false

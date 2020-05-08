@@ -1,0 +1,8 @@
+core\CoreEventHandler.class
+core\CoreAccessPermissionFile.class
+core\CoreCommands.class
+core\CoreResetServer.class
+core\CoreMain.class
+core\CoreBungeeCordClient.class
+core\CoreSendStringPacket.class
+core\Utils.class
