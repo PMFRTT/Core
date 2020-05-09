@@ -1,7 +1,6 @@
 package core;
 
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
@@ -139,10 +138,6 @@ public class Utils {
         return closestEntity;
     }
 
-    public static int getPing(Player player){
-        int ping = ((CraftPlayer) player).getHandle().ping;
-        return ping;
-    }
 
     public static void changeGamerule(GameRule<Boolean> gameRule, boolean value){
         List<World> dimensions = new ArrayList<World>();

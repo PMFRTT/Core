@@ -19,7 +19,7 @@ public class CoreResetServer {
 
         for (Player p : Bukkit.getOnlinePlayers()) {
             CoreBungeeCordClient.moveToServer(p, "Lobby");
-            CoreSendStringPacket.sendPacketToTitle(p, Utils.colorize("Fallback Server"), Utils.colorize("Bitte warte, während der &b" + serverName + "-Server &fneustartet"));
+            //CoreSendStringPacket.sendPacketToTitle(p, Utils.colorize("Fallback Server"), Utils.colorize("Bitte warte, während der &b" + serverName + "-Server &fneustartet"));
         }
 
         try {
