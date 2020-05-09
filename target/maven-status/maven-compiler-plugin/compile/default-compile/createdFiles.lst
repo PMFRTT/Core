@@ -1,6 +1,7 @@
 core\CoreEventHandler.class
 core\CoreAccessPermissionFile.class
 core\CoreCommands.class
+core\CoreResetServer$1.class
 core\CoreResetServer.class
 core\CoreMain.class
 core\CoreBungeeCordClient.class

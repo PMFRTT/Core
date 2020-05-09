@@ -1,11 +1,8 @@
 package core;
 
-import org.bukkit.Bukkit;
-import org.bukkit.GameRule;
-import org.bukkit.World;
+
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.PermissionAttachment;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -21,6 +18,7 @@ public final class CoreMain extends JavaPlugin implements Listener {
         CoreAccessPermissionFile accessPermissionFile = new CoreAccessPermissionFile(this);
         CoreBungeeCordClient bungeeCordClient = new CoreBungeeCordClient(this);
         CoreEventHandler coreEventHandler = new CoreEventHandler(this, accessPermissionFile);
+        CoreResetServer coreResetServer = new CoreResetServer(this);
 
         bungeeCordClient.loadServers();
         coreEventHandler.initialize();

@@ -4,11 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
 
 public class CoreResetServer {
-
 
     private static CoreMain corePlugin;
 
@@ -16,36 +13,35 @@ public class CoreResetServer {
         this.corePlugin = corePlugin;
     }
 
-
     public static void resetServer(String serverName, Boolean resetPositions) {
 
-        //sends every Player to Lobby
+        File locations = null;
+
         for (Player p : Bukkit.getOnlinePlayers()) {
             CoreBungeeCordClient.moveToServer(p, "Lobby");
-            CoreSendStringPacket.sendPacketToTitle(p, Utils.colorize("Fallback Server"), Utils.colorize("Bitte warte, während der " + serverName + "-Server neustartet"));
+            CoreSendStringPacket.sendPacketToTitle(p, Utils.colorize("Fallback Server"), Utils.colorize("Bitte warte, während der &b" + serverName + "-Server &fneustartet"));
         }
 
-
         try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
+            locations = new File(corePlugin.getDataFolder().getParentFile().getAbsolutePath() + "/SetPosition", "locations.txt");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        //resets Positionfile if boolean true
         if (resetPositions) {
-            try {
-                File locations = new File(corePlugin.getDataFolder().getParentFile().getAbsolutePath() + "/SetPosition", "locations.txt");
+            if (locations != null) {
                 if (locations.exists()) {
                     locations.delete();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
 
-            //restarts server
-            Bukkit.spigot().restart();
 
+            Bukkit.getScheduler().scheduleSyncDelayedTask(corePlugin, new Runnable() {
+                @Override
+                public void run() {
+                    Bukkit.spigot().restart();
+                }
+            }, 40L);
         }
 
 

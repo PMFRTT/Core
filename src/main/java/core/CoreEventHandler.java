@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.Set;
 
@@ -31,7 +32,12 @@ public class CoreEventHandler implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         accessPermissionFile.readFile();
         accessPermissionFile.createPermissionSave(e.getPlayer());
-        e.setJoinMessage(Utils.getJoinPrefix(corePlugin.getName(), e.getPlayer()));
+        e.setJoinMessage(Utils.getJoinPrefix("Server", e.getPlayer()));
+    }
+
+    @EventHandler
+    private void onPlayerDisconnect(PlayerQuitEvent e){
+        e.setQuitMessage(Utils.getDisconnectPrefix("Server", e.getPlayer()));
     }
 
     @EventHandler
