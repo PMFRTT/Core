@@ -1,5 +1,7 @@
 package core;
 
+import net.minecraft.server.v1_15_R1.*;
+import net.minecraft.server.v1_15_R1.MinecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.GameMode;
@@ -451,8 +453,8 @@ public class CoreCommands implements CommandExecutor {
             }
         } else if (command.getLabel().equalsIgnoreCase("tps")) {
             if (sender.hasPermission("core.canShowTPS") || sender.getName().equalsIgnoreCase("console")) {
-                //double[] ticksPerSeconds = MinecraftServer.getServer().recentTps;
-               // sender.sendMessage(Utils.getServerPrefix() + ticksPerSeconds.toString());
+                double[] ticksPerSeconds = MinecraftServer.getServer().recentTps;
+                sender.sendMessage(Utils.getServerPrefix() + ticksPerSeconds.toString());
                 return true;
             } else {
                 player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu verfügst nicht über die Rechte, diesen Command auszuführen!"));
@@ -482,7 +484,7 @@ public class CoreCommands implements CommandExecutor {
                 return false;
             }
         } else if (command.getLabel().equalsIgnoreCase("ping")) {
-            //sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Dein Ping: &e" + Utils.getPing((Player) sender) + "&fms"));
+            sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Dein Ping: &e" + Utils.getPing((Player) sender) + "&fms"));
             return true;
         }
         return false;
