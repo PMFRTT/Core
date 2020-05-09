@@ -50,7 +50,7 @@ public class Utils {
     public static void sendMessageToEveryone(String message) {
         Collection<? extends Player> players = Bukkit.getOnlinePlayers();
         for (Player player : players) {
-            player.sendMessage(message);
+            //player.sendMessage(message);
         }
     }
 
