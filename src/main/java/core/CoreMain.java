@@ -1,6 +1,7 @@
 package core;
 
 
+import org.bukkit.GameRule;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,7 +24,7 @@ public final class CoreMain extends JavaPlugin implements Listener {
         bungeeCordClient.loadServers();
         coreEventHandler.initialize();
 
-        //Utils.changeGamerule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+        Utils.changeGamerule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
 
         CoreCommands executor = new CoreCommands(this, accessPermissionFile);
         getCommand("Gamemode").setExecutor(executor);
