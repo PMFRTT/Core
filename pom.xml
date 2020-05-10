@@ -70,7 +70,7 @@
             <version>1.15.2-R0.1-SNAPSHOT</version>
             <scope>system</scope>
             <type>jar</type>
-            <systemPath>${basedir}/lib/Spigot.jar</systemPath>
+            <systemPath>${pom.basedir}/lib/Spigot.jar</systemPath>
         </dependency>
     </dependencies>
 </project>
