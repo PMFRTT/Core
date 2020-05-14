@@ -1,12 +1,11 @@
 package core;
 
 import org.bukkit.*;
-import org.bukkit.GameRule;
-import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.scoreboard.Criterias;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -16,7 +15,7 @@ import java.util.*;
 
 public class Utils {
 
-    private static String[] rainbowStrings = {
+    private static final String[] rainbowStrings = {
             "&c", "&6", "&e", "&a", "&9", "&d", "&5"
     };
 
@@ -172,7 +171,7 @@ public class Utils {
 
     public static void createHealthDisplay(){
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-        Objective objective = scoreboard.registerNewObjective("Leben", "health");
+        Objective objective = scoreboard.registerNewObjective("Leben", Criterias.HEALTH, "Leben");
         objective.setDisplaySlot(DisplaySlot.PLAYER_LIST);
         for(Player player : Bukkit.getOnlinePlayers()){
             player.setScoreboard(scoreboard);
