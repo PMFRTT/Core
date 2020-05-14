@@ -5,10 +5,7 @@ import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
-import org.bukkit.scoreboard.Criterias;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.*;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -172,16 +169,11 @@ public class Utils {
     public static void createHealthDisplay(){
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         Objective objective = scoreboard.registerNewObjective("Leben", Criterias.HEALTH, "Leben");
+        objective.setRenderType(RenderType.HEARTS);
         objective.setDisplaySlot(DisplaySlot.PLAYER_LIST);
         for(Player player : Bukkit.getOnlinePlayers()){
             player.setScoreboard(scoreboard);
         }
     }
-
-
-    public static int test(){
-        return 7;
-    }
-
 
 }
