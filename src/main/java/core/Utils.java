@@ -174,6 +174,9 @@ public class Utils {
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         Objective objective = scoreboard.registerNewObjective("Leben", "health");
         objective.setDisplaySlot(DisplaySlot.PLAYER_LIST);
+        for(Player player : Bukkit.getOnlinePlayers()){
+            player.setScoreboard(scoreboard);
+        }
     }
 
 
