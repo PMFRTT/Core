@@ -18,7 +18,7 @@ public class CoreBungeeCordClient {
 
     static CoreMain corePlugin;
     private static HashMap<String, Integer> serverPorts = new HashMap<String, Integer>();
-    private static String ADDRESS = "25.70.100.241";
+    private static String ADDRESS = "192.168.178.61";
 
     public CoreBungeeCordClient(CoreMain corePlugin) {
         this.corePlugin = corePlugin;
