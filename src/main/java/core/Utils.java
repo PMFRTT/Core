@@ -98,27 +98,26 @@ public class Utils {
 
 
         /**BukkitTask runnable = new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (player.getHealth() < 20) {
-                    if (player.getHealth() + 0.5 > 20.0) {
-                        player.setHealth(20);
-                    } else {
-                        player.setHealth(player.getHealth() + 0.5);
-                    }
-                }
-                if (player.getFoodLevel() > 20) {
-                    if (player.getFoodLevel() + 0.5 > 20) {
-                        player.setFoodLevel(20);
-                    } else {
-                        player.setFoodLevel(player.getFoodLevel() + 1);ffggg
-                    }
-                }
+        @Override public void run() {
+        if (player.getHealth() < 20) {
+        if (player.getHealth() + 0.5 > 20.0) {
+        player.setHealth(20);
+        } else {
+        player.setHealth(player.getHealth() + 0.5);
+        }
+        }
+        if (player.getFoodLevel() > 20) {
+        if (player.getFoodLevel() + 0.5 > 20) {
+        player.setFoodLevel(20);
+        } else {
+        player.setFoodLevel(player.getFoodLevel() + 1);ffggg
+        }
+        }
 
-                if (player.getFoodLevel() >= 20 && player.getHealth() >= 20) {
-                    cancel();
-                }
-            }
+        if (player.getFoodLevel() >= 20 && player.getHealth() >= 20) {
+        cancel();
+        }
+        }
 
         }.runTaskTimer(pluginMain, 0L, 1L);*/
     }
@@ -140,20 +139,22 @@ public class Utils {
         return closestEntity;
     }
 
-    public static int getPing(Player player){
+    public static int getPing(Player player) {
         int ping = ((CraftPlayer) player).getHandle().ping;
         return ping;
     }
 
-    public static void changeGamerule(GameRule<Boolean> gameRule, boolean value){
+    public static void changeGamerule(GameRule<Boolean> gameRule, boolean value) {
         List<World> dimensions = new ArrayList<World>();
 
         dimensions.add(Bukkit.getWorld("world"));
         dimensions.add(Bukkit.getWorld("world_nether"));
         dimensions.add(Bukkit.getWorld("world_the_end"));
 
-        for(World world : dimensions){
-            world.setGameRule(gameRule, value);
+        for (World world : dimensions) {
+            if (world != null) {
+                world.setGameRule(gameRule, value);
+            }
         }
 
     }
@@ -166,12 +167,12 @@ public class Utils {
         return uuids;
     }
 
-    public static void createHealthDisplay(){
+    public static void createHealthDisplay() {
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         Objective objective = scoreboard.registerNewObjective("Leben", Criterias.HEALTH, "Leben");
         objective.setRenderType(RenderType.HEARTS);
         objective.setDisplaySlot(DisplaySlot.PLAYER_LIST);
-        for(Player player : Bukkit.getOnlinePlayers()){
+        for (Player player : Bukkit.getOnlinePlayers()) {
             player.setScoreboard(scoreboard);
         }
     }

@@ -1,7 +1,9 @@
 package core;
 
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,7 +26,6 @@ public final class CoreMain extends JavaPlugin implements Listener {
 
         CoreBungeeCordClient.loadServers();
         coreEventHandler.initialize();
-
         Utils.changeGamerule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
 
         CoreCommands executor = new CoreCommands(this, accessPermissionFile);
@@ -47,15 +48,21 @@ public final class CoreMain extends JavaPlugin implements Listener {
     private static JavaPlugin plugin;
 
     public static JavaPlugin getPlugin() {
-
         return plugin;
     }
 
     public static void setPlugin(JavaPlugin plugin) {
-
         CoreMain.plugin = plugin;
+        addServerInfo(plugin.getName());
     }
 
-
-
+    public static void addServerInfo(String serverName) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.setPlayerListHeaderFooter(Utils.colorize("Moin &b" + player.getDisplayName() + "&f!"), Utils.colorize("Du befindest dich auf &b" + serverName + "\n" +
+                    "&8Server-Version: &e" + Bukkit.getServer().getVersion() + "\n&7" +
+                    Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort()));
+        }
+    }
 }
+
+

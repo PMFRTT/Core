@@ -15,8 +15,8 @@ import java.util.Set;
 
 public class CoreEventHandler implements Listener {
 
-    private CoreMain corePlugin;
-    private CoreAccessPermissionFile accessPermissionFile;
+    private final CoreMain corePlugin;
+    private final CoreAccessPermissionFile accessPermissionFile;
 
     public CoreEventHandler(CoreMain corePlugin, CoreAccessPermissionFile accessPermissionFile){
         this.corePlugin = corePlugin;
@@ -33,6 +33,7 @@ public class CoreEventHandler implements Listener {
         accessPermissionFile.readFile();
         accessPermissionFile.createPermissionSave(e.getPlayer());
         e.setJoinMessage(Utils.getJoinPrefix("Server", e.getPlayer()));
+        CoreMain.addServerInfo(CoreMain.getPlugin().getName());
     }
 
     @EventHandler
@@ -56,7 +57,7 @@ public class CoreEventHandler implements Listener {
 
     @EventHandler
     public void onAdvancementGet(PlayerAdvancementDoneEvent e) {
-        if (corePlugin.showAdvancements) {
+        if (CoreMain.showAdvancements) {
             Advancement a = e.getAdvancement();
             Player p = e.getPlayer();
 
