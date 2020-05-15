@@ -1,6 +1,7 @@
 package core;
 
-import net.minecraft.server.v1_15_R1.*;
+import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.minecraft.server.v1_15_R1.MinecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
@@ -223,64 +224,64 @@ public class CoreCommands implements CommandExecutor {
             if (sender.getName() == "CONSOLE") {
                 if (args[1].equalsIgnoreCase("gm")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
-                    PermissionAttachment attachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     if (!attachment.getPermissions().get("core.canchangegamemode")) {
                         attachment.setPermission("core.canChangeGamemode", true);
-                        corePlugin.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
+                        CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
                         accessPermissionFile.test(player);
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&2Du hast jetzt Rechte auf die Core-Commands &6/gamemode; /gm&2!"));
                     }
                 }
                 if (args[1].equalsIgnoreCase("weather")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
-                    PermissionAttachment attachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     if (!attachment.getPermissions().get("core.canchangeweather")) {
                         attachment.setPermission("core.canChangeWeather", true);
-                        corePlugin.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
+                        CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
                         accessPermissionFile.test(player);
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&2Du hast jetzt Rechte auf den Core-Command &6/weather&2!"));
                     }
                 }
                 if (args[1].equalsIgnoreCase("time")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
-                    PermissionAttachment attachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     if (!attachment.getPermissions().get("core.canchangetime")) {
                         attachment.setPermission("core.canChangeTime", true);
-                        corePlugin.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
+                        CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
                         accessPermissionFile.test(player);
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&2Du hast jetzt Rechte auf den Core-Command &6/time&2!"));
                     }
                 }
                 if (args[1].equalsIgnoreCase("heal")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
-                    PermissionAttachment attachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     if (!attachment.getPermissions().get("core.canheal")) {
                         attachment.setPermission("core.canHeal", true);
-                        corePlugin.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
+                        CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
                         accessPermissionFile.test(player);
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&2Du hast jetzt Rechte auf den Core-Command &6/heal&2!"));
                     }
                 }
                 if (args[1].equalsIgnoreCase("difficulty")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
-                    PermissionAttachment attachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     if (!attachment.getPermissions().get("core.canchangedifficulty")) {
                         attachment.setPermission("core.canChangeDifficulty", true);
-                        corePlugin.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
+                        CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
                         accessPermissionFile.test(player);
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&2Du hast jetzt Rechte auf die Core-Commands &6/difficulty; /d&2!"));
                     }
                 }
                 if (args[1].equalsIgnoreCase("all")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
-                    PermissionAttachment permissionAttachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment permissionAttachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     permissionAttachment.setPermission("core.canChangeGamemode", true);
                     permissionAttachment.setPermission("core.canChangeWeather", true);
                     permissionAttachment.setPermission("core.canChangeTime", true);
                     permissionAttachment.setPermission("core.canHeal", true);
                     permissionAttachment.setPermission("core.canChangeDifficulty", true);
                     permissionAttachment.setPermission("core.canShowTPS", true);
-                    corePlugin.permissionAttachmentHashMap.put(player.getUniqueId(), permissionAttachment);
+                    CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), permissionAttachment);
                     accessPermissionFile.test(player);
                     player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&2Du hast jetzt Rechte auf alle Core-Commands!"));
 
@@ -293,57 +294,57 @@ public class CoreCommands implements CommandExecutor {
             if (sender.getName() == "CONSOLE") {
                 if (args[1].equalsIgnoreCase("gm")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
-                    PermissionAttachment attachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     if (attachment.getPermissions().get("core.canchangegamemode")) {
                         attachment.setPermission("core.canChangeGamemode", false);
-                        corePlugin.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
+                        CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
                         accessPermissionFile.test(player);
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu hast jetzt keine Rechte mehr auf die Core-Commands &6/gamemode; /gm&c!"));
                     }
                 }
                 if (args[1].equalsIgnoreCase("weather")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
-                    PermissionAttachment attachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     if (attachment.getPermissions().get("core.canchangeweather")) {
                         attachment.setPermission("core.canChangeWeather", false);
-                        corePlugin.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
+                        CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
                         accessPermissionFile.test(player);
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu hast jetzt keine Rechte mehr auf den Core-Command &6/weather&c!"));
                     }
                 }
                 if (args[1].equalsIgnoreCase("time")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
-                    PermissionAttachment attachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     if (attachment.getPermissions().get("core.canchangetime")) {
                         attachment.setPermission("core.canChangeTime", false);
-                        corePlugin.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
+                        CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
                         accessPermissionFile.test(player);
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu hast jetzt keine Rechte mehr auf den Core-Command &6/time&c!"));
                     }
                 }
                 if (args[1].equalsIgnoreCase("heal")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
-                    PermissionAttachment attachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     if (attachment.getPermissions().get("core.canheal")) {
                         attachment.setPermission("core.canHeal", false);
-                        corePlugin.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
+                        CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
                         accessPermissionFile.test(player);
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu hast jetzt keine Rechte mehr auf den Core-Command &6/heal&c!"));
                     }
                 }
                 if (args[1].equalsIgnoreCase("difficulty")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
-                    PermissionAttachment attachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     if (attachment.getPermissions().get("core.canchangedifficulty")) {
                         attachment.setPermission("core.canChangeDifficulty", false);
-                        corePlugin.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
+                        CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
                         accessPermissionFile.test(player);
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu hast jetzt keine Rechte mehr auf den Core-Command &6/difficulty&c!"));
                     }
                 }
                 if (args[1].equalsIgnoreCase("all")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
-                    PermissionAttachment permissionAttachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment permissionAttachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     permissionAttachment.setPermission("core.canChangeGamemode", false);
                     permissionAttachment.setPermission("core.canChangeWeather", false);
                     permissionAttachment.setPermission("core.canChangeTime", false);
@@ -427,9 +428,9 @@ public class CoreCommands implements CommandExecutor {
         } else if (command.getLabel().equalsIgnoreCase("permissions")) {
             if (sender.getName().equalsIgnoreCase("console") || sender.isOp()) {
                 if (args.length == 0) {
-                    PermissionAttachment permissionAttachment = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId());
+                    PermissionAttachment permissionAttachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     Map<String, Boolean> permissions = permissionAttachment.getPermissions();
-                    List<String> permissionValues = accessPermissionFile.getPermissions(permissions);
+                    List<String> permissionValues = CoreAccessPermissionFile.getPermissions(permissions);
                     for (String permission : permissionValues) {
                         sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("&b" + permission));
                     }
@@ -441,9 +442,9 @@ public class CoreCommands implements CommandExecutor {
                             accessPermissionFile.createPermissionSave(p);
                         }
                     } else {
-                        PermissionAttachment permissionAttachment = corePlugin.permissionAttachmentHashMap.get(Bukkit.getPlayer(args[0]).getUniqueId());
+                        PermissionAttachment permissionAttachment = CoreMain.permissionAttachmentHashMap.get(Bukkit.getPlayer(args[0]).getUniqueId());
                         Map<String, Boolean> permissions = permissionAttachment.getPermissions();
-                        List<String> permissionValues = accessPermissionFile.getPermissions(permissions);
+                        List<String> permissionValues = CoreAccessPermissionFile.getPermissions(permissions);
                         for (String permission : permissionValues) {
                             sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("&b" + permission));
                         }
@@ -484,8 +485,11 @@ public class CoreCommands implements CommandExecutor {
                 return false;
             }
         } else if (command.getLabel().equalsIgnoreCase("ping")) {
-            sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Dein Ping: &e" + Utils.getPing((Player) sender) + "&fms"));
-            return true;
+            if (sender instanceof ProxiedPlayer) {
+                ProxiedPlayer proxiedPlayer = ProxyServer.getInstance().getPlayer(sender.getName());
+                sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Dein Ping: &e" + Utils.getPing(proxiedPlayer) + "&fms"));
+                return true;
+            }
         }
         return false;
     }
