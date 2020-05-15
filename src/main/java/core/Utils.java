@@ -1,7 +1,7 @@
 package core;
 
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
@@ -140,7 +140,8 @@ public class Utils {
     }
 
     public static int getPing(Player player) {
-        int ping = ((CraftPlayer) player).getHandle().ping;
+        ProxiedPlayer proxiedPlayer = (ProxiedPlayer) player;
+        int ping = proxiedPlayer.getPing();
         return ping;
     }
 
