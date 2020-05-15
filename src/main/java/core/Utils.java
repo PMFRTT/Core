@@ -140,8 +140,12 @@ public class Utils {
     }
 
     public static int getPing(ProxiedPlayer player) {
-        int ping = player.getPing();
-        return ping;
+        if (player != null) {
+            int ping = player.getPing();
+            return ping;
+        } else {
+            return 0;
+        }
     }
 
     public static void changeGamerule(GameRule<Boolean> gameRule, boolean value) {
