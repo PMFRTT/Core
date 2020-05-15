@@ -139,9 +139,8 @@ public class Utils {
         return closestEntity;
     }
 
-    public static int getPing(Player player) {
-        ProxiedPlayer proxiedPlayer = (ProxiedPlayer) player;
-        int ping = proxiedPlayer.getPing();
+    public static int getPing(ProxiedPlayer player) {
+        int ping = player.getPing();
         return ping;
     }
 
