@@ -42,7 +42,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <createDependencyReducedPom>true</createDependencyReducedPom>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
                         </configuration>
                     </execution>
                 </executions>
@@ -57,14 +57,6 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <version>1.15-SNAPSHOT</version>
-            <type>jar</type>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/lib/BungeeCord.jar</systemPath>
-        </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
