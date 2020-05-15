@@ -6,7 +6,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.UUID;
 
 
 public final class CoreMain extends JavaPlugin implements Listener {
@@ -21,10 +22,10 @@ public final class CoreMain extends JavaPlugin implements Listener {
         CoreEventHandler coreEventHandler = new CoreEventHandler(this, accessPermissionFile);
         CoreResetServer coreResetServer = new CoreResetServer(this);
 
-        bungeeCordClient.loadServers();
+        CoreBungeeCordClient.loadServers();
         coreEventHandler.initialize();
 
-        //Utils.changeGamerule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+        Utils.changeGamerule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
 
         CoreCommands executor = new CoreCommands(this, accessPermissionFile);
         getCommand("Gamemode").setExecutor(executor);
