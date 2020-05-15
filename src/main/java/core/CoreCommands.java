@@ -1,5 +1,6 @@
 package core;
 
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.minecraft.server.v1_15_R1.MinecraftServer;
 import org.bukkit.Bukkit;
@@ -484,8 +485,8 @@ public class CoreCommands implements CommandExecutor {
                 return false;
             }
         } else if (command.getLabel().equalsIgnoreCase("ping")) {
-            //ProxiedPlayer proxiedPlayer = ProxyServer.getInstance().getPlayer(sender.getName());
-            //sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Dein Ping: &e" + Utils.getPing(proxiedPlayer) + "&fms"));
+            ProxiedPlayer proxiedPlayer = ProxyServer.getInstance().getPlayer(sender.getName());
+            sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Dein Ping: &e" + Utils.getPing(proxiedPlayer) + "&fms"));
             return sender instanceof ProxiedPlayer;
         }
         return false;
