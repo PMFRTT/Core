@@ -485,6 +485,32 @@ public class CoreCommands implements CommandExecutor {
         } else if (command.getLabel().equalsIgnoreCase("ping")) {
             sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Dein Ping: &e" + Utils.getPing((Player) sender) + "&fms"));
             return true;
+        } else if (command.getLabel().equalsIgnoreCase("sethp")) {
+            if (sender.hasPermission("core.canheal")) {
+                if (args.length == 1) {
+                    if (Double.parseDouble(args[0]) >= 0 && Double.parseDouble(args[0]) <= 20) {
+                        for (Player p : Bukkit.getOnlinePlayers()) {
+                            p.setHealth(Double.parseDouble(args[0]));
+                            p.sendMessage(Utils.getServerPrefix() + Utils.colorize("Euer Leben wurde auf &c" + Double.parseDouble(args[0]) / 2 + "❤&f gesetzt!"));
+                            return true;
+                        }
+                    } else {
+                        sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/setHP <0-20>&f um die Advancements zu zeigen, bzw. verstecken!"));
+                        return false;
+                    }
+                } else if (args.length == 2) {
+                    Player toChange = Bukkit.getPlayer(args[1]);
+                    toChange.setHealth(Double.parseDouble(args[0]));
+                    toChange.sendMessage(Utils.getServerPrefix() + Utils.colorize("Dein Leben wurde auf &c" + Double.parseDouble(args[0]) / 2 + "❤&f gesetzt!"));
+                    return true;
+                } else {
+                    sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/setHP <0-20>&f um die Advancements zu zeigen, bzw. verstecken!"));
+                    return false;
+                }
+            } else {
+                sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu verfügst nicht über die Rechte, diesen Command auszuführen!"));
+                return false;
+            }
         }
         return false;
     }

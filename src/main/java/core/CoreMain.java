@@ -42,6 +42,7 @@ public final class CoreMain extends JavaPlugin implements Listener {
         getCommand("tps").setExecutor(executor);
         getCommand("Advancements").setExecutor(executor);
         getCommand("ping").setExecutor(executor);
+        getCommand("setHP").setExecutor(executor);
 
     }
 
