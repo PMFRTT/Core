@@ -177,4 +177,14 @@ public class Utils {
         }
     }
 
+    public static void createScoreboard(String name, Player player, String type, List<Objective> objectiveList, DisplaySlot displaySlot, RenderType renderType) {
+            Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+
+            for(Objective objective : objectiveList){
+                scoreboard.registerNewObjective(objective.getName(), objective.getCriteria(), objective.getDisplayName());
+                objective.setDisplaySlot(displaySlot);
+            }
+            player.setScoreboard(scoreboard);
+    }
+
 }
