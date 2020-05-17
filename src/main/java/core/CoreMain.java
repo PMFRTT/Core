@@ -3,6 +3,7 @@ package core;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.PermissionAttachment;
@@ -16,6 +17,7 @@ public final class CoreMain extends JavaPlugin implements Listener {
 
     public static HashMap<UUID, PermissionAttachment> permissionAttachmentHashMap = new HashMap<>();
     public static boolean showAdvancements = true;
+    private static String serverName = "loading";
 
     public void onEnable() {
 
@@ -44,6 +46,12 @@ public final class CoreMain extends JavaPlugin implements Listener {
         getCommand("ping").setExecutor(executor);
         getCommand("setHP").setExecutor(executor);
 
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                addServerInfo(serverName);
+            }
+        }, 0L, 20L);
     }
 
     private static JavaPlugin plugin;
@@ -54,14 +62,18 @@ public final class CoreMain extends JavaPlugin implements Listener {
 
     public static void setPlugin(JavaPlugin plugin) {
         CoreMain.plugin = plugin;
-        addServerInfo(plugin.getName());
+        serverName = plugin.getName();
     }
+
 
     public static void addServerInfo(String serverName) {
         for (Player player : Bukkit.getOnlinePlayers()) {
+            CraftPlayer pingablePlayer = (CraftPlayer) player;
+
             player.setPlayerListHeaderFooter(Utils.colorize("Moin &b" + player.getDisplayName() + "&f!"), Utils.colorize("Du befindest dich auf &b" + serverName + "\n" +
                     "&8Server-Version: &e" + Bukkit.getServer().getVersion() + "\n&7" +
-                    Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort()));
+                    Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (" + pingablePlayer.getHandle().ping + "ms)"
+                    ));
         }
     }
 }
