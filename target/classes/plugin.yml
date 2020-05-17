@@ -30,6 +30,7 @@ commands :
   invsee:
   ping:
   permissions:
+  setHP:
 permissions:
   core.*:
     children:

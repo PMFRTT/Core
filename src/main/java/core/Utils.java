@@ -167,13 +167,19 @@ public class Utils {
         return uuids;
     }
 
-    public static void createHealthDisplay() {
+    public static void createHealthDisplay(boolean enabled) {
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         Objective objective = scoreboard.registerNewObjective("Leben", Criterias.HEALTH, "Leben");
         objective.setRenderType(RenderType.HEARTS);
         objective.setDisplaySlot(DisplaySlot.PLAYER_LIST);
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            player.setScoreboard(scoreboard);
+        if (enabled) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.setScoreboard(scoreboard);
+            }
+        } else {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                objective.unregister();
+            }
         }
     }
 
