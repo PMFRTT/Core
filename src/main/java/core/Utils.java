@@ -5,12 +5,19 @@ import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.*;
 
 import java.text.DecimalFormat;
 import java.util.*;
 
 public class Utils {
+    private static CoreMain corePlugin;
+
+    public Utils(CoreMain corePlugin){
+        Utils.corePlugin = corePlugin;
+    }
 
     private static final String[] rainbowStrings = {
             "&c", "&6", "&e", "&a", "&9", "&d", "&5"
@@ -93,33 +100,31 @@ public class Utils {
 
     public static void heal(Player player) {
 
-        player.setHealth(20);
-        player.setFoodLevel(20);
 
+        BukkitTask runnable = new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (player.getHealth() < 20) {
+                    if (player.getHealth() + 0.5 > 20.0) {
+                        player.setHealth(20);
+                    } else {
+                        player.setHealth(player.getHealth() + 0.5);
+                    }
+                }
+                if (player.getFoodLevel() > 20) {
+                    if (player.getFoodLevel() + 0.5 > 20) {
+                        player.setFoodLevel(20);
+                    } else {
+                        player.setFoodLevel(player.getFoodLevel() + 1);
+                    }
+                }
 
-        /**BukkitTask runnable = new BukkitRunnable() {
-        @Override public void run() {
-        if (player.getHealth() < 20) {
-        if (player.getHealth() + 0.5 > 20.0) {
-        player.setHealth(20);
-        } else {
-        player.setHealth(player.getHealth() + 0.5);
-        }
-        }
-        if (player.getFoodLevel() > 20) {
-        if (player.getFoodLevel() + 0.5 > 20) {
-        player.setFoodLevel(20);
-        } else {
-        player.setFoodLevel(player.getFoodLevel() + 1);ffggg
-        }
-        }
+                if (player.getFoodLevel() > 19.5 && player.getHealth() > 19.5) {
+                    cancel();
+                }
+            }
 
-        if (player.getFoodLevel() >= 20 && player.getHealth() >= 20) {
-        cancel();
-        }
-        }
-
-        }.runTaskTimer(pluginMain, 0L, 1L);*/
+        }.runTaskTimer(corePlugin, 0L, 1L);
     }
 
     public static Entity getClosestEntity(Player player, double radius) {
@@ -176,6 +181,8 @@ public class Utils {
             objective.setDisplaySlot(DisplaySlot.PLAYER_LIST);
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.setScoreboard(scoreboard);
+                player.setHealth(1);
+                heal(player);
             }
         } else {
             for (Player player : Bukkit.getOnlinePlayers()) {

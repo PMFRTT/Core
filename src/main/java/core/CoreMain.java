@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ public final class CoreMain extends JavaPlugin implements Listener {
     public static HashMap<UUID, PermissionAttachment> permissionAttachmentHashMap = new HashMap<>();
     public static boolean showAdvancements = true;
     private static String serverName = "loading";
+    public static double tps;
 
     public void onEnable() {
 
@@ -25,6 +27,7 @@ public final class CoreMain extends JavaPlugin implements Listener {
         CoreBungeeCordClient bungeeCordClient = new CoreBungeeCordClient(this);
         CoreEventHandler coreEventHandler = new CoreEventHandler(this, accessPermissionFile);
         CoreResetServer coreResetServer = new CoreResetServer(this);
+        Utils utils = new Utils(this);
 
         CoreBungeeCordClient.loadServers();
         coreEventHandler.initialize();
@@ -52,6 +55,25 @@ public final class CoreMain extends JavaPlugin implements Listener {
                 addServerInfo(serverName);
             }
         }, 0L, 20L);
+
+        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            long sec;
+            long currentSec;
+            int ticks;
+
+            @Override
+            public void run() {
+                sec = (System.currentTimeMillis() / 1000);
+
+                if (currentSec == sec) {
+                    ticks++;
+                } else {
+                    currentSec = sec;
+                    tps = (tps == 0 ? ticks : (((tps + ticks)+1) / 2)) ;
+                    ticks = 0;
+                }
+            }
+        }, 0, 1);
     }
 
     private static JavaPlugin plugin;
@@ -71,9 +93,10 @@ public final class CoreMain extends JavaPlugin implements Listener {
             CraftPlayer pingablePlayer = (CraftPlayer) player;
 
             player.setPlayerListHeaderFooter(Utils.colorize("Moin &b" + player.getDisplayName() + "&f!"), Utils.colorize("Du befindest dich auf &b" + serverName + "\n" +
-                    "&8Server-Version: &e" + Bukkit.getServer().getVersion() + "\n&7" +
-                    Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (" + pingablePlayer.getHandle().ping + "ms)"
-                    ));
+                    "&8Server-Software: &e" + Bukkit.getServer().getVersion() + "\n&7" +
+                    Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + pingablePlayer.getHandle().ping + "&7ms) \n" +
+                    "&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps)+ "&8 Ticks per second"
+            ));
         }
     }
 }
