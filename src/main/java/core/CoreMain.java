@@ -1,6 +1,7 @@
 package core;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
@@ -10,8 +11,8 @@ import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 public final class CoreMain extends JavaPlugin implements Listener {
@@ -54,7 +55,7 @@ public final class CoreMain extends JavaPlugin implements Listener {
             public void run() {
                 addServerInfo(serverName);
             }
-        }, 0L, 20L);
+        }, 0L, 1L);
 
         Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             long sec;
@@ -69,7 +70,7 @@ public final class CoreMain extends JavaPlugin implements Listener {
                     ticks++;
                 } else {
                     currentSec = sec;
-                    tps = (tps == 0 ? ticks : (((tps + ticks)+1) / 2)) ;
+                    tps = (tps == 0 ? ticks : (((tps + ticks) + 1) / 2));
                     ticks = 0;
                 }
             }
@@ -91,12 +92,29 @@ public final class CoreMain extends JavaPlugin implements Listener {
     public static void addServerInfo(String serverName) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             CraftPlayer pingablePlayer = (CraftPlayer) player;
+            Date date = new Date();
+            String dateFormatted = new SimpleDateFormat("HH:mm").format(date);
 
-            player.setPlayerListHeaderFooter(Utils.colorize("Moin &b" + player.getDisplayName() + "&f!"), Utils.colorize("Du befindest dich auf &b" + serverName + "\n" +
-                    "&8Server-Software: &e" + Bukkit.getServer().getVersion() + "\n&7" +
-                    Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + pingablePlayer.getHandle().ping + "&7ms) \n" +
-                    "&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps)+ "&8 Ticks per second"
-            ));
+            List<String> headerList = new ArrayList<String>() {{
+                add(Utils.colorize("&0--&8---&7---&f[&eP&aM&bF&9R&dT&cT&f-Server-Network]&7---&8---&0--&f"));
+                add("");
+                add(Utils.colorize("Moin &b" + player.getDisplayName() + "&f!"));
+                add(Utils.colorize("Es ist &b" + dateFormatted));
+                add(Utils.colorize("&fDu befindest dich auf &b" + serverName));
+                add("   ");
+            }};
+
+            List<String> footerList = new ArrayList<String>() {{
+                add("   ");
+                add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
+                add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
+                add(Utils.colorize("&7" + Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + pingablePlayer.getHandle().ping + "&7ms"));
+            }};
+
+            String header = StringUtils.join(headerList, "\n");
+            String footer = StringUtils.join(footerList, "\n");
+
+            player.setPlayerListHeaderFooter(header, footer);
         }
     }
 }

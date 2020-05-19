@@ -104,15 +104,15 @@ public class Utils {
         BukkitTask runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                if (player.getHealth() < 20) {
-                    if (player.getHealth() + 0.5 > 20.0) {
+                if (player.getHealth() < 19.5) {
+                    if (player.getHealth() + 0.5 > 19.5) {
                         player.setHealth(20);
                     } else {
                         player.setHealth(player.getHealth() + 0.5);
                     }
                 }
-                if (player.getFoodLevel() > 20) {
-                    if (player.getFoodLevel() + 0.5 > 20) {
+                if (player.getFoodLevel() < 19.5) {
+                    if (player.getFoodLevel() + 0.5 > 19.5) {
                         player.setFoodLevel(20);
                     } else {
                         player.setFoodLevel(player.getFoodLevel() + 1);
