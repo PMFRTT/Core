@@ -108,7 +108,7 @@ public final class CoreMain extends JavaPlugin implements Listener {
                 add("   ");
                 add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
                 add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
-                add(Utils.colorize("&7" + Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + pingablePlayer.getHandle().ping + "&7ms"));
+                add(Utils.colorize("&7" + Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + pingablePlayer.getHandle().ping + "&7ms)"));
             }};
 
             String header = StringUtils.join(headerList, "\n");
