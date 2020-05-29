@@ -17,11 +17,11 @@ import java.util.Scanner;
 public class CoreBungeeCordClient {
 
     static CoreMain corePlugin;
-    private static HashMap<String, Integer> serverPorts = new HashMap<String, Integer>();
-    private static String ADDRESS = "192.168.178.61";
+    private static final HashMap<String, Integer> serverPorts = new HashMap<String, Integer>();
+    private static final String ADDRESS = "192.168.178.97";
 
     public CoreBungeeCordClient(CoreMain corePlugin) {
-        this.corePlugin = corePlugin;
+        CoreBungeeCordClient.corePlugin = corePlugin;
         Bukkit.getMessenger().registerOutgoingPluginChannel(corePlugin, "BungeeCord");
     }
 
@@ -64,19 +64,20 @@ public class CoreBungeeCordClient {
 
     public static void moveToServer(Player player, String serverName) {
         loadServers();
-        if(serverPorts.containsKey(serverName)){
-        if (isOnline(serverPorts.get(serverName))) {
-            ByteArrayDataOutput out = ByteStreams.newDataOutput();
-            out.writeUTF("Connect");
-            out.writeUTF(serverName);
-            player.sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
+        if (serverPorts.containsKey(serverName)) {
+            if (isOnline(serverPorts.get(serverName))) {
+                ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                out.writeUTF("Connect");
+                out.writeUTF(serverName);
+                player.sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
+            } else {
+                ByteArrayDataOutput out = ByteStreams.newDataOutput();
+                out.writeUTF("Fallback");
+                player.sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
+                player.teleport(new Location(Bukkit.getWorld("world"), -40, 21, 88));
+                player.sendMessage(Utils.getPrefix("BungeeCord") + Utils.colorize("&cServer ist Offline!"));
+            }
         } else {
-            ByteArrayDataOutput out = ByteStreams.newDataOutput();
-            out.writeUTF("Fallback");
-            player.sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
-            player.teleport(new Location(Bukkit.getWorld("world"), -40, 21, 88));
-            player.sendMessage(Utils.getPrefix("BungeeCord") + Utils.colorize("&cServer ist Offline!"));
-        }}else{
             player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDer Server &4" + serverName + "&c ist nicht eingetragen! Bitte wende dich an einen Admin!"));
         }
     }
