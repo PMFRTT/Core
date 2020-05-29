@@ -34,21 +34,23 @@ public final class CoreMain extends JavaPlugin implements Listener {
         coreEventHandler.initialize();
         Utils.changeGamerule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
 
-        CoreCommands executor = new CoreCommands(this, accessPermissionFile);
-        getCommand("Gamemode").setExecutor(executor);
-        getCommand("Weather").setExecutor(executor);
-        getCommand("Time").setExecutor(executor);
-        getCommand("Core").setExecutor(executor);
-        getCommand("Allow").setExecutor(executor);
-        getCommand("Disallow").setExecutor(executor);
-        getCommand("hub").setExecutor(executor);
-        getCommand("Heal").setExecutor(executor);
-        getCommand("Difficulty").setExecutor(executor);
-        getCommand("Permissions").setExecutor(executor);
-        getCommand("tps").setExecutor(executor);
-        getCommand("Advancements").setExecutor(executor);
-        getCommand("ping").setExecutor(executor);
-        getCommand("setHP").setExecutor(executor);
+        CoreCommandListener coreCommandExecutor = new CoreCommandListener(this);
+        CorePermissionCommandListener corePermissionCommandExecutor = new CorePermissionCommandListener(this, accessPermissionFile);
+
+        getCommand("Gamemode").setExecutor(coreCommandExecutor);
+        getCommand("Weather").setExecutor(coreCommandExecutor);
+        getCommand("Time").setExecutor(coreCommandExecutor);
+        getCommand("Core").setExecutor(coreCommandExecutor);
+        getCommand("Allow").setExecutor(corePermissionCommandExecutor);
+        getCommand("Disallow").setExecutor(corePermissionCommandExecutor);
+        getCommand("hub").setExecutor(coreCommandExecutor);
+        getCommand("Heal").setExecutor(coreCommandExecutor);
+        getCommand("Difficulty").setExecutor(coreCommandExecutor);
+        getCommand("Permissions").setExecutor(corePermissionCommandExecutor);
+        getCommand("tps").setExecutor(coreCommandExecutor);
+        getCommand("Advancements").setExecutor(coreCommandExecutor);
+        getCommand("ping").setExecutor(coreCommandExecutor);
+        getCommand("setHP").setExecutor(coreCommandExecutor);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override

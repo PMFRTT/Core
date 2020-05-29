@@ -5,18 +5,21 @@ import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class CoreAccessPermissionFile {
 
-    List<Player> playersWithPermissionFile = new ArrayList<Player>();
+    private static final List<Player> playersWithPermissionFile = new ArrayList<Player>();
     CoreMain corePlugin;
 
     public CoreAccessPermissionFile(CoreMain corePlugin) {
         this.corePlugin = corePlugin;
     }
 
-    public void readFile() {
+    public void readFileToHashMap() {
 
         try {
 
@@ -27,9 +30,7 @@ public class CoreAccessPermissionFile {
 
             File permissions = new File(corePlugin.getDataFolder(), "permissions.yml");
             if (!permissions.exists()) {
-
                 permissions.createNewFile();
-
             }
 
             BufferedReader reader = new BufferedReader(new FileReader(permissions));
@@ -40,16 +41,14 @@ public class CoreAccessPermissionFile {
             PermissionAttachment attachment = null;
 
             while ((currentLine = reader.readLine()) != null) {
-
                 if (currentLine.contains("uuid: ")) {
-                    String uuidString = currentLine.replace("uuid: ", "");
-                    uuid = UUID.fromString(uuidString);
+                    uuid = UUID.fromString(currentLine.replace("uuid: ", ""));
                     player = Bukkit.getPlayer(uuid);
                 }
+
                 if (player != null) {
                     attachment = player.addAttachment(corePlugin);
                     playersWithPermissionFile.add(player);
-
                     if (currentLine.contains("  permission: ")) {
                         if (currentLine.startsWith(uuid + "  permission: core.canchangegamemode: ")) {
                             String valueString = currentLine.replace(uuid + "  permission: core.canchangegamemode: ", "");
@@ -75,20 +74,15 @@ public class CoreAccessPermissionFile {
                             String valueString = currentLine.replace(uuid + "  permission: core.canshowtps: ", "");
                             Boolean value = Boolean.valueOf(valueString);
                             attachment.setPermission("core.canShowTPS", value);
-                        }
-                        else if (currentLine.startsWith(uuid + "  permission: core.canseeinv: ")) {
+                        } else if (currentLine.startsWith(uuid + "  permission: core.canseeinv: ")) {
                             String valueString = currentLine.replace(uuid + "  permission: core.canseeinv: ", "");
                             Boolean value = Boolean.valueOf(valueString);
                             attachment.setPermission("core.canSeeInv", value);
                         }
                     }
-                    corePlugin.permissionAttachmentHashMap.put(uuid, attachment);
-
+                    CoreMain.permissionAttachmentHashMap.put(uuid, attachment);
                 }
-
             }
-
-
             reader.close();
 
         } catch (IOException e) {
@@ -100,7 +94,7 @@ public class CoreAccessPermissionFile {
 
 
 
-    public static List<String> getPermissions(Map<String, Boolean> permissions) {
+    List<String> getPermissions(Map<String, Boolean> permissions) {
         List<String> permissionValues = new ArrayList<String>();
         for (Map.Entry<String, Boolean> entry : permissions.entrySet()) {
             permissionValues.add("permission: " + entry.getKey() + ": " + entry.getValue());
@@ -144,8 +138,8 @@ public class CoreAccessPermissionFile {
                 for (int i = 0; i < size; i++) {
                     pw.println(player.getUniqueId() + "  " + permissionValues.get(i));
                 }
-                pw.println("");
                 pw.flush();
+                pw.close();
 
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -154,7 +148,7 @@ public class CoreAccessPermissionFile {
 
     }
 
-    public void test(Player player) {
+    public void updatePermissions(Player player) {
         try {
             File dataFolder = corePlugin.getDataFolder();
             if (!dataFolder.exists()) {
@@ -171,62 +165,41 @@ public class CoreAccessPermissionFile {
             @SuppressWarnings("resource")
             PrintWriter pw = new PrintWriter(fw);
             BufferedReader reader = new BufferedReader(new FileReader(permissionsFile));
+
+
             List<String> lines = new ArrayList<String>();
             String currentline;
             while((currentline = reader.readLine()) != null){
                 lines.add(currentline);
             }
 
-            Map<String, Boolean> permissions = corePlugin.permissionAttachmentHashMap.get(player.getUniqueId()).getPermissions();
+            PrintWriter clear = new PrintWriter(permissionsFile);
+            clear.close();
 
+            Map<String, Boolean> permissions = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId()).getPermissions();
             List<String> permissionValues = getPermissions(permissions);
+
+
+
             int size = permissionValues.size();
-            pw.println("uuid: " + player.getUniqueId());
-            for (int i = 0; i < size; i++) {
-                pw.println(player.getUniqueId() + "  " + permissionValues.get(i));
-            }
+
             for(String s : lines){
                 if(!s.contains(player.getUniqueId().toString())){
                     pw.println(s);
+                    pw.flush();
                 }
             }
-            pw.flush();
+
+            pw.println("uuid: " + player.getUniqueId());
+            for (int i = 0; i < size; i++) {
+                pw.println(player.getUniqueId() + "  " + permissionValues.get(i));
+                pw.flush();
+            }
+            pw.close();
 
         } catch (IOException e1) {
             e1.printStackTrace();
         }
 
-    }
-
-    public void removePlayer(UUID uuid) {
-        try {
-            File dataFolder = corePlugin.getDataFolder();
-            if (!dataFolder.exists()) {
-                dataFolder.mkdir();
-            }
-
-            File permissions = new File(corePlugin.getDataFolder(), "permissions.yml");
-            if (!permissions.exists()) {
-                permissions.createNewFile();
-
-            }
-            BufferedReader reader = new BufferedReader(new FileReader(permissions));
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(permissions));
-
-            String currentLine;
-
-            while ((currentLine = reader.readLine()) != null) {
-                // trim newline when comparing with lineToRemove
-                String trimmedLine = currentLine.trim();
-                if (trimmedLine.equals(uuid)) continue;
-                writer.write(currentLine + System.getProperty("line.separator"));
-            }
-            writer.close();
-            reader.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

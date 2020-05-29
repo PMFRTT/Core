@@ -1,8 +1,9 @@
-D:\Bukkit\Core\src\main\java\core\CoreCommands.java
-D:\Bukkit\Core\src\main\java\core\CoreSendStringPacket.java
-D:\Bukkit\Core\src\main\java\core\CoreMain.java
-D:\Bukkit\Core\src\main\java\core\Utils.java
-D:\Bukkit\Core\src\main\java\core\CoreEventHandler.java
-D:\Bukkit\Core\src\main\java\core\CoreResetServer.java
-D:\Bukkit\Core\src\main\java\core\CoreBungeeCordClient.java
-D:\Bukkit\Core\src\main\java\core\CoreAccessPermissionFile.java
+Z:\Bukkit\Core\src\main\java\core\CoreBungeeCordClient.java
+Z:\Bukkit\Core\src\main\java\core\CoreAccessPermissionFile.java
+Z:\Bukkit\Core\src\main\java\core\CoreCommandListener.java
+Z:\Bukkit\Core\src\main\java\core\CoreResetServer.java
+Z:\Bukkit\Core\src\main\java\core\CorePermissionCommandListener.java
+Z:\Bukkit\Core\src\main\java\core\Utils.java
+Z:\Bukkit\Core\src\main\java\core\CoreEventHandler.java
+Z:\Bukkit\Core\src\main\java\core\CoreMain.java
+Z:\Bukkit\Core\src\main\java\core\CoreSendStringPacket.java

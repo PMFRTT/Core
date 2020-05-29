@@ -30,7 +30,7 @@ public class CoreEventHandler implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        accessPermissionFile.readFile();
+        accessPermissionFile.readFileToHashMap();
         accessPermissionFile.createPermissionSave(e.getPlayer());
         e.setJoinMessage(Utils.getJoinPrefix("Server", e.getPlayer()));
         CoreMain.addServerInfo(CoreMain.getPlugin().getName());
