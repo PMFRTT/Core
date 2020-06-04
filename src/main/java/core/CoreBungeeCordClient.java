@@ -22,6 +22,7 @@ public class CoreBungeeCordClient implements PluginMessageListener {
 
     static CoreMain corePlugin;
     private static final HashMap<String, Integer> serverPorts = new HashMap<String, Integer>();
+    private static final HashMap<Integer, String> portServer = new HashMap<Integer, String>();
     private static final String ADDRESS = "192.168.178.97";
     static byte[] message;
 
@@ -57,6 +58,7 @@ public class CoreBungeeCordClient implements PluginMessageListener {
                 int port = Integer.parseInt(line.substring(endName + 6, endPort));
 
                 serverPorts.put(name, port);
+                portServer.put(port, name);
             }
 
             scanner.close();
@@ -98,7 +100,8 @@ public class CoreBungeeCordClient implements PluginMessageListener {
 
     }
 
-    public static int getPlayerAmount(String serverName) {
+    public static int getPlayerAmount(int port) {
+        String serverName = portServer.get(port);
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("PlayerCount");
         out.writeUTF(serverName);
