@@ -78,6 +78,10 @@ public class CoreAccessPermissionFile {
                             String valueString = currentLine.replace(uuid + "  permission: core.canseeinv: ", "");
                             Boolean value = Boolean.valueOf(valueString);
                             attachment.setPermission("core.canSeeInv", value);
+                        }else if (currentLine.startsWith(uuid + "  permission: core.cantp: ")) {
+                            String valueString = currentLine.replace(uuid + "  permission: core.cantp: ", "");
+                            Boolean value = Boolean.valueOf(valueString);
+                            attachment.setPermission("core.canTP", value);
                         }
                     }
                     CoreMain.permissionAttachmentHashMap.put(uuid, attachment);
@@ -128,6 +132,7 @@ public class CoreAccessPermissionFile {
                 permissionAttachment.setPermission("core.canChangeDifficulty", false);
                 permissionAttachment.setPermission("core.canShowTPS", false);
                 permissionAttachment.setPermission("core.canSeeInv", false);
+                permissionAttachment.setPermission("core.canTP", false);
                 CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), permissionAttachment);
 
                 Map<String, Boolean> permissions = permissionAttachment.getPermissions();

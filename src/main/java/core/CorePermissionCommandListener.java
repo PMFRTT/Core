@@ -90,6 +90,16 @@ public class CorePermissionCommandListener implements CommandExecutor {
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&2Du hast jetzt Rechte auf den Core-Command &6/invsee"));
                     }
                 }
+                if(args[1].equalsIgnoreCase("teleport")){
+                    player = Bukkit.getServer().getPlayer(args[0]);
+                    PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
+                    if(!attachment.getPermissions().get("core.canTP")){
+                        attachment.setPermission("core.canTP", true);
+                        CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
+                        accessPermissionFile.updatePermissions(player);
+                        player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu hast jetzt Rechte auf die Core-Commands &6/tp; /teleport&c!"));
+                    }
+                }
                 if (args[1].equalsIgnoreCase("all")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
                     PermissionAttachment permissionAttachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
@@ -100,6 +110,7 @@ public class CorePermissionCommandListener implements CommandExecutor {
                     permissionAttachment.setPermission("core.canChangeDifficulty", true);
                     permissionAttachment.setPermission("core.canShowTPS", true);
                     permissionAttachment.setPermission("core.canSeeINV", true);
+                    permissionAttachment.setPermission("core.canTP", true);
                     CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), permissionAttachment);
                     accessPermissionFile.updatePermissions(player);
                     player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&2Du hast jetzt Rechte auf alle Core-Commands!"));
@@ -161,6 +172,16 @@ public class CorePermissionCommandListener implements CommandExecutor {
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu hast jetzt keine Rechte mehr auf den Core-Command &6/difficulty&c!"));
                     }
                 }
+                if(args[1].equalsIgnoreCase("teleport")){
+                    player = Bukkit.getServer().getPlayer(args[0]);
+                    PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
+                    if(attachment.getPermissions().get("core.canTP")){
+                        attachment.setPermission("core.canTP", false);
+                        CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
+                        accessPermissionFile.updatePermissions(player);
+                        player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu hast jetzt keine Rechte mehr auf die Core-Commands &6/tp; /teleport&c!"));
+                    }
+                }
                 if (args[1].equalsIgnoreCase("all")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
                     PermissionAttachment permissionAttachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
@@ -171,6 +192,7 @@ public class CorePermissionCommandListener implements CommandExecutor {
                     permissionAttachment.setPermission("core.canChangeDifficulty", false);
                     permissionAttachment.setPermission("core.canShowTPS", false);
                     permissionAttachment.setPermission("core.canSeeINV", false);
+                    permissionAttachment.setPermission("core.canTP", false);
                     CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), permissionAttachment);
                     accessPermissionFile.updatePermissions(player);
                     player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu hast jetzt keine Rechte mehr auf die Core-Commands!"));

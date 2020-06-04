@@ -1,24 +1,29 @@
 package core;
 
+import com.google.common.collect.Iterables;
+import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class CoreBungeeCordClient {
+public class CoreBungeeCordClient implements PluginMessageListener {
 
     static CoreMain corePlugin;
     private static final HashMap<String, Integer> serverPorts = new HashMap<String, Integer>();
     private static final String ADDRESS = "192.168.178.97";
+    static byte[] message;
 
     public CoreBungeeCordClient(CoreMain corePlugin) {
         CoreBungeeCordClient.corePlugin = corePlugin;
@@ -26,7 +31,6 @@ public class CoreBungeeCordClient {
     }
 
     public static void loadServers() {
-
         try {
 
             File dataFolder = corePlugin.getDataFolder();
@@ -94,5 +98,23 @@ public class CoreBungeeCordClient {
 
     }
 
+    public static int getPlayerAmount(String serverName) {
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("PlayerCount");
+        out.writeUTF(serverName);
+        Collection<? extends Player> players = Bukkit.getOnlinePlayers();
+        Iterables.get(players, 0).sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
+        if (message != null) {
+            ByteArrayDataInput in = ByteStreams.newDataInput(message);
+            return in.readInt();
+        } else {
+            return 0;
+        }
+    }
 
+
+    @Override
+    public void onPluginMessageReceived(String channel, Player player, byte[] message) {
+        CoreBungeeCordClient.message = message;
+    }
 }

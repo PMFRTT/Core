@@ -31,6 +31,8 @@ commands :
   ping:
   permissions:
   setHP:
+  teleport:
+    aliases: [tp]
 permissions:
   core.*:
     children:

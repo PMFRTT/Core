@@ -51,6 +51,8 @@ public final class CoreMain extends JavaPlugin implements Listener {
         getCommand("Advancements").setExecutor(coreCommandExecutor);
         getCommand("ping").setExecutor(coreCommandExecutor);
         getCommand("setHP").setExecutor(coreCommandExecutor);
+        getCommand("invsee").setExecutor(coreCommandExecutor);
+        getCommand("teleport").setExecutor(coreCommandExecutor);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override

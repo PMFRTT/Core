@@ -1,10 +1,7 @@
 package core;
 
 import net.minecraft.server.v1_15_R1.MinecraftServer;
-import org.bukkit.Bukkit;
-import org.bukkit.Difficulty;
-import org.bukkit.GameMode;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -165,30 +162,34 @@ public class CoreCommandListener implements CommandExecutor {
             if (args.length == 2) {
                 if (sender.hasPermission("core.canChangeTime") || sender.getName().equalsIgnoreCase("console")) {
                     if (args[0].equalsIgnoreCase("set")) {
-                        if (args[1].equalsIgnoreCase("morning")) {
-                            Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Es ist jetzt &6Morgen!"));
-                            world.setTime(0);
-                            return true;
-                        } else if (args[1].equalsIgnoreCase("day")) {
-                            Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Es ist jetzt &bMittag!"));
-                            world.setTime(6000);
-                            return true;
-                        } else if (args[1].equalsIgnoreCase("evening")) {
-                            Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Es ist jetzt &9Abend!"));
-                            world.setTime(12000);
-                            return true;
-                        } else if (args[1].equalsIgnoreCase("night")) {
-                            Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Es ist jetzt &8Nacht!"));
-                            world.setTime(18000);
-                            return true;
-                        } else if (args[1] != null || args[1] == "") {
-                            try {
-                                Long setTimeTo = Long.parseLong(args[1]);
-                                Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Die Zeit ist jetzt &2" + Utils.formatIngameTime(setTimeTo) + "&f!"));
-                                world.setTime(setTimeTo);
-                            } catch (NumberFormatException e) {
+                        if (args.length == 2) {
+                            if (args[1].equalsIgnoreCase("morning")) {
+                                Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Es ist jetzt &6Morgen!"));
+                                world.setTime(0);
+                                return true;
+                            } else if (args[1].equalsIgnoreCase("day")) {
+                                Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Es ist jetzt &bMittag!"));
+                                world.setTime(6000);
+                                return true;
+                            } else if (args[1].equalsIgnoreCase("evening")) {
+                                Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Es ist jetzt &9Abend!"));
+                                world.setTime(12000);
+                                return true;
+                            } else if (args[1].equalsIgnoreCase("night")) {
+                                Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Es ist jetzt &8Nacht!"));
+                                world.setTime(18000);
+                                return true;
+                            } else if (args[1] != null || args[1] == "") {
+                                try {
+                                    Long setTimeTo = Long.parseLong(args[1]);
+                                    Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Die Zeit ist jetzt &2" + Utils.formatIngameTime(setTimeTo) + "&f!"));
+                                    world.setTime(setTimeTo);
+                                } catch (NumberFormatException e) {
+                                }
+                                return true;
+                            } else {
+                                player.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/time set <morning, day, evening, night>&f um die Zeit zu ändern!"));
                             }
-                            return true;
                         } else {
                             player.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/time set <morning, day, evening, night>&f um die Zeit zu ändern!"));
                         }
@@ -213,15 +214,14 @@ public class CoreCommandListener implements CommandExecutor {
             }
         } else if (command.getLabel().equalsIgnoreCase("core")) {
             player.sendMessage(Utils.getPrefix("Core") + Utils.colorize("Du Verwendest &2CorePlugin (" + corePlugin.getDescription().getVersion() + ") &fDie neueste Version ist &2v0.0.1&f!"));
-        }
-
-         else if (command.getLabel().equalsIgnoreCase("hub") || command.getLabel().equalsIgnoreCase("lobby") || command.getLabel().equalsIgnoreCase("l")) {
+        } else if (command.getLabel().equalsIgnoreCase("hub") || command.getLabel().equalsIgnoreCase("lobby") || command.getLabel().equalsIgnoreCase("l")) {
             assert player != null;
             CoreBungeeCordClient.moveToServer(player, "Lobby");
             return true;
+        }
 
 
-        } else if (command.getLabel().equalsIgnoreCase("heal")) {
+        else if (command.getLabel().equalsIgnoreCase("heal")) {
             if (sender.hasPermission("core.canHeal") || sender.getName().equals("CONSOLE")) {
                 if (args.length == 0) {
                     if (sender.getName() != "CONSOLE") {
@@ -279,7 +279,7 @@ public class CoreCommandListener implements CommandExecutor {
                 return false;
             }
 
-        }  else if (command.getLabel().equalsIgnoreCase("tps")) {
+        } else if (command.getLabel().equalsIgnoreCase("tps")) {
             if (sender.hasPermission("core.canShowTPS") || sender.getName().equalsIgnoreCase("console")) {
                 double[] ticksPerSeconds = MinecraftServer.getServer().recentTps;
                 sender.sendMessage(Utils.getServerPrefix() + ticksPerSeconds.toString());
@@ -324,7 +324,7 @@ public class CoreCommandListener implements CommandExecutor {
                             return true;
                         }
                     } else {
-                        sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/setHP <0-20>&f um die Advancements zu zeigen, bzw. verstecken!"));
+                        sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/setHP <0-20>&f um das Leben aller Spieler zu ändern!"));
                         return false;
                     }
                 } else if (args.length == 2) {
@@ -333,12 +333,45 @@ public class CoreCommandListener implements CommandExecutor {
                     toChange.sendMessage(Utils.getServerPrefix() + Utils.colorize("Dein Leben wurde auf &c" + Double.parseDouble(args[0]) / 2 + "❤&f gesetzt!"));
                     return true;
                 } else {
-                    sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/setHP <0-20>&f um die Advancements zu zeigen, bzw. verstecken!"));
+                    sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/setHP <0-20>&f um dein Leben zu ändern :)!"));
                     return false;
                 }
             } else {
                 sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu verfügst nicht über die Rechte, diesen Command auszuführen!"));
                 return false;
+            }
+        } else if (command.getLabel().equalsIgnoreCase("invsee")) {
+            if (sender.hasPermission("core.canSeeINV")) {
+                if (args.length == 1) {
+                    if (Bukkit.getPlayer(args[0]) != null) {
+                        player.openInventory(Bukkit.getPlayer(args[0]).getInventory());
+
+                        return true;
+                    }
+                }else{
+                    sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/invsee <Name>&f um das Inventar eines anderen Spielers zu sehen!"));
+                }
+            } else {
+                sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu verfügst nicht über die Rechte, diesen Command auszuführen!"));
+                return false;
+            }
+        }
+
+
+        else if(command.getLabel().equalsIgnoreCase("tp")){
+            if(player.hasPermission("core.canTP")){
+                if(args.length == 1){
+                    if(Bukkit.getPlayer(args[0]) != null){
+                        player.teleport(Bukkit.getPlayer(args[0]));
+                    }
+                }else if(args.length == 3){
+                    player.teleport(new Location(player.getWorld(), Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2])));
+                }else{
+                    sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/tp; /teleport <Spieler>; <X> <Y> <Z>&f um dein Leben zu ändern :)!"));
+                }
+            }else{
+                sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu verfügst nicht über die Rechte, diesen Command auszuführen!"));
+
             }
         }
         return false;
