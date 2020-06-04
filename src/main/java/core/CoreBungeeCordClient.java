@@ -1,6 +1,5 @@
 package core;
 
-import com.google.common.collect.Iterables;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -14,7 +13,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -30,6 +28,7 @@ public class CoreBungeeCordClient implements PluginMessageListener {
     public CoreBungeeCordClient(CoreMain corePlugin) {
         CoreBungeeCordClient.corePlugin = corePlugin;
         Bukkit.getMessenger().registerOutgoingPluginChannel(corePlugin, "BungeeCord");
+        Bukkit.getMessenger().registerIncomingPluginChannel(corePlugin, "BungeeCord", this);
     }
 
     public static void loadServers() {
@@ -101,14 +100,13 @@ public class CoreBungeeCordClient implements PluginMessageListener {
 
     }
 
-    public static void getPlayerAmount(int port) {
+    public static void getPlayerAmount(int port, Player player) {
         String serverName = portServer.get(port);
         System.out.println(serverName);
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("PlayerCount");
         out.writeUTF(serverName);
-        Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-        Iterables.get(players, 0).sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
+        player.sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
     }
 
 
@@ -116,10 +114,13 @@ public class CoreBungeeCordClient implements PluginMessageListener {
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
         if (message != null) {
             ByteArrayDataInput in = ByteStreams.newDataInput(message);
-            playerCount =  in.readInt();
+            String subchannel = in.readUTF();
+            if (subchannel.equals("PlayerCount")) {
+                playerCount = in.readInt();
+            }
         } else {
-            System.out.println("not working or empty");
-            playerCount =  0;
+            playerCount = 0;
         }
     }
 }
+
