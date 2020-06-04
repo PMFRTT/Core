@@ -25,6 +25,7 @@ public class CoreBungeeCordClient implements PluginMessageListener {
     private static final HashMap<Integer, String> portServer = new HashMap<Integer, String>();
     private static final String ADDRESS = "192.168.178.97";
     static byte[] message;
+    public static int playerCount;
 
     public CoreBungeeCordClient(CoreMain corePlugin) {
         CoreBungeeCordClient.corePlugin = corePlugin;
@@ -100,24 +101,25 @@ public class CoreBungeeCordClient implements PluginMessageListener {
 
     }
 
-    public static int getPlayerAmount(int port) {
+    public static void getPlayerAmount(int port) {
         String serverName = portServer.get(port);
+        System.out.println(serverName);
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("PlayerCount");
         out.writeUTF(serverName);
         Collection<? extends Player> players = Bukkit.getOnlinePlayers();
         Iterables.get(players, 0).sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
-        if (message != null) {
-            ByteArrayDataInput in = ByteStreams.newDataInput(message);
-            return in.readInt();
-        } else {
-            return 0;
-        }
     }
 
 
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-        CoreBungeeCordClient.message = message;
+        if (message != null) {
+            ByteArrayDataInput in = ByteStreams.newDataInput(message);
+            playerCount =  in.readInt();
+        } else {
+            System.out.println("not working or empty");
+            playerCount =  0;
+        }
     }
 }
