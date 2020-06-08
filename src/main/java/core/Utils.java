@@ -1,5 +1,6 @@
 package core;
 
+import core.core.CoreMain;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;

@@ -1,5 +1,7 @@
-package core;
+package core.core;
 
+import core.Utils;
+import core.bungee.CoreBungeeCordClient;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -10,7 +12,7 @@ public class CoreResetServer {
     private static CoreMain corePlugin;
 
     public CoreResetServer(CoreMain corePlugin) {
-        this.corePlugin = corePlugin;
+        CoreResetServer.corePlugin = corePlugin;
     }
 
     public static void resetServer(String serverName, Boolean resetPositions) {

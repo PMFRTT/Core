@@ -1,8 +1,8 @@
+core\permissions\CorePermissionCommandListener.class
 core\CoreEventHandler.class
-core\CoreAccessPermissionFile.class
 core\CoreMain$1.class
 core\CoreResetServer$1.class
-core\CorePermissionCommandListener.class
+core\permissions\CoreAccessPermissionFile.class
 core\CoreResetServer.class
 core\CoreMain.class
 core\CoreMain$4.class

@@ -1,5 +1,7 @@
-package core;
+package core.core;
 
+import core.Utils;
+import core.permissions.CoreAccessPermissionFile;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.advancement.Advancement;

@@ -1,5 +1,7 @@
-package core;
+package core.permissions;
 
+import core.Utils;
+import core.core.CoreMain;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

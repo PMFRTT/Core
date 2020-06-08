@@ -1,8 +1,10 @@
-package core;
+package core.bungee;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
+import core.Utils;
+import core.core.CoreMain;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -102,7 +104,6 @@ public class CoreBungeeCordClient implements PluginMessageListener {
 
     public static void getPlayerAmount(int port, Player player) {
         String serverName = portServer.get(port);
-        System.out.println(serverName);
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("PlayerCount");
         out.writeUTF(serverName);
@@ -112,14 +113,18 @@ public class CoreBungeeCordClient implements PluginMessageListener {
 
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
-        if (message != null) {
-            ByteArrayDataInput in = ByteStreams.newDataInput(message);
-            String subchannel = in.readUTF();
-            if (subchannel.equals("PlayerCount")) {
-                playerCount = in.readInt();
+        try {
+            if (message != null) {
+                ByteArrayDataInput in = ByteStreams.newDataInput(message);
+                if (in != null) {
+                    String subchannel = in.readUTF();
+                    if (subchannel.equals("PlayerCount")) {
+                        String server = in.readUTF();
+                        playerCount = in.readInt();
+                    }
+                }
             }
-        } else {
-            playerCount = 0;
+        } catch (Exception e) {
         }
     }
 }

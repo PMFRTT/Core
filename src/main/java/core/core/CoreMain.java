@@ -1,6 +1,10 @@
-package core;
+package core.core;
 
 
+import core.Utils;
+import core.bungee.CoreBungeeCordClient;
+import core.permissions.CoreAccessPermissionFile;
+import core.permissions.CorePermissionCommandListener;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
@@ -53,6 +57,7 @@ public final class CoreMain extends JavaPlugin implements Listener {
         getCommand("setHP").setExecutor(coreCommandExecutor);
         getCommand("invsee").setExecutor(coreCommandExecutor);
         getCommand("teleport").setExecutor(coreCommandExecutor);
+        getCommand("reload").setExecutor(coreCommandExecutor);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override

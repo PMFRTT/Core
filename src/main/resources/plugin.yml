@@ -1,6 +1,6 @@
 name: Core
 version: ${project.version}
-main: core.CoreMain
+main: core.core.CoreMain
 api-version: 1.13
 commands :
   Gamemode:
@@ -33,6 +33,8 @@ commands :
   setHP:
   teleport:
     aliases: [tp]
+  reload:
+    aliases: [r]
 permissions:
   core.*:
     children:

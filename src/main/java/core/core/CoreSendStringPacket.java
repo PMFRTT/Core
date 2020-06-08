@@ -1,4 +1,4 @@
-package core;
+package core.core;
 
 import net.minecraft.server.v1_15_R1.ChatMessageType;
 import net.minecraft.server.v1_15_R1.IChatBaseComponent;

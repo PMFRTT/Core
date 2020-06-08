@@ -1,5 +1,7 @@
-package core;
+package core.core;
 
+import core.Utils;
+import core.bungee.CoreBungeeCordClient;
 import net.minecraft.server.v1_15_R1.MinecraftServer;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -218,10 +220,7 @@ public class CoreCommandListener implements CommandExecutor {
             assert player != null;
             CoreBungeeCordClient.moveToServer(player, "Lobby");
             return true;
-        }
-
-
-        else if (command.getLabel().equalsIgnoreCase("heal")) {
+        } else if (command.getLabel().equalsIgnoreCase("heal")) {
             if (sender.hasPermission("core.canHeal") || sender.getName().equals("CONSOLE")) {
                 if (args.length == 0) {
                     if (sender.getName() != "CONSOLE") {
@@ -348,28 +347,25 @@ public class CoreCommandListener implements CommandExecutor {
 
                         return true;
                     }
-                }else{
+                } else {
                     sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/invsee <Name>&f um das Inventar eines anderen Spielers zu sehen!"));
                 }
             } else {
                 sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu verfügst nicht über die Rechte, diesen Command auszuführen!"));
                 return false;
             }
-        }
-
-
-        else if(command.getLabel().equalsIgnoreCase("tp")){
-            if(player.hasPermission("core.canTP")){
-                if(args.length == 1){
-                    if(Bukkit.getPlayer(args[0]) != null){
+        } else if (command.getLabel().equalsIgnoreCase("tp")) {
+            if (player.hasPermission("core.canTP")) {
+                if (args.length == 1) {
+                    if (Bukkit.getPlayer(args[0]) != null) {
                         player.teleport(Bukkit.getPlayer(args[0]));
                     }
-                }else if(args.length == 3){
+                } else if (args.length == 3) {
                     player.teleport(new Location(player.getWorld(), Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2])));
-                }else{
+                } else {
                     sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/tp; /teleport <Spieler>; <X> <Y> <Z>&f um dein Leben zu ändern :)!"));
                 }
-            }else{
+            } else {
                 sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu verfügst nicht über die Rechte, diesen Command auszuführen!"));
 
             }

@@ -1,5 +1,6 @@
-package core;
+package core.permissions;
 
+import core.core.CoreMain;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;

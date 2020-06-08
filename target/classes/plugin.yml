@@ -33,6 +33,8 @@ commands :
   setHP:
   teleport:
     aliases: [tp]
+  reload:
+    aliases: [r]
 permissions:
   core.*:
     children:
