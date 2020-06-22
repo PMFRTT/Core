@@ -31,14 +31,14 @@ public final class CoreMain extends JavaPlugin implements Listener {
         CoreAccessPermissionFile accessPermissionFile = new CoreAccessPermissionFile(this);
         CoreBungeeCordClient bungeeCordClient = new CoreBungeeCordClient(this);
         CoreEventHandler coreEventHandler = new CoreEventHandler(this, accessPermissionFile);
-        CoreResetServer coreResetServer = new CoreResetServer(this);
+        CoreResetServer coreResetServer = new CoreResetServer(this, bungeeCordClient);
         Utils utils = new Utils(this);
 
         CoreBungeeCordClient.loadServers();
         coreEventHandler.initialize();
         Utils.changeGamerule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
 
-        CoreCommandListener coreCommandExecutor = new CoreCommandListener(this);
+        CoreCommandListener coreCommandExecutor = new CoreCommandListener(this, bungeeCordClient);
         CorePermissionCommandListener corePermissionCommandExecutor = new CorePermissionCommandListener(this, accessPermissionFile);
 
         getCommand("Gamemode").setExecutor(coreCommandExecutor);

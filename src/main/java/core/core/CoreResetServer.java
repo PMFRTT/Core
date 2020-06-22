@@ -10,9 +10,11 @@ import java.io.File;
 public class CoreResetServer {
 
     private static CoreMain corePlugin;
+    CoreBungeeCordClient bungeeCordClient;
 
-    public CoreResetServer(CoreMain corePlugin) {
+    public CoreResetServer(CoreMain corePlugin, CoreBungeeCordClient bungeeCordClient) {
         CoreResetServer.corePlugin = corePlugin;
+        this.bungeeCordClient = bungeeCordClient;
     }
 
     public static void resetServer(String serverName, Boolean resetPositions) {

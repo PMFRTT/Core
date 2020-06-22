@@ -14,10 +14,12 @@ import java.util.Collection;
 public class CoreCommandListener implements CommandExecutor {
 
     CoreMain corePlugin;
+    CoreBungeeCordClient bungeeCordClient;
     Collection<? extends Player> players = Bukkit.getOnlinePlayers();
 
-    public CoreCommandListener(CoreMain corePlugin) {
+    public CoreCommandListener(CoreMain corePlugin, CoreBungeeCordClient bungeeCordClient) {
         this.corePlugin = corePlugin;
+        this.bungeeCordClient = bungeeCordClient;
     }
 
 
@@ -218,6 +220,7 @@ public class CoreCommandListener implements CommandExecutor {
             player.sendMessage(Utils.getPrefix("Core") + Utils.colorize("Du Verwendest &2CorePlugin (" + corePlugin.getDescription().getVersion() + ") &fDie neueste Version ist &2v0.0.1&f!"));
         } else if (command.getLabel().equalsIgnoreCase("hub") || command.getLabel().equalsIgnoreCase("lobby") || command.getLabel().equalsIgnoreCase("l")) {
             assert player != null;
+
             CoreBungeeCordClient.moveToServer(player, "Lobby");
             return true;
         } else if (command.getLabel().equalsIgnoreCase("heal")) {

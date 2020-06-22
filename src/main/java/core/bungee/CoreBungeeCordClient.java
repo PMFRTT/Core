@@ -102,7 +102,7 @@ public class CoreBungeeCordClient implements PluginMessageListener {
 
     }
 
-    public static void getPlayerAmount(int port, Player player) {
+    public void getPlayerAmount(int port, Player player) {
         String serverName = portServer.get(port);
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("PlayerCount");
