@@ -28,6 +28,9 @@ public class CorePermissionCommandListener implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         Player player = null;
+        if(sender instanceof Player){
+            player = (Player) sender;
+        }
 
 
         if (command.getLabel().equalsIgnoreCase("allow")) {
@@ -208,6 +211,8 @@ public class CorePermissionCommandListener implements CommandExecutor {
         }else if (command.getLabel().equalsIgnoreCase("permissions")) {
             if (sender.getName().equalsIgnoreCase("console") || sender.isOp()) {
                 if (args.length == 0) {
+                    accessPermissionFile.readFileToHashMap();
+                    accessPermissionFile.createPermissionSave(player);
                     PermissionAttachment permissionAttachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
                     Map<String, Boolean> permissions = permissionAttachment.getPermissions();
                     List<String> permissionValues = accessPermissionFile.getPermissions(permissions);
@@ -222,6 +227,8 @@ public class CorePermissionCommandListener implements CommandExecutor {
                             accessPermissionFile.createPermissionSave(p);
                         }
                     } else {
+                        accessPermissionFile.readFileToHashMap();
+                        accessPermissionFile.createPermissionSave(player);
                         PermissionAttachment permissionAttachment = CoreMain.permissionAttachmentHashMap.get(Bukkit.getPlayer(args[0]).getUniqueId());
                         Map<String, Boolean> permissions = permissionAttachment.getPermissions();
                         List<String> permissionValues = accessPermissionFile.getPermissions(permissions);

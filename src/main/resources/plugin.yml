@@ -35,6 +35,7 @@ commands :
     aliases: [tp]
   reload:
     aliases: [r]
+  reboot:
 permissions:
   core.*:
     children:

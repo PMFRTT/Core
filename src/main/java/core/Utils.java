@@ -29,6 +29,10 @@ public class Utils {
         return colorize("[&2" + pluginName + "&f]: ");
     }
 
+    public static String getErrorPrefix(){
+        return colorize("[&cError&f]: ");
+    }
+
     public static String getResetPrefix() {
         return colorize("[&4Server Thread&f]: ");
     }
