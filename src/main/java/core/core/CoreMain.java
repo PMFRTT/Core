@@ -8,7 +8,7 @@ import core.permissions.CorePermissionCommandListener;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.PermissionAttachment;
@@ -72,18 +72,19 @@ public final class CoreMain extends JavaPlugin implements Listener {
 
         Random random = new Random();
 
-        BukkitTask runnable = new BukkitRunnable(){
-            @Override
-            public void run(){
-                for(Player player : Bukkit.getOnlinePlayers()){
-                    CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("&cError"), Utils.colorize("Bitte kontrolliere die Console (0xc001 Debug)"));
-                   for(String s : getDebugInfo()){
-                       System.out.println(s);
-                       player.sendMessage(Utils.getErrorPrefix() + s);
-                   }
+        if (random.nextBoolean()) {
+            BukkitTask runnable = new BukkitRunnable() {
+                @Override
+                public void run() {
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("&cError"), Utils.colorize("Bitte kontrolliere die Console (0xc001 Debug)"));
+                        for (String s : getDebugInfo()) {
+                            System.out.println(s);
+                        }
+                    }
                 }
-            }
-        }.runTaskTimer(this, random.nextInt(1000), random.nextInt(10000));
+            }.runTaskTimer(this, random.nextInt(10000), random.nextInt(100000));
+        }
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
@@ -151,15 +152,15 @@ public final class CoreMain extends JavaPlugin implements Listener {
         }
     }
 
-    public static ArrayList<String> getDebugInfo(){
+    public static ArrayList<String> getDebugInfo() {
 
         ArrayList<String> debugStrings = new ArrayList<String>();
         debugStrings.add("players: " + Bukkit.getOnlinePlayers().size());
         debugStrings.add("tps: " + tps);
         debugStrings.add("plugins: " + Arrays.toString(Bukkit.getServer().getPluginManager().getPlugins()));
-        debugStrings.add("uptime:" + Utils.formatTimerTime(uptime));
+        debugStrings.add("uptime: " + Utils.formatTimerTime(uptime));
 
-        return  debugStrings;
+        return debugStrings;
     }
 
 

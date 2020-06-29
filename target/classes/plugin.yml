@@ -2,6 +2,8 @@ name: Core
 version: 1.3.0
 main: core.core.CoreMain
 api-version: 1.13
+load: STARTUP
+loadbefore: [SetPosition, Lobby, Challenge]
 commands :
   Gamemode:
     description: changes the Gamemode of the User
