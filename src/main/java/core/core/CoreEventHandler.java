@@ -29,13 +29,12 @@ public class CoreEventHandler implements Listener {
         Bukkit.getPluginManager().registerEvents(this, corePlugin);
     }
 
-
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         accessPermissionFile.readFileToHashMap();
         accessPermissionFile.createPermissionSave(e.getPlayer());
         e.setJoinMessage(Utils.getJoinPrefix("Server", e.getPlayer()));
-        CoreMain.addServerInfo(CoreMain.getPlugin().getName());
+        Utils.addServerInfo(CoreMain.getPlugin().getName(), 0);
     }
 
     @EventHandler

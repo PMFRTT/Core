@@ -1,24 +1,20 @@
 package core.core;
 
 
+import core.CoreDebug;
 import core.Utils;
 import core.bungee.CoreBungeeCordClient;
 import core.permissions.CoreAccessPermissionFile;
 import core.permissions.CorePermissionCommandListener;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
-import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Objects;
+import java.util.UUID;
 
 
 public final class CoreMain extends JavaPlugin implements Listener {
@@ -27,93 +23,8 @@ public final class CoreMain extends JavaPlugin implements Listener {
     public static boolean showAdvancements = true;
     private static String serverName = "loading";
     public static double tps;
-    private static int uptime;
-
-    public void onEnable() {
-
-        CoreAccessPermissionFile accessPermissionFile = new CoreAccessPermissionFile(this);
-        CoreBungeeCordClient bungeeCordClient = new CoreBungeeCordClient(this);
-        CoreEventHandler coreEventHandler = new CoreEventHandler(this, accessPermissionFile);
-        CoreResetServer coreResetServer = new CoreResetServer(this, bungeeCordClient);
-        Utils utils = new Utils(this);
-
-        CoreBungeeCordClient.loadServers();
-        coreEventHandler.initialize();
-        Utils.changeGamerule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
-
-        CoreCommandListener coreCommandExecutor = new CoreCommandListener(this, bungeeCordClient);
-        CorePermissionCommandListener corePermissionCommandExecutor = new CorePermissionCommandListener(this, accessPermissionFile);
-
-        getCommand("Gamemode").setExecutor(coreCommandExecutor);
-        getCommand("Weather").setExecutor(coreCommandExecutor);
-        getCommand("Time").setExecutor(coreCommandExecutor);
-        getCommand("Core").setExecutor(coreCommandExecutor);
-        getCommand("Allow").setExecutor(corePermissionCommandExecutor);
-        getCommand("Disallow").setExecutor(corePermissionCommandExecutor);
-        getCommand("hub").setExecutor(coreCommandExecutor);
-        getCommand("Heal").setExecutor(coreCommandExecutor);
-        getCommand("Difficulty").setExecutor(coreCommandExecutor);
-        getCommand("Permissions").setExecutor(corePermissionCommandExecutor);
-        getCommand("tps").setExecutor(coreCommandExecutor);
-        getCommand("Advancements").setExecutor(coreCommandExecutor);
-        getCommand("ping").setExecutor(coreCommandExecutor);
-        getCommand("setHP").setExecutor(coreCommandExecutor);
-        getCommand("invsee").setExecutor(coreCommandExecutor);
-        getCommand("teleport").setExecutor(coreCommandExecutor);
-        getCommand("reload").setExecutor(coreCommandExecutor);
-        getCommand("reboot").setExecutor(coreCommandExecutor);
-
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            @Override
-            public void run() {
-                addServerInfo(serverName);
-            }
-        }, 0L, 1L);
-
-        Random random = new Random();
-
-        if (random.nextBoolean()) {
-            BukkitTask runnable = new BukkitRunnable() {
-                @Override
-                public void run() {
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("&cError"), Utils.colorize("Bitte kontrolliere die Console (0xc001 Debug)"));
-                        for (String s : getDebugInfo()) {
-                            System.out.println(s);
-                        }
-                    }
-                }
-            }.runTaskTimer(this, random.nextInt(10000), random.nextInt(100000));
-        }
-
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            @Override
-            public void run() {
-                uptime++;
-            }
-        }, 0, 20);
-
-        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
-            long sec;
-            long currentSec;
-            int ticks;
-
-            @Override
-            public void run() {
-                sec = (System.currentTimeMillis() / 1000);
-
-                if (currentSec == sec) {
-                    ticks++;
-                } else {
-                    currentSec = sec;
-                    tps = (tps == 0 ? ticks : (((tps + ticks) + 1) / 2));
-                    ticks = 0;
-                }
-            }
-        }, 0, 1);
-    }
-
     private static JavaPlugin plugin;
+    private final Utils utils = new Utils(this);
 
     public static JavaPlugin getPlugin() {
         return plugin;
@@ -124,45 +35,51 @@ public final class CoreMain extends JavaPlugin implements Listener {
         serverName = plugin.getName();
     }
 
-    public static void addServerInfo(String serverName) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            CraftPlayer pingablePlayer = (CraftPlayer) player;
-            Date date = new Date();
-            String dateFormatted = new SimpleDateFormat("HH:mm").format(date);
 
-            List<String> headerList = new ArrayList<String>();
-            headerList.add(Utils.colorize("&0--&8---&7---&f[&eP&aM&bF&9R&dT&cT&f-Server-Network]&7---&8---&0--&f"));
-            headerList.add("");
-            headerList.add(Utils.colorize("Moin &b" + player.getDisplayName() + "&f!"));
-            headerList.add(Utils.colorize("Es ist &b" + dateFormatted));
-            headerList.add(Utils.colorize("&fDu befindest dich auf &b" + serverName));
-            headerList.add("   ");
+    public void onEnable() {
 
+        CoreAccessPermissionFile accessPermissionFile = new CoreAccessPermissionFile(this);
+        CoreBungeeCordClient bungeeCordClient = new CoreBungeeCordClient(this);
+        CoreEventHandler coreEventHandler = new CoreEventHandler(this, accessPermissionFile);
+        CoreResetServer coreResetServer = new CoreResetServer(this, bungeeCordClient);
+        CoreDebug coreDebug = new CoreDebug(this);
+        Utils utils = new Utils(this);
 
-            List<String> footerList = new ArrayList<String>();
-            footerList.add("   ");
-            footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
-            footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
-            footerList.add(Utils.colorize("&7" + Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + pingablePlayer.getHandle().ping + "&7ms)"));
+        CoreBungeeCordClient.loadServers();
+        coreEventHandler.initialize();
+        Utils.changeGamerule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
 
-            String header = StringUtils.join(headerList, "\n");
-            String footer = StringUtils.join(footerList, "\n");
+        CoreCommandListener coreCommandExecutor = new CoreCommandListener(this, bungeeCordClient);
+        CorePermissionCommandListener corePermissionCommandExecutor = new CorePermissionCommandListener(this, accessPermissionFile);
 
-            player.setPlayerListHeaderFooter(header, footer);
-        }
+        Objects.requireNonNull(getCommand("Gamemode")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("Weather")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("Time")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("Core")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("Allow")).setExecutor(corePermissionCommandExecutor);
+        Objects.requireNonNull(getCommand("Disallow")).setExecutor(corePermissionCommandExecutor);
+        Objects.requireNonNull(getCommand("hub")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("Heal")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("Difficulty")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("Permissions")).setExecutor(corePermissionCommandExecutor);
+        Objects.requireNonNull(getCommand("tps")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("Advancements")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("ping")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("setHP")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("invsee")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("teleport")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("reload")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("reboot")).setExecutor(coreCommandExecutor);
+        CoreDebug.getTPS();
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                tps = CoreDebug.tps;
+                Utils.addServerInfo(serverName, tps);
+            }
+        }, 0L, 1L);
     }
-
-    public static ArrayList<String> getDebugInfo() {
-
-        ArrayList<String> debugStrings = new ArrayList<String>();
-        debugStrings.add("players: " + Bukkit.getOnlinePlayers().size());
-        debugStrings.add("tps: " + tps);
-        debugStrings.add("plugins: " + Arrays.toString(Bukkit.getServer().getPluginManager().getPlugins()));
-        debugStrings.add("uptime: " + Utils.formatTimerTime(uptime));
-
-        return debugStrings;
-    }
-
 
 }
 

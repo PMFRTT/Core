@@ -2,7 +2,7 @@ package core.core;
 
 import core.Utils;
 import core.bungee.CoreBungeeCordClient;
-import net.minecraft.server.v1_16_R1.MinecraftServer;
+import net.minecraft.server.v1_16_R2.MinecraftServer;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

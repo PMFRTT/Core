@@ -1,8 +1,9 @@
 package core;
 
 import core.core.CoreMain;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
@@ -11,6 +12,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.*;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Utils {
@@ -193,6 +195,34 @@ public class Utils {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.getScoreboard().clearSlot(DisplaySlot.PLAYER_LIST);
             }
+        }
+    }
+
+    public static void addServerInfo(String serverName, double tps) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            CraftPlayer pingablePlayer = (CraftPlayer) player;
+            Date date = new Date();
+            String dateFormatted = new SimpleDateFormat("HH:mm").format(date);
+
+            List<String> headerList = new ArrayList<String>();
+            headerList.add(Utils.colorize("&0--&8---&7---&f[&eP&aM&bF&9R&dT&cT&f-Server-Network]&7---&8---&0--&f"));
+            headerList.add("");
+            headerList.add(Utils.colorize("Moin &b" + player.getDisplayName() + "&f!"));
+            headerList.add(Utils.colorize("Es ist &b" + dateFormatted));
+            headerList.add(Utils.colorize("&fDu befindest dich auf &b" + serverName));
+            headerList.add("   ");
+
+
+            List<String> footerList = new ArrayList<String>();
+            footerList.add("   ");
+            footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
+            footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
+            footerList.add(Utils.colorize("&7" + Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + pingablePlayer.getHandle().ping + "&7ms)"));
+
+            String header = StringUtils.join(headerList, "\n");
+            String footer = StringUtils.join(footerList, "\n");
+
+            player.setPlayerListHeaderFooter(header, footer);
         }
     }
 
