@@ -25,6 +25,7 @@ public class CoreSendStringPacket {
     @SuppressWarnings("deprecation")
     public static void sendPacketToTitle(Player p, String title, String subtitle) {
         p.sendTitle(title, subtitle);
+
     }
 
 }
