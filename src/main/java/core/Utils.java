@@ -3,7 +3,7 @@ package core;
 import core.core.CoreMain;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_16_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;

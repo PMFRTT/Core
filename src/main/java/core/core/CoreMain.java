@@ -6,6 +6,7 @@ import core.Utils;
 import core.bungee.CoreBungeeCordClient;
 import core.permissions.CoreAccessPermissionFile;
 import core.permissions.CorePermissionCommandListener;
+import core.register.RegisterCommandListener;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.event.Listener;
@@ -51,6 +52,7 @@ public final class CoreMain extends JavaPlugin implements Listener {
 
         CoreCommandListener coreCommandExecutor = new CoreCommandListener(this, bungeeCordClient);
         CorePermissionCommandListener corePermissionCommandExecutor = new CorePermissionCommandListener(this, accessPermissionFile);
+        RegisterCommandListener registerCommandListener = new RegisterCommandListener(this);
 
         Objects.requireNonNull(getCommand("Gamemode")).setExecutor(coreCommandExecutor);
         Objects.requireNonNull(getCommand("Weather")).setExecutor(coreCommandExecutor);
@@ -70,6 +72,7 @@ public final class CoreMain extends JavaPlugin implements Listener {
         Objects.requireNonNull(getCommand("teleport")).setExecutor(coreCommandExecutor);
         Objects.requireNonNull(getCommand("reload")).setExecutor(coreCommandExecutor);
         Objects.requireNonNull(getCommand("reboot")).setExecutor(coreCommandExecutor);
+        Objects.requireNonNull(getCommand("register")).setExecutor(registerCommandListener);
         CoreDebug.getTPS();
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {

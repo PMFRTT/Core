@@ -38,11 +38,12 @@ commands :
   reload:
     aliases: [r]
   reboot:
+  register:
 permissions:
   core.*:
     children:
       core.canChangeGamemode: true
-      core.caanChangeWeather: true
+      core.canChangeWeather: true
       core.canChangeTime: true
       core.canHeal: true
       core.canChangeDifficulty: true
