@@ -23,7 +23,7 @@ public class CoreBungeeCordClient implements PluginMessageListener {
     static CoreMain corePlugin;
     private static final HashMap<String, Integer> serverPorts = new HashMap<String, Integer>();
     private static final HashMap<Integer, String> portServer = new HashMap<Integer, String>();
-    private static final String ADDRESS = "192.168.178.97";
+    private static final String ADDRESS = "localhost";
     static byte[] message;
     public static int playerCount;
 

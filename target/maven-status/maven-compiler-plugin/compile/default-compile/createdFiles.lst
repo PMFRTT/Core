@@ -2,6 +2,7 @@ core\permissions\CoreAccessPermissionFile.class
 core\chat\ChatEventHandler.class
 core\chat\ChatColorHelper.class
 core\core\CoreMain$1.class
+settings\Setting.class
 core\core\CoreCommandListener.class
 core\core\CoreSendStringPacket.class
 core\Utils$1.class
@@ -17,6 +18,7 @@ core\core\CoreResetServer$1.class
 core\core\CoreEventHandler.class
 core\Utils.class
 core\bungee\CoreBungeeCordClient.class
+settings\PluginSettings.class
 core\CoreDebug$1.class
 core\core\CoreMain.class
 core\permissions\PermissionCard$1.class

@@ -1,5 +1,6 @@
 C:\Code\Java\Bukkit\Core\src\main\java\core\chat\ChatEventHandler.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreMain.java
+C:\Code\Java\Bukkit\Core\src\main\java\settings\Setting.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\register\RegistrationStatus.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\permissions\PermissionInventory.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreResetServer.java
@@ -17,3 +18,4 @@ C:\Code\Java\Bukkit\Core\src\main\java\core\Utils.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\permissions\CoreAccessPermissionFile.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\register\RegisterCommandListener.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreEventHandler.java
+C:\Code\Java\Bukkit\Core\src\main\java\settings\PluginSettings.java

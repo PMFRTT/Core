@@ -27,7 +27,7 @@ public class CoreResetServer {
         }
 
         try {
-            locations = new File(corePlugin.getDataFolder().getParentFile().getAbsolutePath() + "/SetPosition", "locations.txt");
+            locations = new File(corePlugin.getDataFolder().getParentFile().getAbsolutePath() + "/Position", "locations.txt");
         } catch (Exception e) {
             e.printStackTrace();
         }
