@@ -17,18 +17,17 @@ public class CorePermissionCommandListener implements CommandExecutor {
     CoreAccessPermissionFile accessPermissionFile;
     CoreMain coreMain;
 
-    public CorePermissionCommandListener(CoreMain coreMain, CoreAccessPermissionFile accessPermissionFile){
+    public CorePermissionCommandListener(CoreMain coreMain, CoreAccessPermissionFile accessPermissionFile) {
         this.coreMain = coreMain;
         this.accessPermissionFile = accessPermissionFile;
     }
-
 
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         Player player = null;
-        if(sender instanceof Player){
+        if (sender instanceof Player) {
             player = (Player) sender;
         }
 
@@ -95,10 +94,10 @@ public class CorePermissionCommandListener implements CommandExecutor {
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&2Du hast jetzt Rechte auf den Core-Command &6/invsee"));
                     }
                 }
-                if(args[1].equalsIgnoreCase("teleport")){
+                if (args[1].equalsIgnoreCase("teleport")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
                     PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
-                    if(!attachment.getPermissions().get("core.canTP")){
+                    if (!attachment.getPermissions().get("core.canTP")) {
                         attachment.setPermission("core.canTP", true);
                         CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
                         accessPermissionFile.updatePermissions(player);
@@ -177,10 +176,10 @@ public class CorePermissionCommandListener implements CommandExecutor {
                         player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu hast jetzt keine Rechte mehr auf den Core-Command &6/difficulty&c!"));
                     }
                 }
-                if(args[1].equalsIgnoreCase("teleport")){
+                if (args[1].equalsIgnoreCase("teleport")) {
                     player = Bukkit.getServer().getPlayer(args[0]);
                     PermissionAttachment attachment = CoreMain.permissionAttachmentHashMap.get(player.getUniqueId());
-                    if(attachment.getPermissions().get("core.canTP")){
+                    if (attachment.getPermissions().get("core.canTP")) {
                         attachment.setPermission("core.canTP", false);
                         CoreMain.permissionAttachmentHashMap.put(player.getUniqueId(), attachment);
                         accessPermissionFile.updatePermissions(player);
@@ -208,7 +207,7 @@ public class CorePermissionCommandListener implements CommandExecutor {
                 return false;
             }
             return false;
-        }else if (command.getLabel().equalsIgnoreCase("permissions")) {
+        } else if (command.getLabel().equalsIgnoreCase("permissions")) {
             if (sender.getName().equalsIgnoreCase("console") || sender.isOp()) {
                 if (args.length == 0) {
                     accessPermissionFile.readFileToHashMap();

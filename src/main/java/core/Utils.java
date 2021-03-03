@@ -18,7 +18,7 @@ import java.util.*;
 public class Utils {
     private static CoreMain corePlugin;
 
-    public Utils(CoreMain corePlugin){
+    public Utils(CoreMain corePlugin) {
         Utils.corePlugin = corePlugin;
     }
 
@@ -31,7 +31,7 @@ public class Utils {
         return colorize("[&2" + pluginName + "&f]: ");
     }
 
-    public static String getErrorPrefix(){
+    public static String getErrorPrefix() {
         return colorize("[&cError&f]: ");
     }
 
@@ -157,13 +157,8 @@ public class Utils {
     }
 
     public static void changeGamerule(GameRule<Boolean> gameRule, boolean value) {
-        List<World> dimensions = new ArrayList<World>();
 
-        dimensions.add(Bukkit.getWorld("world"));
-        dimensions.add(Bukkit.getWorld("world_nether"));
-        dimensions.add(Bukkit.getWorld("world_the_end"));
-
-        for (World world : dimensions) {
+        for (World world : Bukkit.getWorlds()) {
             if (world != null) {
                 world.setGameRule(gameRule, value);
             }

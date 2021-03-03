@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class CoreDebug {
     private static CoreMain main;
 
-    public CoreDebug(CoreMain main){
+    public CoreDebug(CoreMain main) {
         CoreDebug.main = main;
     }
 

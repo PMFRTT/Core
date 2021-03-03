@@ -79,7 +79,7 @@ public class CoreAccessPermissionFile {
                             String valueString = currentLine.replace(uuid + "  permission: core.canseeinv: ", "");
                             Boolean value = Boolean.valueOf(valueString);
                             attachment.setPermission("core.canSeeInv", value);
-                        }else if (currentLine.startsWith(uuid + "  permission: core.cantp: ")) {
+                        } else if (currentLine.startsWith(uuid + "  permission: core.cantp: ")) {
                             String valueString = currentLine.replace(uuid + "  permission: core.cantp: ", "");
                             Boolean value = Boolean.valueOf(valueString);
                             attachment.setPermission("core.canTP", value);
@@ -95,8 +95,6 @@ public class CoreAccessPermissionFile {
         }
 
     }
-
-
 
 
     List<String> getPermissions(Map<String, Boolean> permissions) {
@@ -175,7 +173,7 @@ public class CoreAccessPermissionFile {
 
             List<String> lines = new ArrayList<String>();
             String currentline;
-            while((currentline = reader.readLine()) != null){
+            while ((currentline = reader.readLine()) != null) {
                 lines.add(currentline);
             }
 
@@ -186,11 +184,10 @@ public class CoreAccessPermissionFile {
             List<String> permissionValues = getPermissions(permissions);
 
 
-
             int size = permissionValues.size();
 
-            for(String s : lines){
-                if(!s.contains(player.getUniqueId().toString())){
+            for (String s : lines) {
+                if (!s.contains(player.getUniqueId().toString())) {
                     pw.println(s);
                     pw.flush();
                 }
