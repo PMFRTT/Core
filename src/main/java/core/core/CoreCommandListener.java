@@ -315,8 +315,12 @@ public class CoreCommandListener implements CommandExecutor {
                 return false;
             }
         } else if (command.getLabel().equalsIgnoreCase("ping")) {
-            sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Dein Ping: &e" + Utils.getPing((Player) sender) + "&fms"));
-            return true;
+            if (args.length == 0) {
+                sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Dein Ping: &e" + Utils.getPlayerPing(player)) + "&fms");
+                return true;
+            } else if (args.length == 1) {
+                sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Der Ping von &a" + Bukkit.getPlayer(args[0]).getDisplayName() + "&f ist &e" + Utils.getPlayerPing(Bukkit.getPlayer(args[0])) + "&fms"));
+            }
         } else if (command.getLabel().equalsIgnoreCase("sethp")) {
             if (sender.hasPermission("core.canheal")) {
                 if (args.length == 1) {

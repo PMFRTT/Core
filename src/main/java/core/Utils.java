@@ -151,11 +151,6 @@ public class Utils {
         return closestEntity;
     }
 
-    public static int getPing(Player player) {
-        int ping = ((CraftPlayer) player).getHandle().ping;
-        return ping;
-    }
-
     public static void changeGamerule(GameRule<Boolean> gameRule, boolean value) {
 
         for (World world : Bukkit.getWorlds()) {
@@ -195,7 +190,6 @@ public class Utils {
 
     public static void addServerInfo(String serverName, double tps) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            CraftPlayer pingablePlayer = (CraftPlayer) player;
             Date date = new Date();
             String dateFormatted = new SimpleDateFormat("HH:mm").format(date);
 
@@ -212,13 +206,18 @@ public class Utils {
             footerList.add("   ");
             footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
             footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
-            footerList.add(Utils.colorize("&7" + Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + pingablePlayer.getHandle().ping + "&7ms)"));
+            footerList.add(Utils.colorize("&7" + Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&7ms)"));
 
             String header = StringUtils.join(headerList, "\n");
             String footer = StringUtils.join(footerList, "\n");
 
             player.setPlayerListHeaderFooter(header, footer);
         }
+    }
+
+    public static int getPlayerPing(Player player){
+        CraftPlayer pingablePlayer = (CraftPlayer) player;
+        return pingablePlayer.getHandle().ping;
     }
 
 }
