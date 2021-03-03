@@ -12,6 +12,7 @@ public abstract class PluginSettings {
     private final String PluginName;
     private final List<Setting> SettingsList = new ArrayList<Setting>();
     private final HashMap<String, Setting> SettingsMap = new HashMap<String, Setting>();
+    private final SettingsInventory settingsInventory = new SettingsInventory(this);
 
     public PluginSettings(String name) {
         this.PluginName = name;
@@ -52,6 +53,10 @@ public abstract class PluginSettings {
 
     public List<Setting> getSettingsList(){
         return this.SettingsList;
+    }
+
+    public SettingsInventory getSettingsInventory(){
+        return this.settingsInventory;
     }
 
 }
