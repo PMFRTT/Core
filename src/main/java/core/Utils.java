@@ -215,9 +215,39 @@ public class Utils {
         }
     }
 
-    public static int getPlayerPing(Player player){
+    public static int getPlayerPing(Player player) {
         CraftPlayer pingablePlayer = (CraftPlayer) player;
         return pingablePlayer.getHandle().ping;
+    }
+
+    public static boolean isPlayer(UUID uuid) {
+        return getPlayer(uuid) != null;
+    }
+
+    public static boolean isPlayer(String name) {
+        return getPlayer(name) != null;
+    }
+
+    public static String getDisplayName(Player player) {
+        return player.getDisplayName();
+    }
+
+    public static String getDisplayName(String name) {
+        Player player = getPlayer(name);
+        return player.getDisplayName();
+    }
+
+    public static String getDisplayName(UUID uuid) {
+        Player player = getPlayer(uuid);
+        return player.getDisplayName();
+    }
+
+    public static Player getPlayer(String name){
+        return Bukkit.getPlayer(name);
+    }
+
+    public static Player getPlayer(UUID uuid){
+        return Bukkit.getPlayer(uuid);
     }
 
 }
