@@ -161,6 +161,12 @@ public class Utils {
 
     }
 
+    public static void playSoundForAll(Sound sound, float volume, float pitch) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            player.playSound(player.getLocation(), sound, volume, pitch);
+        }
+    }
+
     public static List<UUID> getPermitted() {
         List<UUID> uuids = new ArrayList<UUID>();
         for (Map.Entry<UUID, PermissionAttachment> entry : CoreMain.permissionAttachmentHashMap.entrySet()) {
@@ -242,11 +248,11 @@ public class Utils {
         return player.getDisplayName();
     }
 
-    public static Player getPlayer(String name){
+    public static Player getPlayer(String name) {
         return Bukkit.getPlayer(name);
     }
 
-    public static Player getPlayer(UUID uuid){
+    public static Player getPlayer(UUID uuid) {
         return Bukkit.getPlayer(uuid);
     }
 
