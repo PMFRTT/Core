@@ -9,13 +9,14 @@ import java.util.List;
 
 public abstract class PluginSettings {
 
-    private final String PluginName;
+    private String PluginName = "";
     private final List<Setting> SettingsList = new ArrayList<Setting>();
     private final HashMap<String, Setting> SettingsMap = new HashMap<String, Setting>();
-    private final SettingsInventory settingsInventory = new SettingsInventory(this);
+    private final SettingsInventory settingsInventory;
 
     public PluginSettings(String name) {
         this.PluginName = name;
+        settingsInventory = new SettingsInventory(this);
     }
 
     public void addSetting(String name, String description, boolean enabled, Material material) {
@@ -44,18 +45,22 @@ public abstract class PluginSettings {
     }
 
     public String getPluginName() {
-        return this.PluginName;
+        if (this.PluginName != null) {
+            return this.PluginName;
+        }else{
+            return "error";
+        }
     }
 
     public HashMap<String, Setting> getSettingsMap() {
         return this.SettingsMap;
     }
 
-    public List<Setting> getSettingsList(){
+    public List<Setting> getSettingsList() {
         return this.SettingsList;
     }
 
-    public SettingsInventory getSettingsInventory(){
+    public SettingsInventory getSettingsInventory() {
         return this.settingsInventory;
     }
 
