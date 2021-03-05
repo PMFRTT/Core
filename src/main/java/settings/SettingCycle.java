@@ -13,6 +13,7 @@ public class SettingCycle extends Setting {
     public SettingCycle(String name, List<String> description, Material material, List<Integer> values) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
+        this.value = values.get(index);
     }
 
     public void cycleUp() {
