@@ -24,6 +24,7 @@ core\register\RegisterCommandListener.class
 core\core\CoreResetServer$1.class
 core\core\CoreEventHandler.class
 core\Utils.class
+settings\SettingsInventory$4.class
 core\bungee\CoreBungeeCordClient.class
 settings\PluginSettings.class
 core\CoreDebug$1.class

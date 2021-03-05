@@ -20,6 +20,9 @@ public class SettingCycle extends Setting {
             if(this.index > values.size()){
                 index++;
                 value = values.get(index);
+            }else{
+                index = 0;
+                value = values.get(index);
             }
         }
     }

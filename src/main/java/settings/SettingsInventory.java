@@ -68,6 +68,9 @@ public class SettingsInventory implements Listener {
                     }
                 } else {
                     SettingCycle settingCycle = (SettingCycle) setting;
+                    itemMeta.setLore(new ArrayList<String>() {{
+                        add(setting.getDescription() + "  " + settingCycle.getValue());
+                    }});
                 }
                 itemStack.setItemMeta(itemMeta);
                 this.inventory.setItem(this.usableSlots.get(i), itemStack);
