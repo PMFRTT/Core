@@ -13,7 +13,11 @@ public class SettingsInventory {
 
     PluginSettings pluginSettings;
     private final Inventory inventory;
-    private List<Integer> usableSlots;
+    private List<Integer> usableSlots = new ArrayList<Integer>(){{
+        add(0);
+        add(4);
+        add(16);
+    }};
 
     public SettingsInventory(PluginSettings pluginSettings) {
         this.pluginSettings = pluginSettings;
