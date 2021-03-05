@@ -17,13 +17,12 @@ public class SettingCycle extends Setting {
 
     public void changeSettingValue() {
         if (super.getType() == SettingsType.CYCLE) {
-            if(this.index > values.size()){
+            if(this.index < values.size()){
                 index++;
-                value = values.get(index);
             }else{
                 index = 0;
-                value = values.get(index);
             }
+            value = values.get(index);
         }
     }
 
