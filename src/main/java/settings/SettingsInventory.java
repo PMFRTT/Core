@@ -97,7 +97,6 @@ public class SettingsInventory implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         if (Objects.equals(e.getClickedInventory(), this.inventory)) {
-            e.setCancelled(true);
             if (this.usableSlots.contains(e.getSlot())) {
                 if(getSettingfromSlot(e.getSlot()).getType().equals(SettingsType.SWITCH)){
                     SettingSwitch settingSwitch = (SettingSwitch) getSettingfromSlot(e.getSlot());
@@ -113,6 +112,7 @@ public class SettingsInventory implements Listener {
                 buildInventory();
             }
         }
+        e.setCancelled(true);
     }
 
 }
