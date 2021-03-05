@@ -2,18 +2,24 @@ package settings;
 
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
-public class SettingsInventory {
+public class SettingsInventory implements Listener {
 
     PluginSettings pluginSettings;
     private final Inventory inventory;
+    private final HashMap<Integer, Setting> slotSettingsMap = new HashMap<Integer, Setting>();
     private List<Integer> usableSlots = new ArrayList<Integer>() {{
         add(0);
         add(4);
@@ -50,6 +56,7 @@ public class SettingsInventory {
                 }
                 itemStack.setItemMeta(itemMeta);
                 this.inventory.setItem(this.usableSlots.get(i), itemStack);
+                this.slotSettingsMap.put(this.usableSlots.get(i), setting);
                 i++;
             }
         }
@@ -64,6 +71,21 @@ public class SettingsInventory {
     public Inventory getInventory() {
         buildInventory();
         return this.inventory;
+    }
+
+    public Setting getSettingfromSlot(int slot){
+        return this.slotSettingsMap.getOrDefault(slot, null);
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e){
+        if(Objects.equals(e.getClickedInventory(), this.inventory)){
+           e.setCancelled(true);
+           if(this.usableSlots.contains(e.getSlot())){
+               getSettingfromSlot(e.getSlot()).changeSettingValue();
+               buildInventory();
+           }
+        }
     }
 
 }

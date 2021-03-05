@@ -17,8 +17,8 @@ public class Setting {
         this.material = material;
     }
 
-    public void changeSettingValue(boolean enabled) {
-        this.enabled = enabled;
+    public void changeSettingValue() {
+        this.enabled = !this.enabled;
     }
 
     public boolean getSettingValue() {
