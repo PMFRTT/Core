@@ -17,9 +17,9 @@ public class SettingCycle extends Setting {
 
     public void changeSettingValue() {
         if (super.getType() == SettingsType.CYCLE) {
-            if(this.index < values.size()){
+            if (this.index < values.size() - 1) {
                 index++;
-            }else{
+            } else {
                 index = 0;
             }
             value = values.get(index);
@@ -38,15 +38,15 @@ public class SettingCycle extends Setting {
         return super.getDescription();
     }
 
-    public int getValue(){
+    public int getValue() {
         return this.value;
     }
 
-    public List<Integer> getValues(){
+    public List<Integer> getValues() {
         return this.values;
     }
 
-    public int getIndex(){
+    public int getIndex() {
         return this.index;
     }
 
