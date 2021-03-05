@@ -36,7 +36,7 @@ public abstract class PluginSettings {
 
     public void changeSettingValue(String name, boolean enabled) {
         if (this.SettingsMap.containsKey(name)) {
-            this.SettingsMap.get(name).changeSettingValue(enabled);
+            this.SettingsMap.get(name).changeSettingValue();
         }
     }
 
