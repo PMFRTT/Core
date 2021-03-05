@@ -10,7 +10,7 @@ import java.util.List;
 
 public abstract class PluginSettings {
 
-    private String PluginName = "";
+    private String PluginName = " ";
     private final List<Setting> SettingsList = new ArrayList<Setting>();
     private final HashMap<String, Setting> SettingsMap = new HashMap<String, Setting>();
     private final SettingsInventory settingsInventory;
