@@ -36,7 +36,6 @@ public final class CoreMain extends JavaPlugin implements Listener {
         serverName = plugin.getName();
     }
 
-
     public void onEnable() {
 
         CoreAccessPermissionFile accessPermissionFile = new CoreAccessPermissionFile(this);

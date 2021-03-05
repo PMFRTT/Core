@@ -1,6 +1,5 @@
 package settings;
 
-import core.core.CoreMain;
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
@@ -10,6 +9,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,8 +18,8 @@ import java.util.Objects;
 
 public class SettingsInventory implements Listener {
 
-    private final CoreMain corePlugin;
     PluginSettings pluginSettings;
+    private final Plugin plugin;
     private final Inventory inventory;
     private final HashMap<Integer, Setting> slotSettingsMap = new HashMap<Integer, Setting>();
     private List<Integer> usableSlots = new ArrayList<Integer>() {{
@@ -28,23 +28,23 @@ public class SettingsInventory implements Listener {
         add(16);
     }};
 
-    public SettingsInventory(PluginSettings pluginSettings, CoreMain corePlugin) {
+    public SettingsInventory(PluginSettings pluginSettings, Plugin plugin) {
         this.pluginSettings = pluginSettings;
-        this.corePlugin = corePlugin;
+        this.plugin = plugin;
         inventory = Bukkit.createInventory(null, 54, pluginSettings.getPluginName());
         initialize();
     }
 
-    public SettingsInventory(PluginSettings pluginSettings, List<Integer> usableSlots, CoreMain corePlugin) {
+    public SettingsInventory(PluginSettings pluginSettings, List<Integer> usableSlots, Plugin plugin) {
         this.pluginSettings = pluginSettings;
         this.usableSlots = usableSlots;
-        this.corePlugin = corePlugin;
+        this.plugin = plugin;
         inventory = Bukkit.createInventory(null, 54, pluginSettings.getPluginName());
         initialize();
     }
 
     public void initialize(){
-        Bukkit.getPluginManager().registerEvents(this, corePlugin);
+        Bukkit.getPluginManager().registerEvents(this, this.plugin);
     }
 
     private void buildInventory() {
