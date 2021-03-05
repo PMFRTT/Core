@@ -56,9 +56,7 @@ public class SettingsInventory implements Listener {
                 assert itemMeta != null;
                 itemMeta.setDisplayName(setting.getName());
                 itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                itemMeta.setLore(new ArrayList<String>() {{
-                    add(setting.getDescription());
-                }});
+                itemMeta.setLore(setting.getDescription());
                 if (setting.getType().equals(SettingsType.SWITCH)) {
                     SettingSwitch settingSwitch = (SettingSwitch) setting;
                     if (settingSwitch.getSettingValue()) {
@@ -68,9 +66,8 @@ public class SettingsInventory implements Listener {
                     }
                 } else {
                     SettingCycle settingCycle = (SettingCycle) setting;
-                    itemMeta.setLore(new ArrayList<String>() {{
-                        add(setting.getDescription() + "  " + settingCycle.getValue());
-                    }});
+                    itemMeta.setDisplayName(setting.getName() + settingCycle.getValue());
+                    itemMeta.setLore(setting.getDescription());
                 }
                 itemStack.setItemMeta(itemMeta);
                 this.inventory.setItem(this.usableSlots.get(i), itemStack);

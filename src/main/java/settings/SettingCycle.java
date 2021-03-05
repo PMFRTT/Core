@@ -10,7 +10,7 @@ public class SettingCycle extends Setting {
     int index = 0;
     int value;
 
-    public SettingCycle(String name, String description, Material material, List<Integer> values) {
+    public SettingCycle(String name, List<String> description, Material material, List<Integer> values) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
     }
@@ -34,7 +34,7 @@ public class SettingCycle extends Setting {
         return super.getMaterial();
     }
 
-    public String getDescription() {
+    public List<String> getDescription() {
         return super.getDescription();
     }
 

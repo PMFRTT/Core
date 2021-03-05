@@ -20,14 +20,14 @@ public abstract class PluginSettings {
         settingsInventory = new SettingsInventory(this, plugin);
     }
 
-    public void addSetting(String name, String description, Material material, List<Integer> values) {
+    public void addSetting(String name, List<String> description, Material material, List<Integer> values) {
 
         SettingCycle setting = new SettingCycle(name, description, material, values);
         this.SettingsMap.put(name, setting);
         this.SettingsList.add(setting);
     }
 
-    public void addSetting(String name, String description, Material material, boolean enabled) {
+    public void addSetting(String name, List<String> description, Material material, boolean enabled) {
 
         SettingSwitch setting = new SettingSwitch(name, description, material, enabled);
         this.SettingsMap.put(name, setting);
