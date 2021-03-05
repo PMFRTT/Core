@@ -2,22 +2,24 @@ package settings;
 
 import org.bukkit.Material;
 
+import java.util.List;
+
 public class SettingCycle extends Setting {
 
-    int[] values;
+    List<Integer> values;
     int index = 0;
     int value;
 
-    public SettingCycle(String name, String description, Material material, int[] values) {
+    public SettingCycle(String name, String description, Material material, List<Integer> values) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
     }
 
     public void changeSettingValue() {
         if (super.getType() == SettingsType.CYCLE) {
-            if(this.index > values.length){
+            if(this.index > values.size()){
                 index++;
-                value = values[index];
+                value = values.get(index);
             }
         }
     }
@@ -38,7 +40,7 @@ public class SettingCycle extends Setting {
         return this.value;
     }
 
-    public int[] getValues(){
+    public List<Integer> getValues(){
         return this.values;
     }
 

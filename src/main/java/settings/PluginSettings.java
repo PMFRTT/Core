@@ -20,7 +20,7 @@ public abstract class PluginSettings {
         settingsInventory = new SettingsInventory(this, plugin);
     }
 
-    public void addSetting(String name, String description, Material material, int[] values) {
+    public void addSetting(String name, String description, Material material, List<Integer> values) {
 
         SettingCycle setting = new SettingCycle(name, description, material, values);
         this.SettingsMap.put(name, setting);
