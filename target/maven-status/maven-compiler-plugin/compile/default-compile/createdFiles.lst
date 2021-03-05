@@ -10,7 +10,6 @@ core\core\CoreSendStringPacket.class
 core\Utils$1.class
 settings\SettingsInventory.class
 core\register\RegistrationStatus.class
-settings\SettingsInventory$3.class
 core\permissions\PermissionCard.class
 core\register\RegisterMain.class
 settings\SettingSwitch.class
@@ -24,7 +23,6 @@ core\register\RegisterCommandListener.class
 core\core\CoreResetServer$1.class
 core\core\CoreEventHandler.class
 core\Utils.class
-settings\SettingsInventory$4.class
 core\bungee\CoreBungeeCordClient.class
 settings\PluginSettings.class
 core\CoreDebug$1.class

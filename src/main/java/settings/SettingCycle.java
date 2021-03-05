@@ -10,17 +10,29 @@ public class SettingCycle extends Setting {
     int index = 0;
     int value;
 
-    public SettingCycle(String name, String description, Material material, List<Integer> values) {
+    public SettingCycle(String name, List<String> description, Material material, List<Integer> values) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
+        this.value = values.get(index);
     }
 
-    public void changeSettingValue() {
+    public void cycleUp() {
         if (super.getType() == SettingsType.CYCLE) {
             if (this.index < values.size() - 1) {
                 index++;
             } else {
                 index = 0;
+            }
+            value = values.get(index);
+        }
+    }
+
+    public void cycleDown() {
+        if (super.getType() == SettingsType.CYCLE) {
+            if (this.index > 0) {
+                index--;
+            } else {
+                index = values.size() - 1;
             }
             value = values.get(index);
         }
@@ -34,7 +46,7 @@ public class SettingCycle extends Setting {
         return super.getMaterial();
     }
 
-    public String getDescription() {
+    public List<String> getDescription() {
         return super.getDescription();
     }
 

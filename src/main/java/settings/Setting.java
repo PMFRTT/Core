@@ -2,14 +2,16 @@ package settings;
 
 import org.bukkit.Material;
 
+import java.util.List;
+
 public abstract class Setting {
 
     private final String name;
-    private final String description;
+    private final List<String> description;
     private final SettingsType type;
     private final Material material;
 
-    public Setting(String name, String description, SettingsType type, Material material){
+    public Setting(String name, List<String> description, SettingsType type, Material material){
         this.name = name;
         this.description = description;
         this.type = type;
@@ -20,7 +22,7 @@ public abstract class Setting {
         return this.name;
     }
 
-    public String getDescription(){
+    public List<String> getDescription(){
         return this.description;
     }
 
