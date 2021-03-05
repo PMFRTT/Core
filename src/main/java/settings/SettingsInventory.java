@@ -79,6 +79,7 @@ public class SettingsInventory implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e){
+        System.out.println("test");
         if(Objects.equals(e.getClickedInventory(), this.inventory)){
            e.setCancelled(true);
            if(this.usableSlots.contains(e.getSlot())){
