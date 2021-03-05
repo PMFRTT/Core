@@ -25,7 +25,7 @@ public class SettingsInventory implements Listener {
     private List<Integer> usableSlots = new ArrayList<Integer>() {{
         add(0);
         add(4);
-        add(16);
+        add(8);
     }};
 
     public SettingsInventory(PluginSettings pluginSettings, Plugin plugin) {
@@ -111,8 +111,8 @@ public class SettingsInventory implements Listener {
                 }
                 buildInventory();
             }
+            e.setCancelled(true);
         }
-        e.setCancelled(true);
     }
 
 }
