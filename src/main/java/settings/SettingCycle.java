@@ -15,12 +15,23 @@ public class SettingCycle extends Setting {
         this.values = values;
     }
 
-    public void changeSettingValue() {
+    public void cycleUp() {
         if (super.getType() == SettingsType.CYCLE) {
             if (this.index < values.size() - 1) {
                 index++;
             } else {
                 index = 0;
+            }
+            value = values.get(index);
+        }
+    }
+
+    public void cycleDown() {
+        if (super.getType() == SettingsType.CYCLE) {
+            if (this.index > 0) {
+                index--;
+            } else {
+                index = values.size() - 1;
             }
             value = values.get(index);
         }

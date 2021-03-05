@@ -66,8 +66,10 @@ public class SettingsInventory implements Listener {
                     }
                 } else {
                     SettingCycle settingCycle = (SettingCycle) setting;
-                    itemMeta.setDisplayName(setting.getName() + settingCycle.getValue());
-                    itemMeta.setLore(setting.getDescription());
+                    itemMeta.setDisplayName(setting.getName());
+                    List<String> temp = itemMeta.getLore();
+                    temp.add("Aktueller Wert: " + settingCycle.getValue());
+                    itemMeta.setLore(temp);
                 }
                 itemStack.setItemMeta(itemMeta);
                 this.inventory.setItem(this.usableSlots.get(i), itemStack);
@@ -102,7 +104,11 @@ public class SettingsInventory implements Listener {
                     settingSwitch.changeSettingValue();
                 }else{
                     SettingCycle settingCycle = (SettingCycle) getSettingfromSlot(e.getSlot());
-                    settingCycle.changeSettingValue();
+                    if(e.getClick().isLeftClick()){
+                        settingCycle.cycleUp();
+                    }else if(e.getClick().isRightClick()){
+                        settingCycle.cycleDown();
+                    }
                 }
                 buildInventory();
             }
