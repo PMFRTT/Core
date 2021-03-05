@@ -1,5 +1,6 @@
 package settings;
 
+import core.core.CoreMain;
 import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
@@ -17,6 +18,7 @@ import java.util.Objects;
 
 public class SettingsInventory implements Listener {
 
+    private final CoreMain corePlugin;
     PluginSettings pluginSettings;
     private final Inventory inventory;
     private final HashMap<Integer, Setting> slotSettingsMap = new HashMap<Integer, Setting>();
@@ -26,15 +28,23 @@ public class SettingsInventory implements Listener {
         add(16);
     }};
 
-    public SettingsInventory(PluginSettings pluginSettings) {
+    public SettingsInventory(PluginSettings pluginSettings, CoreMain corePlugin) {
         this.pluginSettings = pluginSettings;
+        this.corePlugin = corePlugin;
         inventory = Bukkit.createInventory(null, 54, pluginSettings.getPluginName());
+        initialize();
     }
 
-    public SettingsInventory(PluginSettings pluginSettings, List<Integer> usableSlots) {
+    public SettingsInventory(PluginSettings pluginSettings, List<Integer> usableSlots, CoreMain corePlugin) {
         this.pluginSettings = pluginSettings;
         this.usableSlots = usableSlots;
+        this.corePlugin = corePlugin;
         inventory = Bukkit.createInventory(null, 54, pluginSettings.getPluginName());
+        initialize();
+    }
+
+    public void initialize(){
+        Bukkit.getPluginManager().registerEvents(this, corePlugin);
     }
 
     private void buildInventory() {
