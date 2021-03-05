@@ -1,8 +1,8 @@
 package settings;
 
 
-import core.core.CoreMain;
 import org.bukkit.Material;
+import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,9 +15,9 @@ public abstract class PluginSettings {
     private final HashMap<String, Setting> SettingsMap = new HashMap<String, Setting>();
     private final SettingsInventory settingsInventory;
 
-    public PluginSettings(String name, CoreMain corePlugin) {
+    public PluginSettings(String name, Plugin plugin) {
         this.PluginName = name;
-        settingsInventory = new SettingsInventory(this, corePlugin);
+        settingsInventory = new SettingsInventory(this, plugin);
     }
 
     public void addSetting(String name, String description, boolean enabled, Material material) {
