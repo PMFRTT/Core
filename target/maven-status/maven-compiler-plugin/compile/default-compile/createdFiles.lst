@@ -1,4 +1,5 @@
 settings\SettingsInventory$2.class
+settings\SettingsType.class
 core\permissions\CoreAccessPermissionFile.class
 core\chat\ChatEventHandler.class
 core\chat\ChatColorHelper.class
@@ -12,10 +13,12 @@ core\register\RegistrationStatus.class
 settings\SettingsInventory$3.class
 core\permissions\PermissionCard.class
 core\register\RegisterMain.class
+settings\SettingSwitch.class
 core\CoreDebug.class
 settings\SettingsInventory$1.class
 core\core\CoreResetServer.class
 core\permissions\CorePermissionCommandListener.class
+settings\SettingCycle.class
 core\chat\ChatCommandListener.class
 core\register\RegisterCommandListener.class
 core\core\CoreResetServer$1.class

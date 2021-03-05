@@ -2,38 +2,34 @@ package settings;
 
 import org.bukkit.Material;
 
-public class Setting {
+public abstract class Setting {
 
     private final String name;
     private final String description;
-    private boolean enabled;
+    private final SettingsType type;
     private final Material material;
 
-
-    public Setting(String name, String description, boolean enabled, Material material) {
+    public Setting(String name, String description, SettingsType type, Material material){
         this.name = name;
         this.description = description;
-        this.enabled = enabled;
+        this.type = type;
         this.material = material;
-    }
-
-    public void changeSettingValue() {
-        this.enabled = !this.enabled;
-    }
-
-    public boolean getSettingValue() {
-        return this.enabled;
     }
 
     public String getName(){
         return this.name;
     }
 
+    public String getDescription(){
+        return this.description;
+    }
+
+    public SettingsType getType(){
+        return this.type;
+    }
+
     public Material getMaterial(){
         return this.material;
     }
 
-    public String getDescription(){
-        return this.description;
-    }
 }

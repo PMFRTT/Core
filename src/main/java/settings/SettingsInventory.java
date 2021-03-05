@@ -43,7 +43,7 @@ public class SettingsInventory implements Listener {
         initialize();
     }
 
-    public void initialize(){
+    public void initialize() {
         Bukkit.getPluginManager().registerEvents(this, this.plugin);
     }
 
@@ -59,10 +59,15 @@ public class SettingsInventory implements Listener {
                 itemMeta.setLore(new ArrayList<String>() {{
                     add(setting.getDescription());
                 }});
-                if (setting.getSettingValue()) {
-                    itemMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
+                if (setting.getType().equals(SettingsType.SWITCH)) {
+                    SettingSwitch settingSwitch = (SettingSwitch) setting;
+                    if (settingSwitch.getSettingValue()) {
+                        itemMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
+                    } else {
+                        itemMeta.removeEnchant(Enchantment.PROTECTION_ENVIRONMENTAL);
+                    }
                 } else {
-                    itemMeta.removeEnchant(Enchantment.PROTECTION_ENVIRONMENTAL);
+                    SettingCycle settingCycle = (SettingCycle) setting;
                 }
                 itemStack.setItemMeta(itemMeta);
                 this.inventory.setItem(this.usableSlots.get(i), itemStack);
@@ -83,19 +88,24 @@ public class SettingsInventory implements Listener {
         return this.inventory;
     }
 
-    public Setting getSettingfromSlot(int slot){
+    public Setting getSettingfromSlot(int slot) {
         return this.slotSettingsMap.getOrDefault(slot, null);
     }
 
     @EventHandler
-    public void onInventoryClick(InventoryClickEvent e){
-        System.out.println("test");
-        if(Objects.equals(e.getClickedInventory(), this.inventory)){
-           e.setCancelled(true);
-           if(this.usableSlots.contains(e.getSlot())){
-               getSettingfromSlot(e.getSlot()).changeSettingValue();
-               buildInventory();
-           }
+    public void onInventoryClick(InventoryClickEvent e) {
+        if (Objects.equals(e.getClickedInventory(), this.inventory)) {
+            e.setCancelled(true);
+            if (this.usableSlots.contains(e.getSlot())) {
+                if(getSettingfromSlot(e.getSlot()).getType().equals(SettingsType.SWITCH)){
+                    SettingSwitch settingSwitch = (SettingSwitch) getSettingfromSlot(e.getSlot());
+                    settingSwitch.changeSettingValue();
+                }else{
+                    SettingCycle settingCycle = (SettingCycle) getSettingfromSlot(e.getSlot());
+                    settingCycle.changeSettingValue();
+                }
+                buildInventory();
+            }
         }
     }
 

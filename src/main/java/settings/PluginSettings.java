@@ -20,9 +20,16 @@ public abstract class PluginSettings {
         settingsInventory = new SettingsInventory(this, plugin);
     }
 
-    public void addSetting(String name, String description, boolean enabled, Material material) {
-        Setting setting = new Setting(name, description, enabled, material);
+    public void addSetting(String name, String description, Material material, int[] values) {
 
+        SettingCycle setting = new SettingCycle(name, description, material, values);
+        this.SettingsMap.put(name, setting);
+        this.SettingsList.add(setting);
+    }
+
+    public void addSetting(String name, String description, Material material, boolean enabled) {
+
+        SettingSwitch setting = new SettingSwitch(name, description, material, enabled);
         this.SettingsMap.put(name, setting);
         this.SettingsList.add(setting);
     }
@@ -33,16 +40,6 @@ public abstract class PluginSettings {
         } else {
             return null;
         }
-    }
-
-    public void changeSettingValue(String name, boolean enabled) {
-        if (this.SettingsMap.containsKey(name)) {
-            this.SettingsMap.get(name).changeSettingValue();
-        }
-    }
-
-    public boolean getSettingValue(String name) {
-        return this.SettingsMap.get(name).getSettingValue();
     }
 
     public String getPluginName() {
