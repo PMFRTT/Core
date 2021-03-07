@@ -10,7 +10,6 @@ core\core\CoreSendStringPacket.class
 core\Utils$1.class
 settings\SettingsInventory.class
 core\register\RegistrationStatus.class
-settings\SettingsInventory$3.class
 core\permissions\PermissionCard.class
 core\register\RegisterMain.class
 settings\SettingSwitch.class

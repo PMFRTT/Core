@@ -56,6 +56,7 @@ public class SettingsInventory implements Listener {
                 assert itemMeta != null;
                 itemMeta.setDisplayName(setting.getName());
                 itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                itemMeta.setLore(setting.getDescription());
                 if (setting.getType().equals(SettingsType.SWITCH)) {
                     SettingSwitch settingSwitch = (SettingSwitch) setting;
                     if (settingSwitch.getSettingValue()) {
@@ -65,9 +66,9 @@ public class SettingsInventory implements Listener {
                     }
                 } else {
                     SettingCycle settingCycle = (SettingCycle) setting;
-                    itemMeta.setLore(new ArrayList<String>() {{
-                        add(settingCycle.getDescription() + "  " + settingCycle.getValueAsString());
-                    }});
+                    ArrayList<String> temp = setting.getDescription();
+                    temp.add("Der Aktuelle Wert ist: " + settingCycle.getValueAsString());
+                    itemMeta.setLore(temp);
                 }
                 itemStack.setItemMeta(itemMeta);
                 this.inventory.setItem(this.usableSlots.get(i), itemStack);
