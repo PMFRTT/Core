@@ -9,10 +9,17 @@ public class SettingCycle extends Setting {
     List<Integer> values;
     int index = 0;
     int value;
+    List<String> mappedValues;
 
     public SettingCycle(String name, String description, Material material, List<Integer> values) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
+    }
+
+    public SettingCycle(String name, String description, Material material, List<Integer> values, List<String> mappedValues) {
+        super(name, description, SettingsType.CYCLE, material);
+        this.values = values;
+        this.mappedValues = mappedValues;
     }
 
     public void changeSettingValue() {
@@ -40,6 +47,14 @@ public class SettingCycle extends Setting {
 
     public int getValue() {
         return this.value;
+    }
+
+    public String getValueAsString(){
+        if(this.mappedValues.isEmpty()){
+            return String.valueOf(this.getValue());
+        }else{
+            return this.mappedValues.get(this.getIndex());
+        }
     }
 
     public List<Integer> getValues() {

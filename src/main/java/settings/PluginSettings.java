@@ -26,6 +26,12 @@ public abstract class PluginSettings {
         this.SettingsList.add(setting);
     }
 
+    public void addSetting(String name, String description, Material material, List<Integer> values, List<String> mappedValues) {
+        SettingCycle setting = new SettingCycle(name, description, material, values, mappedValues);
+        this.SettingsMap.put(name, setting);
+        this.SettingsList.add(setting);
+    }
+
     public void addSetting(String name, String description, Material material, boolean enabled) {
         SettingSwitch setting = new SettingSwitch(name, description, material, enabled);
         this.SettingsMap.put(name, setting);
