@@ -50,7 +50,7 @@ public class SettingCycle extends Setting {
     }
 
     public String getValueAsString(){
-        if(this.mappedValues.isEmpty()){
+        if(this.mappedValues == null){
             return String.valueOf(this.getValue());
         }else{
             return this.mappedValues.get(this.getIndex());
