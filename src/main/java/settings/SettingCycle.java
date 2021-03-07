@@ -11,12 +11,12 @@ public class SettingCycle extends Setting {
     int value;
     List<String> mappedValues;
 
-    public SettingCycle(String name, String description, Material material, List<Integer> values) {
+    public SettingCycle(String name, List<String> description, Material material, List<Integer> values) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
     }
 
-    public SettingCycle(String name, String description, Material material, List<Integer> values, List<String> mappedValues) {
+    public SettingCycle(String name, List<String> description, Material material, List<Integer> values, List<String> mappedValues) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
         this.mappedValues = mappedValues;
@@ -41,7 +41,7 @@ public class SettingCycle extends Setting {
         return super.getMaterial();
     }
 
-    public String getDescription() {
+    public List<String> getDescription() {
         return super.getDescription();
     }
 

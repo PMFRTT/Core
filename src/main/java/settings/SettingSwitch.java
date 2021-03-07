@@ -2,11 +2,13 @@ package settings;
 
 import org.bukkit.Material;
 
+import java.util.List;
+
 public class SettingSwitch extends Setting{
 
     private boolean enabled;
 
-    public SettingSwitch(String name, String description, Material material, boolean enabled) {
+    public SettingSwitch(String name, List<String> description, Material material, boolean enabled) {
        super(name, description, SettingsType.SWITCH, material);
        this.enabled = enabled;
     }
@@ -29,7 +31,7 @@ public class SettingSwitch extends Setting{
         return super.getMaterial();
     }
 
-    public String getDescription() {
+    public List<String> getDescription() {
         return super.getDescription();
     }
 }
