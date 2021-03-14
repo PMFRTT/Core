@@ -1,17 +1,17 @@
-package settings;
+package core.settings;
 
 import org.bukkit.Material;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public abstract class Setting {
 
     private final String name;
-    private final List<String> description;
+    private final ArrayList<String> description;
     private final SettingsType type;
     private final Material material;
 
-    public Setting(String name, List<String> description, SettingsType type, Material material){
+    public Setting(String name, ArrayList<String> description, SettingsType type, Material material){
         this.name = name;
         this.description = description;
         this.type = type;
@@ -22,7 +22,7 @@ public abstract class Setting {
         return this.name;
     }
 
-    public List<String> getDescription(){
+    public ArrayList<String> getDescription(){
         return this.description;
     }
 
