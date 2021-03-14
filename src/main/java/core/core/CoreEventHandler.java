@@ -66,7 +66,6 @@ public class CoreEventHandler implements Listener {
 
             if (!temp.contains("recipes/")) {
                 if (!temp.contains("root")) {
-                    System.out.println(temp);
                     temp = temp.substring(temp.indexOf("/"));
                     temp = temp.substring(1);
                     temp = temp.replace("_", " ");

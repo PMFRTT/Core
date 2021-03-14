@@ -1,4 +1,4 @@
-package settings;
+package core.settings;
 
 import org.bukkit.Material;
 
@@ -7,16 +7,25 @@ import java.util.ArrayList;
 public class SettingSwitch extends Setting{
 
     private boolean enabled;
+    private SubSettings subSettings;
 
     public SettingSwitch(String name, ArrayList<String> description, Material material, boolean enabled) {
        super(name, description, SettingsType.SWITCH, material);
        this.enabled = enabled;
     }
 
+    public SettingSwitch(String name, ArrayList<String> description, Material material, boolean enabled, SubSettings subSettings) {
+        super(name, description, SettingsType.SWITCH, material);
+        this.enabled = enabled;
+        this.subSettings = subSettings;
+    }
+
     public void changeSettingValue() {
-        if (super.getType() == SettingsType.SWITCH) {
-            this.enabled = !this.enabled;
-        }
+        this.enabled = !this.enabled;
+    }
+
+    public SubSettings getSubSettings(){
+        return this.subSettings;
     }
 
     public boolean getSettingValue() {
@@ -33,5 +42,10 @@ public class SettingSwitch extends Setting{
 
     public ArrayList<String> getDescription() {
         return super.getDescription();
+    }
+
+    @Override
+    public SettingsType getType() {
+        return SettingsType.SWITCH;
     }
 }

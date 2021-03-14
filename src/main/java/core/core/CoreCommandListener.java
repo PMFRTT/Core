@@ -316,14 +316,14 @@ public class CoreCommandListener implements CommandExecutor {
             }
         } else if (command.getLabel().equalsIgnoreCase("ping")) {
             if (args.length == 0) {
-                sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Dein Ping: &e" + Utils.getPlayerPing(player)) + "&fms");
+                sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Dein Ping ist: &e" + Utils.getPlayerPing(player)  + "&fms"));
                 return true;
             } else if (args.length == 1) {
                 if (Utils.isPlayer(args[0])) {
                     sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Der Ping von &a" + Bukkit.getPlayer(args[0]).getDisplayName() + "&f ist &e" + Utils.getPlayerPing(Bukkit.getPlayer(args[0])) + "&fms"));
                     return true;
                 } else {
-                    sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Der Spieler &a" + args[0] + " &fist nicht Online!"));
+                    sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Der Spieler &c" + args[0] + " &fist nicht Online!"));
                     return false;
                 }
             }

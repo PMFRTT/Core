@@ -1,6 +1,8 @@
-package settings;
+package core.settings;
 
+import core.Utils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,28 +20,40 @@ import java.util.Objects;
 
 public class SettingsInventory implements Listener {
 
-    PluginSettings pluginSettings;
+    Settings settings;
     private final Plugin plugin;
     private final Inventory inventory;
     private final HashMap<Integer, Setting> slotSettingsMap = new HashMap<Integer, Setting>();
     private List<Integer> usableSlots = new ArrayList<Integer>() {{
         add(0);
+        add(2);
         add(4);
-        add(16);
+        add(6);
+        add(8);
+        add(18);
+        add(20);
+        add(22);
+        add(24);
+        add(26);
+        add(36);
+        add(38);
+        add(40);
+        add(42);
+        add(44);
     }};
 
-    public SettingsInventory(PluginSettings pluginSettings, Plugin plugin) {
-        this.pluginSettings = pluginSettings;
+    public SettingsInventory(Settings settings, Plugin plugin) {
+        this.settings = settings;
         this.plugin = plugin;
-        inventory = Bukkit.createInventory(null, 54, pluginSettings.getPluginName());
+        inventory = Bukkit.createInventory(null, 45, settings.getPluginName());
         initialize();
     }
 
-    public SettingsInventory(PluginSettings pluginSettings, List<Integer> usableSlots, Plugin plugin) {
-        this.pluginSettings = pluginSettings;
+    public SettingsInventory(Settings settings, List<Integer> usableSlots, Plugin plugin) {
+        this.settings = settings;
         this.usableSlots = usableSlots;
         this.plugin = plugin;
-        inventory = Bukkit.createInventory(null, 54, pluginSettings.getPluginName());
+        inventory = Bukkit.createInventory(null, 54, settings.getPluginName());
         initialize();
     }
 
@@ -49,16 +63,17 @@ public class SettingsInventory implements Listener {
 
     private void buildInventory() {
         int i = 0;
-        if (!this.pluginSettings.getSettingsList().isEmpty()) {
-            for (Setting setting : this.pluginSettings.getSettingsList()) {
+        if (!this.settings.getSettingsList().isEmpty()) {
+            for (Setting setting : this.settings.getSettingsList()) {
                 ItemStack itemStack = new ItemStack(setting.getMaterial());
                 ItemMeta itemMeta = itemStack.getItemMeta();
                 assert itemMeta != null;
                 itemMeta.setDisplayName(setting.getName());
                 itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-                itemMeta.setLore(setting.getDescription());
+                List<String> temp = new ArrayList<String>(setting.getDescription());
                 if (setting.getType().equals(SettingsType.SWITCH)) {
                     SettingSwitch settingSwitch = (SettingSwitch) setting;
+                    temp.add(Utils.colorize("&7Aktueller Wert: &6" + settingSwitch.getSettingValue()));
                     if (settingSwitch.getSettingValue()) {
                         itemMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
                     } else {
@@ -66,22 +81,16 @@ public class SettingsInventory implements Listener {
                     }
                 } else {
                     SettingCycle settingCycle = (SettingCycle) setting;
-                    ArrayList<String> temp = setting.getDescription();
-                    temp.add("Der Aktuelle Wert ist: " + settingCycle.getValueAsString());
-                    itemMeta.setLore(temp);
+                    itemMeta.setDisplayName(setting.getName());
+                    temp.add(Utils.colorize("&7Aktueller Wert: &6" + settingCycle.getValueAsString()));
                 }
+                itemMeta.setLore(temp);
                 itemStack.setItemMeta(itemMeta);
                 this.inventory.setItem(this.usableSlots.get(i), itemStack);
                 this.slotSettingsMap.put(this.usableSlots.get(i), setting);
                 i++;
             }
         }
-    }
-
-    private List<Integer> defaultSlots() {
-        return new ArrayList<Integer>() {{
-            add(0);
-        }};
     }
 
     public Inventory getInventory() {
@@ -98,16 +107,28 @@ public class SettingsInventory implements Listener {
         if (Objects.equals(e.getClickedInventory(), this.inventory)) {
             e.setCancelled(true);
             if (this.usableSlots.contains(e.getSlot())) {
-                if(getSettingfromSlot(e.getSlot()).getType().equals(SettingsType.SWITCH)){
+                if(Objects.requireNonNull(e.getCurrentItem()).getType().equals(Material.BARRIER)){
+                    e.getWhoClicked().openInventory(settings.getMasterSettings().getSettingsInventory().getInventory());
+                }
+                else if (getSettingfromSlot(e.getSlot()).getType().equals(SettingsType.SWITCH)) {
                     SettingSwitch settingSwitch = (SettingSwitch) getSettingfromSlot(e.getSlot());
-                    settingSwitch.changeSettingValue();
-                }else{
+                    if (e.getClick().isShiftClick()) {
+                        if (settingSwitch.getSubSettings() != null) {
+                            e.getWhoClicked().openInventory(settingSwitch.getSubSettings().getSettingsInventory().getInventory());
+                        }
+                    } else if (e.getClick().isLeftClick()) {
+                        settingSwitch.changeSettingValue();
+                    }
+                } else {
                     SettingCycle settingCycle = (SettingCycle) getSettingfromSlot(e.getSlot());
-                    settingCycle.changeSettingValue();
+                    if (e.getClick().isLeftClick()) {
+                        settingCycle.cycleUp();
+                    } else if (e.getClick().isRightClick()) {
+                        settingCycle.cycleDown();
+                    }
                 }
                 buildInventory();
             }
         }
     }
-
 }

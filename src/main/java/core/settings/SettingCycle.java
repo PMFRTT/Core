@@ -1,4 +1,4 @@
-package settings;
+package core.settings;
 
 import org.bukkit.Material;
 
@@ -11,6 +11,7 @@ public class SettingCycle extends Setting {
     int index = 0;
     int value;
     List<String> mappedValues;
+    List<Material> mappedMaterials;
 
     public SettingCycle(String name, ArrayList<String> description, Material material, List<Integer> values) {
         super(name, description, SettingsType.CYCLE, material);
@@ -20,10 +21,19 @@ public class SettingCycle extends Setting {
     public SettingCycle(String name, ArrayList<String> description, Material material, List<Integer> values, List<String> mappedValues) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
+        this.value = values.get(1);
         this.mappedValues = mappedValues;
     }
 
-    public void changeSettingValue() {
+    public SettingCycle(String name, ArrayList<String> description, Material material, List<Integer> values, List<String> mappedValues, List<Material> mappedMaterials) {
+        super(name, description, SettingsType.CYCLE, material);
+        this.values = values;
+        this.value = values.get(1);
+        this.mappedValues = mappedValues;
+        this.mappedMaterials = mappedMaterials;
+    }
+
+    public void cycleUp() {
         if (super.getType() == SettingsType.CYCLE) {
             if (this.index < values.size() - 1) {
                 index++;
@@ -34,12 +44,25 @@ public class SettingCycle extends Setting {
         }
     }
 
+    public void cycleDown() {
+        if (super.getType() == SettingsType.CYCLE) {
+            if (this.index > 0) {
+                index--;
+            } else {
+                index = values.size() - 1;
+            }
+            value = values.get(index);
+        }
+    }
+
     public String getName() {
         return super.getName();
     }
 
     public Material getMaterial() {
-        return super.getMaterial();
+        if (this.mappedMaterials != null) {
+            return this.mappedMaterials.get(this.index);
+        }else return super.getMaterial();
     }
 
     public ArrayList<String> getDescription() {
@@ -47,13 +70,14 @@ public class SettingCycle extends Setting {
     }
 
     public int getValue() {
+        value = getValues().get(getIndex());
         return this.value;
     }
 
-    public String getValueAsString(){
-        if(this.mappedValues == null){
-            return String.valueOf(this.getValue());
-        }else{
+    public String getValueAsString() {
+        if (this.mappedValues == null) {
+            return String.valueOf(getValue());
+        } else {
             return this.mappedValues.get(this.getIndex());
         }
     }

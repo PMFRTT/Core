@@ -71,7 +71,6 @@ public final class CoreMain extends JavaPlugin implements Listener {
         Objects.requireNonNull(getCommand("teleport")).setExecutor(coreCommandExecutor);
         Objects.requireNonNull(getCommand("reload")).setExecutor(coreCommandExecutor);
         Objects.requireNonNull(getCommand("reboot")).setExecutor(coreCommandExecutor);
-        //Objects.requireNonNull(getCommand("register")).setExecutor(registerCommandListener);
         CoreDebug.getTPS();
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
