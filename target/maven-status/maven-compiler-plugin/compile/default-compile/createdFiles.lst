@@ -3,11 +3,14 @@ core\settings\SettingCycle.class
 core\permissions\CoreAccessPermissionFile.class
 core\settings\Setting.class
 core\chat\ChatEventHandler.class
+core\scoreboard\Scoreboard$1.class
+core\scoreboard\ScoreboardDisplay.class
 core\chat\ChatColorHelper.class
 core\settings\SettingsInventory$1.class
 core\settings\SettingSwitch.class
 core\core\CoreMain$1.class
 core\core\CoreCommandListener.class
+core\scoreboard\Score.class
 core\core\CoreSendStringPacket.class
 core\Utils$1.class
 core\register\RegistrationStatus.class
@@ -27,6 +30,8 @@ core\core\CoreEventHandler.class
 core\Utils.class
 core\bungee\CoreBungeeCordClient.class
 core\CoreDebug$1.class
+core\scoreboard\Scoreboard.class
+core\scoreboard\ScoreboardType.class
 core\core\CoreMain.class
 core\permissions\PermissionCard$1.class
 core\register\RegisterListener.class

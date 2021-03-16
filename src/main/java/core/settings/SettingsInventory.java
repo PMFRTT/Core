@@ -82,7 +82,7 @@ public class SettingsInventory implements Listener {
                 } else {
                     SettingCycle settingCycle = (SettingCycle) setting;
                     itemMeta.setDisplayName(setting.getName());
-                    temp.add(Utils.colorize("&7Aktueller Wert: &6" + settingCycle.getValueAsString()));
+                    temp.add(Utils.colorize("&8Aktueller Wert: &6" + settingCycle.getValueAsString()));
                 }
                 itemMeta.setLore(temp);
                 itemStack.setItemMeta(itemMeta);
