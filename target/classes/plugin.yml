@@ -1,5 +1,5 @@
 name: Core
-version: 16.5.1.1
+version: 16.5.22
 main: core.core.CoreMain
 api-version: 1.13
 load: STARTUP
