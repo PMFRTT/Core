@@ -38,8 +38,34 @@ public class Scoreboard {
         this.scores.remove(score);
     }
 
+    public void removeScoreByName(String name) {
+        Score toRemove = null;
+        for (Score score : scores) {
+            if (score.getContent().equals(name)) {
+                toRemove = score;
+            }
+        }
+        if (toRemove != null) {
+            scores.remove(toRemove);
+        }
+    }
+
+    public Score getScoreByName(String name){
+        for (Score score : scores) {
+            if (score.getContent().equals(name)) {
+                return score;
+            }
+        }
+        return null;
+    }
+
+
     public List<Score> getScores() {
         return this.scores;
+    }
+
+    public void clearScores() {
+        this.scores.clear();
     }
 
     public ScoreboardType getType() {

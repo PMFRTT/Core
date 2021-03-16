@@ -27,7 +27,6 @@ core\core\CoreResetServer$1.class
 core\settings\Settings.class
 core\settings\SubSettings.class
 core\core\CoreEventHandler.class
-core\scoreboard\ScoreboardDisplay$1.class
 core\Utils.class
 core\bungee\CoreBungeeCordClient.class
 core\CoreDebug$1.class
