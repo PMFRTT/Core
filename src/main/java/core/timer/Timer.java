@@ -102,4 +102,8 @@ public class Timer {
         this.single = single;
     }
 
+    public boolean getSingle(){
+        return this.single;
+    }
+
 }
