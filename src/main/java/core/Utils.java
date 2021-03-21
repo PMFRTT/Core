@@ -96,6 +96,54 @@ public class Utils {
         return time;
     }
 
+    public static String formatTimerTimeTicks(int ticks) {
+        String time;
+        DecimalFormat decimalFormat = new DecimalFormat("00");
+        DecimalFormat decimalFormatticks = new DecimalFormat(".0");
+        int hours = ticks / 72000;
+        int minutes = (ticks % 72000) / 1200;
+        int seconds = ((ticks % 72000) % 1200) / 20;
+        float remainingticks = ((((float) ticks % 72000) % 1200) % 20) / 20;
+        String ticksFormatted = decimalFormatticks.format(remainingticks);
+        String secondsFormatted = decimalFormat.format(seconds);
+        String minutesFormatted = decimalFormat.format(minutes);
+        String hoursFormatted = decimalFormat.format(hours);
+        time = hoursFormatted + ":" + minutesFormatted + ":" + secondsFormatted + ticksFormatted;
+        return time;
+    }
+
+    public static String formatTimerTimeTicksTwoDecimal(int ticks) {
+        String time;
+        DecimalFormat decimalFormat = new DecimalFormat("00");
+        DecimalFormat decimalFormatticks = new DecimalFormat(".00");
+        int hours = ticks / 72000;
+        int minutes = (ticks % 72000) / 1200;
+        int seconds = ((ticks % 72000) % 1200) / 20;
+        float remainingticks = ((((float) ticks % 72000) % 1200) % 20) / 20;
+        String ticksFormatted = decimalFormatticks.format(remainingticks);
+        String secondsFormatted = decimalFormat.format(seconds);
+        String minutesFormatted = decimalFormat.format(minutes);
+        String hoursFormatted = decimalFormat.format(hours);
+        time = hoursFormatted + ":" + minutesFormatted + ":" + secondsFormatted + ticksFormatted;
+        return time;
+    }
+
+    public static String formatTimerTimeTicksThreeDecimal(int ticks) {
+        String time;
+        DecimalFormat decimalFormat = new DecimalFormat("00");
+        DecimalFormat decimalFormatticks = new DecimalFormat(".000");
+        int hours = ticks / 72000;
+        int minutes = (ticks % 72000) / 1200;
+        int seconds = ((ticks % 72000) % 1200) / 20;
+        float remainingticks = ((((float) ticks % 72000) % 1200) % 20) / 20;
+        String ticksFormatted = decimalFormatticks.format(remainingticks);
+        String secondsFormatted = decimalFormat.format(seconds);
+        String minutesFormatted = decimalFormat.format(minutes);
+        String hoursFormatted = decimalFormat.format(hours);
+        time = hoursFormatted + ":" + minutesFormatted + ":" + secondsFormatted + ticksFormatted;
+        return time;
+    }
+
     public static String getRainbowString(String message) {
         String coloredMessage = "";
         Random random = new Random();

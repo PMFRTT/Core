@@ -20,6 +20,8 @@ core\CoreDebug.class
 core\settings\SettingsInventory.class
 core\core\CoreResetServer.class
 core\permissions\CorePermissionCommandListener.class
+core\timer\Timer.class
+core\timer\Timer$1.class
 core\settings\SettingsType.class
 core\chat\ChatCommandListener.class
 core\register\RegisterCommandListener.class
@@ -29,6 +31,7 @@ core\settings\SubSettings.class
 core\core\CoreEventHandler.class
 core\Utils.class
 core\bungee\CoreBungeeCordClient.class
+core\timer\TimerType.class
 core\CoreDebug$1.class
 core\scoreboard\Scoreboard.class
 core\scoreboard\ScoreboardType.class
