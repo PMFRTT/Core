@@ -16,6 +16,7 @@ public class Timer {
 
     private boolean running = false;
     private boolean single;
+    private final boolean hidden;
 
     private final String pausedString;
     private final String runningString;
@@ -23,11 +24,12 @@ public class Timer {
     private final Plugin plugin;
     private BukkitScheduler scheduler;
 
-    public Timer(Plugin plugin, TimerType timerType, String runningString, String pausedString) {
+    public Timer(Plugin plugin, TimerType timerType, String runningString, String pausedString, boolean hidden) {
         this.timerType = timerType;
         this.plugin = plugin;
         this.runningString = runningString;
         this.pausedString = pausedString;
+        this.hidden = hidden;
         init();
     }
 
@@ -65,8 +67,10 @@ public class Timer {
                 } else {
                     msg = Utils.colorize(pausedString);
                 }
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    CoreSendStringPacket.sendPacketToHotbar(player, msg);
+                if (!hidden) {
+                    for (Player player : Bukkit.getOnlinePlayers()) {
+                        CoreSendStringPacket.sendPacketToHotbar(player, msg);
+                    }
                 }
             }
         }, 0, 1);
@@ -84,7 +88,7 @@ public class Timer {
         }
     }
 
-    public boolean isPaused(){
+    public boolean isPaused() {
         return !this.running;
     }
 
