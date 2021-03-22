@@ -1,6 +1,10 @@
 package core.settings;
 
 import core.Utils;
+import core.settings.Setting.Setting;
+import core.settings.Setting.SettingCycle;
+import core.settings.Setting.SettingSwitch;
+import core.settings.Setting.SettingsType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

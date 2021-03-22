@@ -1,5 +1,8 @@
 package core.settings;
 
+import core.settings.Setting.Setting;
+import core.settings.Setting.SettingCycle;
+import core.settings.Setting.SettingSwitch;
 import org.bukkit.Material;
 import org.bukkit.plugin.Plugin;
 

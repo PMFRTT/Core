@@ -1,10 +1,11 @@
-package core.settings;
+package core.settings.Setting;
 
+import core.settings.SubSettings;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
 
-public class SettingSwitch extends Setting{
+public class SettingSwitch extends Setting {
 
     private boolean enabled;
     private SubSettings subSettings;
