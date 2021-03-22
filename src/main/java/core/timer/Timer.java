@@ -17,12 +17,17 @@ public class Timer {
     private boolean running = false;
     private boolean single;
 
+    private final String pausedString;
+    private final String runningString;
+
     private final Plugin plugin;
     private BukkitScheduler scheduler;
 
-    public Timer(Plugin plugin, TimerType timerType) {
+    public Timer(Plugin plugin, TimerType timerType, String runningString, String pausedString) {
         this.timerType = timerType;
         this.plugin = plugin;
+        this.runningString = runningString;
+        this.pausedString = pausedString;
         init();
     }
 
@@ -37,25 +42,28 @@ public class Timer {
             public void run() {
                 String msg = null;
                 if (running) {
-                    if (timerType.equals(TimerType.Increasing)) {
+                    if (timerType.equals(TimerType.INCREASING)) {
                         ticks++;
-                        msg = Utils.colorize("Das Bingo läuft seit &b" + Utils.formatTimerTimeTicks(ticks));
+                        msg = Utils.colorize(runningString + Utils.formatTimerTimeTicks(ticks));
                         if (ticks % 20 == 0) {
                             seconds++;
                         }
-                    } else if (timerType.equals(TimerType.Decreasing)) {
+                    } else if (timerType.equals(TimerType.DECREASING)) {
                         ticks--;
                         if (single) {
                             msg = Utils.colorize("Du hast noch &b" + Utils.formatTimerTimeTicks(ticks) + " &fZeit");
-                        }else{
+                        } else {
                             msg = Utils.colorize("Ihr habt noch &b" + Utils.formatTimerTimeTicks(ticks) + " &fZeit");
                         }
                         if (ticks % 20 == 0) {
                             seconds--;
                         }
+                        if (ticks == 0) {
+                            pause();
+                        }
                     }
                 } else {
-                    msg = Utils.colorize("&cDas Bingo ist pausiert!");
+                    msg = Utils.colorize(pausedString);
                 }
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     CoreSendStringPacket.sendPacketToHotbar(player, msg);
@@ -74,6 +82,10 @@ public class Timer {
         if (!this.running) {
             this.running = true;
         }
+    }
+
+    public boolean isPaused(){
+        return !this.running;
     }
 
     public void setSeconds(int seconds) {
@@ -102,7 +114,7 @@ public class Timer {
         this.single = single;
     }
 
-    public boolean getSingle(){
+    public boolean getSingle() {
         return this.single;
     }
 
