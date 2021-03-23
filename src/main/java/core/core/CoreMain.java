@@ -4,11 +4,11 @@ package core.core;
 import core.CoreDebug;
 import core.Utils;
 import core.bungee.CoreBungeeCordClient;
-import core.permissions.CoreAccessPermissionFile;
 import core.permissions.CorePermissionCommandListener;
-import core.register.RegisterCommandListener;
+import core.permissions.PermissionConverter;
 import core.sql.MySQL;
-import core.sql.MySQLGetter;
+import core.sql.MySQLBungee;
+import core.sql.MySQLPermissions;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.entity.Player;
@@ -24,7 +24,10 @@ import java.util.UUID;
 public final class CoreMain extends JavaPlugin {
 
     public MySQL SQL;
-    public MySQLGetter mySQLGetter;
+    public MySQLPermissions mySQLPermissions;
+    public MySQLBungee mySQLBungee;
+
+    public PermissionConverter permissionConverter;
     public static HashMap<UUID, PermissionAttachment> permissionAttachmentHashMap = new HashMap<>();
     public static boolean showAdvancements = true;
     private static String serverName = "loading";
@@ -43,46 +46,48 @@ public final class CoreMain extends JavaPlugin {
 
     public void onEnable() {
         this.SQL = new MySQL();
-        this.mySQLGetter = new MySQLGetter(this);
+        this.mySQLPermissions = new MySQLPermissions(this);
+        this.mySQLBungee = new MySQLBungee(this);
+        this.permissionConverter = new PermissionConverter(this);
 
         try {
             SQL.connect();
         } catch (ClassNotFoundException | SQLException e) {
-           Bukkit.getLogger().info("Database is not connected");
+            Bukkit.getLogger().info("Database is not connected");
         }
 
-        if(SQL.isConnected()){
-            mySQLGetter.createTable();
-            for(Player player : Bukkit.getOnlinePlayers()){
-                mySQLGetter.createPlayer(player);
-                if(mySQLGetter.getPermissions(player.getUniqueId()) == 0){
-                    mySQLGetter.setPermissions(player.getUniqueId(), 0);
+        if (SQL.isConnected()) {
+            mySQLPermissions.createTable();
+            mySQLBungee.createTable();
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                mySQLPermissions.createPlayer(player);
+                if (mySQLPermissions.getPermissions(player.getUniqueId()) == 0) {
+                    mySQLPermissions.setPermissions(player.getUniqueId(), 0);
                 }
+                PermissionConverter.generatePermissions(PermissionConverter.convertIntToBinary(mySQLPermissions.getPermissions(player.getUniqueId())));
+
             }
         }
 
 
-        CoreAccessPermissionFile accessPermissionFile = new CoreAccessPermissionFile(this);
         CoreBungeeCordClient bungeeCordClient = new CoreBungeeCordClient(this);
-        CoreEventHandler coreEventHandler = new CoreEventHandler(this, accessPermissionFile);
+        CoreEventHandler coreEventHandler = new CoreEventHandler(this);
         CoreResetServer coreResetServer = new CoreResetServer(this, bungeeCordClient);
         CoreDebug coreDebug = new CoreDebug(this);
         Utils utils = new Utils(this);
 
-        CoreBungeeCordClient.loadServers();
         coreEventHandler.initialize();
         Utils.changeGamerule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
 
         CoreCommandListener coreCommandExecutor = new CoreCommandListener(this, bungeeCordClient);
-        CorePermissionCommandListener corePermissionCommandExecutor = new CorePermissionCommandListener(this, accessPermissionFile);
-        RegisterCommandListener registerCommandListener = new RegisterCommandListener(this);
+        CorePermissionCommandListener corePermissionCommandExecutor = new CorePermissionCommandListener(this);
 
         Objects.requireNonNull(getCommand("Gamemode")).setExecutor(coreCommandExecutor);
         Objects.requireNonNull(getCommand("Weather")).setExecutor(coreCommandExecutor);
         Objects.requireNonNull(getCommand("Time")).setExecutor(coreCommandExecutor);
         Objects.requireNonNull(getCommand("Core")).setExecutor(coreCommandExecutor);
         Objects.requireNonNull(getCommand("Allow")).setExecutor(corePermissionCommandExecutor);
-        Objects.requireNonNull(getCommand("Disallow")).setExecutor(corePermissionCommandExecutor);
+        Objects.requireNonNull(getCommand("Deny")).setExecutor(corePermissionCommandExecutor);
         Objects.requireNonNull(getCommand("hub")).setExecutor(coreCommandExecutor);
         Objects.requireNonNull(getCommand("Heal")).setExecutor(coreCommandExecutor);
         Objects.requireNonNull(getCommand("Difficulty")).setExecutor(coreCommandExecutor);
@@ -106,7 +111,7 @@ public final class CoreMain extends JavaPlugin {
         }, 0L, 1L);
     }
 
-    public void onDisable(){
+    public void onDisable() {
         try {
             SQL.disconnect();
         } catch (SQLException ignored) {

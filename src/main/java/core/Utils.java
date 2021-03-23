@@ -261,6 +261,11 @@ public class Utils {
             footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
             footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
             footerList.add(Utils.colorize("&7" + Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&7ms)"));
+            if(corePlugin.SQL.isConnected()) {
+                footerList.add(Utils.colorize("&7" + "Datenbank ist &averbunden"));
+            }else{
+                footerList.add(Utils.colorize("&7" + "Datenbank ist &cgetrennt"));
+            }
 
             String header = StringUtils.join(headerList, "\n");
             String footer = StringUtils.join(footerList, "\n");

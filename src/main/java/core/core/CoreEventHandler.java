@@ -1,7 +1,6 @@
 package core.core;
 
 import core.Utils;
-import core.permissions.CoreAccessPermissionFile;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.advancement.Advancement;
@@ -18,11 +17,9 @@ import java.util.Set;
 public class CoreEventHandler implements Listener {
 
     private final CoreMain corePlugin;
-    private final CoreAccessPermissionFile accessPermissionFile;
 
-    public CoreEventHandler(CoreMain corePlugin, CoreAccessPermissionFile accessPermissionFile){
+    public CoreEventHandler(CoreMain corePlugin){
         this.corePlugin = corePlugin;
-        this.accessPermissionFile = accessPermissionFile;
     }
 
     public void initialize(){
@@ -31,8 +28,6 @@ public class CoreEventHandler implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        accessPermissionFile.readFileToHashMap();
-        accessPermissionFile.createPermissionSave(e.getPlayer());
         e.setJoinMessage(Utils.getJoinPrefix("Server", e.getPlayer()));
         Utils.addServerInfo(CoreMain.getPlugin().getName(), 0);
     }

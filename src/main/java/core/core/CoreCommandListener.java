@@ -2,6 +2,8 @@ package core.core;
 
 import core.Utils;
 import core.bungee.CoreBungeeCordClient;
+import core.permissions.Permission;
+import core.permissions.PermissionConverter;
 import net.minecraft.server.v1_16_R3.MinecraftServer;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -36,7 +38,7 @@ public class CoreCommandListener implements CommandExecutor {
 
 
         if (command.getLabel().equalsIgnoreCase("gamemode")) {
-            if (sender.hasPermission("core.canChangeGamemode") || sender.getName().equalsIgnoreCase("console")) {
+            if (PermissionConverter.generatePermissions(player).get(Permission.GAMEMODE) || sender.getName().equalsIgnoreCase("console")) {
                 if (args.length >= 1) {
                     if (args[0].equalsIgnoreCase("creative") || args[0].equalsIgnoreCase("c") || args[0].equalsIgnoreCase("1")) {
                         if (args.length == 2) {
@@ -136,7 +138,7 @@ public class CoreCommandListener implements CommandExecutor {
                 return false;
             }
         } else if (command.getLabel().equalsIgnoreCase("weather")) {
-            if (sender.hasPermission("core.canChangeWeather") || sender.getName().equalsIgnoreCase("console")) {
+            if (PermissionConverter.generatePermissions(player).get(Permission.WEATHER) || sender.getName().equalsIgnoreCase("console")) {
                 if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("rain") || args[0].equalsIgnoreCase("r")) {
                         Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Wetter wurde auf &bRegen&f geändert!"));
@@ -165,7 +167,7 @@ public class CoreCommandListener implements CommandExecutor {
             }
         } else if (command.getLabel().equalsIgnoreCase("time")) {
             if (args.length == 2) {
-                if (sender.hasPermission("core.canChangeTime") || sender.getName().equalsIgnoreCase("console")) {
+                if (PermissionConverter.generatePermissions(player).get(Permission.TIME) || sender.getName().equalsIgnoreCase("console")) {
                     if (args[0].equalsIgnoreCase("set")) {
                         if (args.length == 2) {
                             if (args[1].equalsIgnoreCase("morning")) {
@@ -218,14 +220,14 @@ public class CoreCommandListener implements CommandExecutor {
                 player.sendMessage(Utils.getServerPrefix() + Utils.colorize("Es ist gerade &2" + Utils.formatIngameTime(world.getTime()) + "&f Uhr!"));
             }
         } else if (command.getLabel().equalsIgnoreCase("core")) {
-            player.sendMessage(Utils.getPrefix("Core") + Utils.colorize("Du Verwendest &2CorePlugin (" + corePlugin.getDescription().getVersion() + ") &fDie neueste Version ist &2v0.0.1&f!"));
+            player.sendMessage(Utils.getPrefix("Core") + Utils.colorize("Du Verwendest &2CorePlugin (" + corePlugin.getDescription().getVersion() + ") &fDie neueste Version ist &2v16.5.24-pre1&f!"));
         } else if (command.getLabel().equalsIgnoreCase("hub") || command.getLabel().equalsIgnoreCase("lobby") || command.getLabel().equalsIgnoreCase("l")) {
             assert player != null;
 
             CoreBungeeCordClient.moveToServer(player, "Lobby");
             return true;
         } else if (command.getLabel().equalsIgnoreCase("heal")) {
-            if (sender.hasPermission("core.canHeal") || sender.getName().equals("CONSOLE")) {
+            if (PermissionConverter.generatePermissions(player).get(Permission.HEAL) || sender.getName().equals("CONSOLE")) {
                 if (args.length == 0) {
                     if (sender.getName() != "CONSOLE") {
                         Player p = (Player) sender;
@@ -254,7 +256,7 @@ public class CoreCommandListener implements CommandExecutor {
                 return false;
             }
         } else if (command.getLabel().equalsIgnoreCase("difficulty")) {
-            if (sender.hasPermission("core.canChangeDifficulty") || sender.getName().equalsIgnoreCase("console")) {
+            if (PermissionConverter.generatePermissions(player).get(Permission.DIFFICULTY) || sender.getName().equalsIgnoreCase("console")) {
                 if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("peaceful")) {
                         world.setDifficulty(Difficulty.PEACEFUL);
@@ -328,7 +330,7 @@ public class CoreCommandListener implements CommandExecutor {
                 }
             }
         } else if (command.getLabel().equalsIgnoreCase("sethp")) {
-            if (sender.hasPermission("core.canheal")) {
+            if (PermissionConverter.generatePermissions(player).get(Permission.HEAL)) {
                 if (args.length == 1) {
                     if (Double.parseDouble(args[0]) >= 0 && Double.parseDouble(args[0]) <= 20) {
                         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -354,7 +356,7 @@ public class CoreCommandListener implements CommandExecutor {
                 return false;
             }
         } else if (command.getLabel().equalsIgnoreCase("invsee")) {
-            if (sender.hasPermission("core.canSeeINV")) {
+            if (PermissionConverter.generatePermissions(player).get(Permission.INVENTORY)) {
                 if (args.length == 1) {
                     if (Bukkit.getPlayer(args[0]) != null) {
                         player.openInventory(Bukkit.getPlayer(args[0]).getInventory());
@@ -369,7 +371,7 @@ public class CoreCommandListener implements CommandExecutor {
                 return false;
             }
         } else if (command.getLabel().equalsIgnoreCase("teleport")) {
-            if (player.hasPermission("core.canTP")) {
+            if (PermissionConverter.generatePermissions(player).get(Permission.TELEPORT)) {
                 if (args.length == 1) {
                     if (Bukkit.getPlayer(args[0]) != null) {
                         CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("Teleportiere zu"), Utils.colorize("&a" + Bukkit.getPlayer(args[0]).getDisplayName()));

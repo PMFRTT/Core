@@ -16,7 +16,7 @@ commands :
     description: show information on the CorePlugin
   allow:
     description: lets every op set the permission to use other commands
-  disallow:
+  deny:
     description: takes away the power to use commands
   hub:
     aliases: [l,lobby]

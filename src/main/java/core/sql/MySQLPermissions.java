@@ -8,11 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
-public class MySQLGetter {
+public class MySQLPermissions {
 
     private final CoreMain plugin;
 
-    public MySQLGetter(CoreMain plugin) {
+    public MySQLPermissions(CoreMain plugin) {
         this.plugin = plugin;
     }
 

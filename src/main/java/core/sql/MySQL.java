@@ -1,6 +1,9 @@
 package core.sql;
 
+import core.Utils;
+import core.core.CoreSendStringPacket;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,6 +27,9 @@ public class MySQL {
             String database = "pmfrtt_core_network";
             connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false", username, password);
             Bukkit.getLogger().info("Connection to database established");
+            for(Player player : Bukkit.getOnlinePlayers()){
+                CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("&aDatenbank"), Utils.colorize("Verbindung hergestellt"));
+            }
         }
     }
 
