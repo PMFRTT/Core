@@ -18,6 +18,7 @@ public class CoreBungeeCordClient implements PluginMessageListener {
 
     static CoreMain corePlugin;
     private static final String ADDRESS = "localhost";
+    static byte[] message;
     public static int playerCount;
 
     public CoreBungeeCordClient(CoreMain corePlugin) {
@@ -54,6 +55,15 @@ public class CoreBungeeCordClient implements PluginMessageListener {
         }
 
     }
+
+    public static void getPlayerAmount(int port, Player player) {
+        String serverName = "portServer.get(port);";
+        ByteArrayDataOutput out = ByteStreams.newDataOutput();
+        out.writeUTF("PlayerCount");
+        out.writeUTF(serverName);
+        player.sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
+    }
+
 
     @Override
     public void onPluginMessageReceived(String channel, Player player, byte[] message) {
