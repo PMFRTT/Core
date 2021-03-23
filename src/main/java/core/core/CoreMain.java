@@ -7,19 +7,24 @@ import core.bungee.CoreBungeeCordClient;
 import core.permissions.CoreAccessPermissionFile;
 import core.permissions.CorePermissionCommandListener;
 import core.register.RegisterCommandListener;
+import core.sql.MySQL;
+import core.sql.MySQLGetter;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
-import org.bukkit.event.Listener;
+import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.UUID;
 
 
-public final class CoreMain extends JavaPlugin implements Listener {
+public final class CoreMain extends JavaPlugin {
 
+    public MySQL SQL;
+    public MySQLGetter mySQLGetter;
     public static HashMap<UUID, PermissionAttachment> permissionAttachmentHashMap = new HashMap<>();
     public static boolean showAdvancements = true;
     private static String serverName = "loading";
@@ -37,6 +42,25 @@ public final class CoreMain extends JavaPlugin implements Listener {
     }
 
     public void onEnable() {
+        this.SQL = new MySQL();
+        this.mySQLGetter = new MySQLGetter(this);
+
+        try {
+            SQL.connect();
+        } catch (ClassNotFoundException | SQLException e) {
+           Bukkit.getLogger().info("Database is not connected");
+        }
+
+        if(SQL.isConnected()){
+            mySQLGetter.createTable();
+            for(Player player : Bukkit.getOnlinePlayers()){
+                mySQLGetter.createPlayer(player);
+                if(mySQLGetter.getPermissions(player.getUniqueId()) == 0){
+                    mySQLGetter.setPermissions(player.getUniqueId(), 0);
+                }
+            }
+        }
+
 
         CoreAccessPermissionFile accessPermissionFile = new CoreAccessPermissionFile(this);
         CoreBungeeCordClient bungeeCordClient = new CoreBungeeCordClient(this);
@@ -80,6 +104,13 @@ public final class CoreMain extends JavaPlugin implements Listener {
                 Utils.addServerInfo(serverName, tps);
             }
         }, 0L, 1L);
+    }
+
+    public void onDisable(){
+        try {
+            SQL.disconnect();
+        } catch (SQLException ignored) {
+        }
     }
 
 }
