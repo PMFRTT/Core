@@ -27,20 +27,21 @@ public class CorePermissionCommandListener implements CommandExecutor {
             player = (Player) sender;
         }
 
-        if (sender.getName().equals("CONSOLE")) {
+        if (sender.getName().equals("CONSOLE") && args.length == 3) {
             if (command.getLabel().equalsIgnoreCase("allow")) {
-                updatePermission(Bukkit.getPlayer(args[0]), args[1], '1');
-            } else if (command.getLabel().equalsIgnoreCase("deny")) {
-                updatePermission(Bukkit.getPlayer(args[0]), args[1], '0');
+                updatePermission(Bukkit.getPlayer(args[0]), args[1], '1', Boolean.getBoolean(args[2]));
+            } else if (command.getLabel().equalsIgnoreCase("revoke")) {
+                updatePermission(Bukkit.getPlayer(args[0]), args[1], '0', Boolean.getBoolean(args[2]));
             }
         } else {
-            player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu verfügst nicht über die Rechte, diesen Command auszuführen!"));
+            assert player != null;
+            player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu verfügst nicht über die Rechte, diesen Command auszuführen oder du hast einen Command eingegeben der nicht existiert!"));
             return false;
         }
         return false;
     }
 
-    private void updatePermission(Player player, String string, char value) {
+    private void updatePermission(Player player, String string, char value, boolean discrete) {
 
         Permission permission = null;
 
@@ -57,18 +58,20 @@ public class CorePermissionCommandListener implements CommandExecutor {
 
         if (permission != null) {
             if (permission != Permission.ALL) {
-                if (value == '1') {
-                    CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("&2Rechte Erhalten"), Utils.colorize("Du hast das Recht &a" + permission.toString() + " &ferhalten"));
-                }else{
-                    CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("&4Rechte Entzogen"), Utils.colorize("Du hast das Recht &c" + permission.toString() + " &fverloren"));
+                if (!discrete) {
+                    if (value == '1') {
+                        CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("&2Rechte Erhalten"), Utils.colorize("Du hast das Recht &a" + permission.toString() + " &ferhalten"));
+                    } else {
+                        CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("&4Rechte Entzogen"), Utils.colorize("Du hast das Recht &c" + permission.toString() + " &fverloren"));
+                    }
                 }
                 int index = Permission.permissionIndexMap.get(permission);
                 permissionChanger = new StringBuilder((PermissionConverter.convertIntToBinary(coreMain.mySQLPermissions.getPermissions(player.getUniqueId()))));
                 permissionChanger.setCharAt(index, value);
                 coreMain.mySQLPermissions.setPermissions(player.getUniqueId(), PermissionConverter.convertBinaryToInt(permissionChanger.toString()));
-            }else{
-                for(Permission permission1 : Permission.permissionIndexMap.keySet()){
-                    updatePermission(player, permission1.name(), value);
+            } else {
+                for (Permission permission1 : Permission.permissionIndexMap.keySet()) {
+                    updatePermission(player, permission1.name(), value, true);
                 }
             }
         }

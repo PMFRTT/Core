@@ -9,45 +9,42 @@ import java.io.File;
 
 public class CoreResetServer {
 
-    private static CoreMain corePlugin;
-    CoreBungeeCordClient bungeeCordClient;
+    private static CoreMain main;
 
-    public CoreResetServer(CoreMain corePlugin, CoreBungeeCordClient bungeeCordClient) {
-        CoreResetServer.corePlugin = corePlugin;
-        this.bungeeCordClient = bungeeCordClient;
+    public CoreResetServer(CoreMain main) {
+        CoreResetServer.main = main;
     }
 
     public static void resetServer(String serverName, Boolean resetPositions) {
 
         File locations = null;
-
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            CoreBungeeCordClient.moveToServer(p, "Lobby");
-            CoreSendStringPacket.sendPacketToTitle(p, Utils.colorize("Fallback Server"), Utils.colorize("Bitte warte, während der &b" + serverName + "-Server &fneustartet"));
-        }
+        closePlayerConnection(serverName);
 
         try {
-            locations = new File(corePlugin.getDataFolder().getParentFile().getAbsolutePath() + "/Position", "locations.txt");
+            locations = new File(main.getDataFolder().getParentFile().getAbsolutePath() + "/Position", "locations.txt");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if (resetPositions) {
-            if (locations != null) {
-                if (locations.exists()) {
-                    locations.delete();
-                }
-            }
-
-
-            Bukkit.getScheduler().scheduleSyncDelayedTask(corePlugin, new Runnable() {
-                @Override
-                public void run() {
-                    Bukkit.spigot().restart();
-                }
-            }, 40L);
+        if (resetPositions && locations != null && locations.exists()) {
+            locations.delete();
         }
 
-
+        Bukkit.getScheduler().scheduleSyncDelayedTask(main, new Runnable() {
+            @Override
+            public void run() {
+                Bukkit.spigot().restart();
+            }
+        }, 40L);
     }
+
+    private static void closePlayerConnection(String serverName) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            CoreBungeeCordClient.moveToServer(player, "Lobby");
+            CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("Fallback Server"), Utils.colorize("Bitte warte, während der &b" + serverName + "-Server &fneustartet"));
+        }
+    }
+
+
 }
+
