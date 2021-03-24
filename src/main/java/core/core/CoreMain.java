@@ -9,6 +9,7 @@ import core.permissions.PermissionConverter;
 import core.sql.MySQL;
 import core.sql.MySQLBungee;
 import core.sql.MySQLPermissions;
+import core.sql.SQLConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.entity.Player;
@@ -24,8 +25,10 @@ import java.util.UUID;
 public final class CoreMain extends JavaPlugin {
 
     public MySQL SQL;
+
     public MySQLPermissions mySQLPermissions;
     public MySQLBungee mySQLBungee;
+    public SQLConfig sqlConfig;
 
     public PermissionConverter permissionConverter;
     public static HashMap<UUID, PermissionAttachment> permissionAttachmentHashMap = new HashMap<>();
@@ -45,9 +48,11 @@ public final class CoreMain extends JavaPlugin {
     }
 
     public void onEnable() {
+
         this.SQL = new MySQL();
         this.mySQLPermissions = new MySQLPermissions(this);
         this.mySQLBungee = new MySQLBungee(this);
+        this.sqlConfig = new SQLConfig(this);
         this.permissionConverter = new PermissionConverter(this);
 
         try {
@@ -59,6 +64,7 @@ public final class CoreMain extends JavaPlugin {
         if (SQL.isConnected()) {
             mySQLPermissions.createTable();
             mySQLBungee.createTable();
+            sqlConfig.createTable();
             for (Player player : Bukkit.getOnlinePlayers()) {
                 mySQLPermissions.createPlayer(player);
                 if (mySQLPermissions.getPermissions(player.getUniqueId()) == 0) {
@@ -72,11 +78,10 @@ public final class CoreMain extends JavaPlugin {
 
         CoreBungeeCordClient bungeeCordClient = new CoreBungeeCordClient(this);
         CoreEventHandler coreEventHandler = new CoreEventHandler(this);
-        CoreResetServer coreResetServer = new CoreResetServer(this, bungeeCordClient);
+        CoreResetServer coreResetServer = new CoreResetServer(this);
         CoreDebug coreDebug = new CoreDebug(this);
         Utils utils = new Utils(this);
 
-        coreEventHandler.initialize();
         Utils.changeGamerule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
 
         CoreCommandListener coreCommandExecutor = new CoreCommandListener(this, bungeeCordClient);

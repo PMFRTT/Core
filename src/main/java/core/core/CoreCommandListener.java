@@ -220,7 +220,7 @@ public class CoreCommandListener implements CommandExecutor {
                 player.sendMessage(Utils.getServerPrefix() + Utils.colorize("Es ist gerade &2" + Utils.formatIngameTime(world.getTime()) + "&f Uhr!"));
             }
         } else if (command.getLabel().equalsIgnoreCase("core")) {
-            player.sendMessage(Utils.getPrefix("Core") + Utils.colorize("Du Verwendest &2CorePlugin (" + corePlugin.getDescription().getVersion() + ") &fDie neueste Version ist &2v16.5.30&f!"));
+            player.sendMessage(Utils.getPrefix("Core") + Utils.colorize("Du Verwendest &2CorePlugin (" + corePlugin.getDescription().getVersion() + ") &fDie neueste Version ist &2" + corePlugin.sqlConfig.getConfigbyName("version")));
         } else if (command.getLabel().equalsIgnoreCase("hub") || command.getLabel().equalsIgnoreCase("lobby") || command.getLabel().equalsIgnoreCase("l")) {
             assert player != null;
 

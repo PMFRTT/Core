@@ -20,9 +20,10 @@ public class CoreEventHandler implements Listener {
 
     public CoreEventHandler(CoreMain corePlugin){
         this.corePlugin = corePlugin;
+        init();
     }
 
-    public void initialize(){
+    public void init(){
         Bukkit.getPluginManager().registerEvents(this, corePlugin);
     }
 
@@ -43,12 +44,9 @@ public class CoreEventHandler implements Listener {
         String s = e.getMessage();
         Player p = e.getPlayer();
         Set<Player> r = e.getRecipients();
-
         for (Player player : r) {
             player.sendMessage(Utils.getChatPrefix(p) + Utils.colorize(s));
         }
-
-
     }
 
     @EventHandler
