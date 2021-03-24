@@ -6,7 +6,6 @@ import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.*;
@@ -213,14 +212,6 @@ public class Utils {
         for (Player player : Bukkit.getOnlinePlayers()) {
             player.playSound(player.getLocation(), sound, volume, pitch);
         }
-    }
-
-    public static List<UUID> getPermitted() {
-        List<UUID> uuids = new ArrayList<UUID>();
-        for (Map.Entry<UUID, PermissionAttachment> entry : CoreMain.permissionAttachmentHashMap.entrySet()) {
-            uuids.add(entry.getKey());
-        }
-        return uuids;
     }
 
     public static void createHealthDisplay(boolean enabled) {

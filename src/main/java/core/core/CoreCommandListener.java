@@ -297,11 +297,9 @@ public class CoreCommandListener implements CommandExecutor {
             if (args.length == 1) {
                 if (sender.isOp()) {
                     if (args[0].equalsIgnoreCase("show")) {
-                        CoreMain.showAdvancements = true;
                         sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("&aDie Advancements werden jetzt angezeigt!"));
                         return true;
                     } else if (args[0].equalsIgnoreCase("hide")) {
-                        CoreMain.showAdvancements = false;
                         sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDie Advancements sind jetzt versteckt!"));
                         return true;
                     } else {

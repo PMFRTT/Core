@@ -27,15 +27,15 @@ public class CorePermissionCommandListener implements CommandExecutor {
             player = (Player) sender;
         }
 
-        if (sender.getName().equals("CONSOLE")) {
+        if (sender.getName().equals("CONSOLE") && args.length == 3) {
             if (command.getLabel().equalsIgnoreCase("allow")) {
                 updatePermission(Bukkit.getPlayer(args[0]), args[1], '1', Boolean.getBoolean(args[2]));
-            } else if (command.getLabel().equalsIgnoreCase("deny")) {
-                updatePermission(Bukkit.getPlayer(args[0]), args[1], '0',  Boolean.getBoolean(args[2]));
+            } else if (command.getLabel().equalsIgnoreCase("revoke")) {
+                updatePermission(Bukkit.getPlayer(args[0]), args[1], '0', Boolean.getBoolean(args[2]));
             }
         } else {
             assert player != null;
-            player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu verfügst nicht über die Rechte, diesen Command auszuführen!"));
+            player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu verfügst nicht über die Rechte, diesen Command auszuführen oder du hast einen Command eingegeben der nicht existiert!"));
             return false;
         }
         return false;

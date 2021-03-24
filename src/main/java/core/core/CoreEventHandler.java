@@ -3,6 +3,8 @@ package core.core;
 import core.Utils;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
+import org.bukkit.World;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -51,7 +53,9 @@ public class CoreEventHandler implements Listener {
 
     @EventHandler
     public void onAdvancementGet(PlayerAdvancementDoneEvent e) {
-        if (CoreMain.showAdvancements) {
+        World world = Bukkit.getWorld("world");
+        assert world != null;
+        if (world.getGameRuleValue(GameRule.ANNOUNCE_ADVANCEMENTS)) {
             Advancement a = e.getAdvancement();
             Player p = e.getPlayer();
 
