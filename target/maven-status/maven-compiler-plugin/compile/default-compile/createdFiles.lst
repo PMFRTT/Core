@@ -20,6 +20,7 @@ core\timer\Timer.class
 core\settings\SubSettings.class
 core\core\CoreEventHandler.class
 core\Utils.class
+core\ranks\Rank.class
 core\bungee\CoreBungeeCordClient.class
 core\commands\DifficultyCommandListener.class
 core\scoreboard\Scoreboard.class
@@ -37,6 +38,7 @@ core\commands\HealCommandListener.class
 core\commands\InvseeCommandListener.class
 core\commands\GameModeCommandListener.class
 core\Utils$1.class
+core\commands\SQLCommandListener.class
 core\settings\Setting\SettingsType.class
 core\settings\SettingsInventory.class
 core\permissions\CorePermissionCommandListener.class

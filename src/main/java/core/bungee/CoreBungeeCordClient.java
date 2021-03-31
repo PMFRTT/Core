@@ -27,8 +27,7 @@ public class CoreBungeeCordClient implements PluginMessageListener {
     }
 
     public static void moveToServer(Player player, String serverName) {
-        corePlugin.mySQLBungee.getServer(serverName.toUpperCase());
-        if (isOnline(corePlugin.mySQLBungee.getServer(serverName.toUpperCase()))) {
+        if (isOnline(Integer.parseInt(CoreMain.mySQLBungee.getServer(serverName.toUpperCase())))) {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("Connect");
             out.writeUTF(serverName);
@@ -42,18 +41,15 @@ public class CoreBungeeCordClient implements PluginMessageListener {
         }
     }
 
-    public static boolean isOnline(String string) {
+    public static boolean isOnline(int port) {
         try {
-            int port = Integer.parseInt(string);
             Socket s = new Socket();
             s.connect(new InetSocketAddress(ADDRESS, port), 10);
             s.close();
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
             return false;
         }
-
     }
 
     public static void getPlayerAmount(String serverName, Player player) {
@@ -75,8 +71,7 @@ public class CoreBungeeCordClient implements PluginMessageListener {
                     playerCount = in.readInt();
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
         }
     }
 }

@@ -1,5 +1,5 @@
 name: Core
-version: 16.5.30
+version: 16.5.31
 main: core.core.CoreMain
 api-version: 1.13
 load: STARTUP
@@ -38,7 +38,7 @@ commands :
   reload:
     aliases: [r]
   reboot:
-  #register:
+  sql:
 permissions:
   core.*:
     children:

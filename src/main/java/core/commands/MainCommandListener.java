@@ -20,6 +20,7 @@ public class MainCommandListener {
     private DifficultyCommandListener difficultyCommandListener;
     private VersionCommandListener versionCommandListener;
     private CorePermissionCommandListener corePermissionCommandListener;
+    private SQLCommandListener sqlCommandListener;
 
     public MainCommandListener(CoreMain main) {
         this.main = main;
@@ -39,6 +40,7 @@ public class MainCommandListener {
         difficultyCommandListener = new DifficultyCommandListener();
         versionCommandListener = new VersionCommandListener(this.main);
         corePermissionCommandListener = new CorePermissionCommandListener(this.main);
+        sqlCommandListener = new SQLCommandListener();
 
     }
 
@@ -58,6 +60,7 @@ public class MainCommandListener {
         Objects.requireNonNull(this.main.getCommand("ping")).setExecutor(pingCommandListener);
         Objects.requireNonNull(this.main.getCommand("invsee")).setExecutor(invseeCommandListener);
         Objects.requireNonNull(this.main.getCommand("teleport")).setExecutor(teleportCommandListener);
+        Objects.requireNonNull(this.main.getCommand("sql")).setExecutor(sqlCommandListener);
     }
 
 }

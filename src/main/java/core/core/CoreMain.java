@@ -20,11 +20,11 @@ import java.sql.SQLException;
 
 public final class CoreMain extends JavaPlugin {
 
-    public MySQL SQL;
+    public static MySQL SQL;
 
-    public MySQLPermissions mySQLPermissions;
-    public MySQLBungee mySQLBungee;
-    public SQLConfig sqlConfig;
+    public static MySQLPermissions mySQLPermissions;
+    public static MySQLBungee mySQLBungee;
+    public static SQLConfig sqlConfig;
 
     private TPS ticker;
 
@@ -46,10 +46,10 @@ public final class CoreMain extends JavaPlugin {
 
         this.ticker = new TPS(this);
 
-        this.SQL = new MySQL();
-        this.mySQLPermissions = new MySQLPermissions(this);
-        this.mySQLBungee = new MySQLBungee(this);
-        this.sqlConfig = new SQLConfig(this);
+        SQL = new MySQL();
+        mySQLPermissions = new MySQLPermissions(this);
+        mySQLBungee = new MySQLBungee(this);
+        sqlConfig = new SQLConfig(this);
         this.permissionConverter = new PermissionConverter(this);
 
         try {

@@ -1,5 +1,6 @@
 C:\Code\Java\Bukkit\Core\src\main\java\core\settings\Setting\SettingSwitch.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\timer\TimerType.java
+C:\Code\Java\Bukkit\Core\src\main\java\core\ranks\Rank.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\timer\Timer.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\commands\TimeCommandListener.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\Scoreboard.java
@@ -16,6 +17,7 @@ C:\Code\Java\Bukkit\Core\src\main\java\core\settings\SettingsInventory.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\sql\SQLConfig.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\commands\DifficultyCommandListener.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\permissions\Permission.java
+C:\Code\Java\Bukkit\Core\src\main\java\core\commands\SQLCommandListener.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\Score.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\commands\HubCommandListener.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\sql\MySQLPermissions.java

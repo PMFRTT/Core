@@ -31,6 +31,7 @@ public class CoreEventHandler implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
+        CoreMain.mySQLPermissions.createPlayer(e.getPlayer());
         e.setJoinMessage(Utils.getJoinPrefix("Server", e.getPlayer()));
         Utils.addServerInfo(CoreMain.getPlugin().getName(), 0);
     }
