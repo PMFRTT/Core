@@ -19,7 +19,7 @@ public class MySQLRanks {
     public void createTable() {
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = CoreMain.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS PERMISSIONS " + "(NAME VARCHAR(100), UUID VARCHAR(100), PERMISSIONCODE INT(16), PRIMARY KEY (NAME))");
+            preparedStatement = CoreMain.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS RANKS " + "(NAME VARCHAR(100), UUID VARCHAR(100), RANK INT(16), PRIMARY KEY (NAME))");
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -30,15 +30,16 @@ public class MySQLRanks {
         try {
             String name = player.getName();
             UUID uuid = player.getUniqueId();
-            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM PERMISSIONS WHERE UUID=?");
+            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM RANKS WHERE UUID=?");
             preparedStatement.setString(1, uuid.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             if (!exists(uuid)) {
-                PreparedStatement preparedStatement1 = CoreMain.SQL.getConnection().prepareStatement("INSERT IGNORE INTO PERMISSIONS (NAME,UUID) VALUES (?,?)");
+                PreparedStatement preparedStatement1 = CoreMain.SQL.getConnection().prepareStatement("INSERT IGNORE INTO RANKS (NAME,UUID) VALUES (?,?)");
                 preparedStatement1.setString(1, name);
                 preparedStatement1.setString(2, uuid.toString());
                 preparedStatement1.executeUpdate();
+                setRanks(uuid, 1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,7 +48,7 @@ public class MySQLRanks {
 
     public boolean exists(UUID uuid) {
         try {
-            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM PERMISSIONS WHERE UUID=?");
+            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM RANKS WHERE UUID=?");
             preparedStatement.setString(1, uuid.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet.next();
@@ -57,10 +58,10 @@ public class MySQLRanks {
         return false;
     }
 
-    public void setPermissions(UUID uuid, int permissionCode) {
+    public void setRanks(UUID uuid, int rank) {
         try {
-            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("UPDATE PERMISSIONS SET PERMISSIONCODE=? WHERE UUID=?");
-            preparedStatement.setInt(1, permissionCode);
+            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("UPDATE RANKS SET RANK=? WHERE UUID=?");
+            preparedStatement.setInt(1, rank);
             preparedStatement.setString(2, uuid.toString());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -68,14 +69,14 @@ public class MySQLRanks {
         }
     }
 
-    public int getPermissions(UUID uuid) {
+    public int getRank(UUID uuid) {
         int permissionCode = 0;
         try {
-            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT PERMISSIONCODE FROM PERMISSIONS WHERE UUID=?");
+            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT RANK FROM RANKS WHERE UUID=?");
             preparedStatement.setString(1, uuid.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                permissionCode = resultSet.getInt("PERMISSIONCODE");
+                permissionCode = resultSet.getInt("RANK");
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -6,6 +6,7 @@ core\commands\TeleportCommandListener.class
 core\scoreboard\Scoreboard$1.class
 core\scoreboard\ScoreboardDisplay.class
 core\settings\SettingsInventory$1.class
+core\ranks\Rank$1.class
 core\scoreboard\Score.class
 core\sql\MySQLPermissions.class
 core\sql\SQLConnector.class
@@ -47,6 +48,7 @@ core\sql\SQLConnector$1.class
 core\timer\Timer$1.class
 core\permissions\Permission$1.class
 core\core\CoreResetServer$1.class
+core\core\CoreEventHandler$1.class
 core\settings\Settings.class
 core\commands\VersionCommandListener.class
 core\timer\TimerType.class
