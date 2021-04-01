@@ -11,6 +11,7 @@ C:\Code\Java\Bukkit\Core\src\main\java\core\commands\TeleportCommandListener.jav
 C:\Code\Java\Bukkit\Core\src\main\java\core\commands\VersionCommandListener.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreSendStringPacket.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\permissions\CorePermissionCommandListener.java
+C:\Code\Java\Bukkit\Core\src\main\java\core\settings\Setting\SettingClick.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\TPS.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\ScoreboardType.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\settings\SettingsInventory.java

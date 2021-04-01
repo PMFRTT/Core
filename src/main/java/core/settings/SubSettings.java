@@ -10,6 +10,6 @@ public class SubSettings extends Settings {
 
     public SubSettings(String name, Plugin plugin, PluginSettings masterSettings) {
         super(name, plugin, masterSettings);
-        this.addSetting(Utils.colorize("&cZurück"), new ArrayList<String>(), Material.BARRIER, false);
+        this.addSetting(Utils.colorize("&cZurück"), new ArrayList<String>(), Material.BARRIER);
     }
 }

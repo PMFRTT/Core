@@ -18,6 +18,7 @@ core\settings\Setting\SettingCycle.class
 core\core\CoreResetServer.class
 core\settings\Setting\SettingSwitch.class
 core\timer\Timer.class
+core\settings\Setting\SettingClick.class
 core\settings\SubSettings.class
 core\core\CoreEventHandler.class
 core\Utils.class
