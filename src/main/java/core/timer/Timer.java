@@ -24,12 +24,26 @@ public class Timer {
     private final Plugin plugin;
     private BukkitScheduler scheduler;
 
+    private Player player;
+    private String timerReady;
+
     public Timer(Plugin plugin, TimerType timerType, String runningString, String pausedString, boolean hidden) {
         this.timerType = timerType;
         this.plugin = plugin;
         this.runningString = runningString;
         this.pausedString = pausedString;
         this.hidden = hidden;
+        init();
+    }
+
+    public Timer(Plugin plugin, TimerType timerType, String runningString, String pausedString, boolean hidden, String timerReady, Player player) {
+        this.timerType = timerType;
+        this.plugin = plugin;
+        this.runningString = runningString;
+        this.pausedString = pausedString;
+        this.hidden = hidden;
+        this.player = player;
+        this.timerReady = timerReady;
         init();
     }
 
@@ -61,6 +75,9 @@ public class Timer {
                             seconds--;
                         }
                         if (ticks == 0) {
+                            if(player != null){
+                                CoreSendStringPacket.sendPacketToTitle(player, "", timerReady);
+                            }
                             pause();
                         }
                     }

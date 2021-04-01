@@ -38,7 +38,7 @@ commands :
   reload:
     aliases: [r]
   reboot:
-  #register:
+  sql:
 permissions:
   core.*:
     children:

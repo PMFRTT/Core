@@ -1,10 +1,7 @@
 package core.settings;
 
 import core.Utils;
-import core.settings.Setting.Setting;
-import core.settings.Setting.SettingCycle;
-import core.settings.Setting.SettingSwitch;
-import core.settings.Setting.SettingsType;
+import core.settings.Setting.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -75,18 +72,21 @@ public class SettingsInventory implements Listener {
                 itemMeta.setDisplayName(setting.getName());
                 itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                 List<String> temp = new ArrayList<String>(setting.getDescription());
-                if (setting.getType().equals(SettingsType.SWITCH)) {
+                if (setting instanceof SettingSwitch) {
                     SettingSwitch settingSwitch = (SettingSwitch) setting;
-                    temp.add(Utils.colorize("&7Aktueller Wert: &6" + settingSwitch.getSettingValue()));
                     if (settingSwitch.getSettingValue()) {
+                        temp.add(Utils.colorize("&8Aktueller Wert: &a" + settingSwitch.getSettingValue()));
                         itemMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
                     } else {
+                        temp.add(Utils.colorize("&8Aktueller Wert: &c" + settingSwitch.getSettingValue()));
                         itemMeta.removeEnchant(Enchantment.PROTECTION_ENVIRONMENTAL);
                     }
-                } else {
+                } else if (setting instanceof SettingCycle) {
                     SettingCycle settingCycle = (SettingCycle) setting;
                     itemMeta.setDisplayName(setting.getName());
                     temp.add(Utils.colorize("&8Aktueller Wert: &6" + settingCycle.getValueAsString()));
+                } else if (setting instanceof SettingClick) {
+
                 }
                 itemMeta.setLore(temp);
                 itemStack.setItemMeta(itemMeta);
@@ -111,14 +111,15 @@ public class SettingsInventory implements Listener {
         if (Objects.equals(e.getClickedInventory(), this.inventory)) {
             e.setCancelled(true);
             if (this.usableSlots.contains(e.getSlot())) {
-                if(Objects.requireNonNull(e.getCurrentItem()).getType().equals(Material.BARRIER)){
+                if (Objects.requireNonNull(e.getCurrentItem()).getType().equals(Material.BARRIER)) {
                     e.getWhoClicked().openInventory(settings.getMasterSettings().getSettingsInventory().getInventory());
-                }
-                else if (getSettingfromSlot(e.getSlot()).getType().equals(SettingsType.SWITCH)) {
+                } else if (getSettingfromSlot(e.getSlot()).getType().equals(SettingsType.SWITCH)) {
                     SettingSwitch settingSwitch = (SettingSwitch) getSettingfromSlot(e.getSlot());
                     if (e.getClick().isShiftClick()) {
                         if (settingSwitch.getSubSettings() != null) {
-                            e.getWhoClicked().openInventory(settingSwitch.getSubSettings().getSettingsInventory().getInventory());
+                            if (settingSwitch.getSettingValue()) {
+                                e.getWhoClicked().openInventory(settingSwitch.getSubSettings().getSettingsInventory().getInventory());
+                            }
                         }
                     } else if (e.getClick().isLeftClick()) {
                         settingSwitch.changeSettingValue();

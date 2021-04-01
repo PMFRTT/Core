@@ -1,8 +1,6 @@
 package core.settings;
 
-import core.settings.Setting.Setting;
-import core.settings.Setting.SettingCycle;
-import core.settings.Setting.SettingSwitch;
+import core.settings.Setting.*;
 import org.bukkit.Material;
 import org.bukkit.plugin.Plugin;
 
@@ -65,6 +63,13 @@ public abstract class Settings {
 
     public void addSetting(String name, ArrayList<String> description, Material material, boolean enabled, SubSettings subSettings) {
         SettingSwitch setting = new SettingSwitch(name, description, material, enabled, subSettings);
+        this.SettingsMap.put(name, setting);
+        SettingsList.add(setting);
+        SettingsListPerSetting.add(setting);
+    }
+
+    public void addSetting(String name, ArrayList<String> description, Material material){
+        SettingClick setting = new SettingClick(name, description, SettingsType.CLICK, material);
         this.SettingsMap.put(name, setting);
         SettingsList.add(setting);
         SettingsListPerSetting.add(setting);

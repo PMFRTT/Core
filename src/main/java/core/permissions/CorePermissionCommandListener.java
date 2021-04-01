@@ -53,6 +53,7 @@ public class CorePermissionCommandListener implements CommandExecutor {
             case "DIFFICULTY" -> permission = Permission.DIFFICULTY;
             case "INVENTORY" -> permission = Permission.INVENTORY;
             case "TELEPORT" -> permission = Permission.TELEPORT;
+            case "FLY" -> permission = Permission.FLY;
             case "ALL" -> permission = Permission.ALL;
         }
 
@@ -66,9 +67,9 @@ public class CorePermissionCommandListener implements CommandExecutor {
                     }
                 }
                 int index = Permission.permissionIndexMap.get(permission);
-                permissionChanger = new StringBuilder((PermissionConverter.convertIntToBinary(coreMain.mySQLPermissions.getPermissions(player.getUniqueId()))));
+                permissionChanger = new StringBuilder((PermissionConverter.convertIntToBinary(CoreMain.mySQLPermissions.getPermissions(player.getUniqueId()))));
                 permissionChanger.setCharAt(index, value);
-                coreMain.mySQLPermissions.setPermissions(player.getUniqueId(), PermissionConverter.convertBinaryToInt(permissionChanger.toString()));
+                CoreMain.mySQLPermissions.setPermissions(player.getUniqueId(), PermissionConverter.convertBinaryToInt(permissionChanger.toString()));
             } else {
                 for (Permission permission1 : Permission.permissionIndexMap.keySet()) {
                     updatePermission(player, permission1.name(), value, true);

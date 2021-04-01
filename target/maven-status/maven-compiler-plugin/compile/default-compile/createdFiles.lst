@@ -6,6 +6,7 @@ core\commands\TeleportCommandListener.class
 core\scoreboard\Scoreboard$1.class
 core\scoreboard\ScoreboardDisplay.class
 core\settings\SettingsInventory$1.class
+core\ranks\Rank$1.class
 core\scoreboard\Score.class
 core\sql\MySQLPermissions.class
 core\sql\SQLConnector.class
@@ -17,9 +18,11 @@ core\settings\Setting\SettingCycle.class
 core\core\CoreResetServer.class
 core\settings\Setting\SettingSwitch.class
 core\timer\Timer.class
+core\settings\Setting\SettingClick.class
 core\settings\SubSettings.class
 core\core\CoreEventHandler.class
 core\Utils.class
+core\ranks\Rank.class
 core\bungee\CoreBungeeCordClient.class
 core\commands\DifficultyCommandListener.class
 core\scoreboard\Scoreboard.class
@@ -37,6 +40,7 @@ core\commands\HealCommandListener.class
 core\commands\InvseeCommandListener.class
 core\commands\GameModeCommandListener.class
 core\Utils$1.class
+core\commands\SQLCommandListener.class
 core\settings\Setting\SettingsType.class
 core\settings\SettingsInventory.class
 core\permissions\CorePermissionCommandListener.class
@@ -45,6 +49,7 @@ core\sql\SQLConnector$1.class
 core\timer\Timer$1.class
 core\permissions\Permission$1.class
 core\core\CoreResetServer$1.class
+core\core\CoreEventHandler$1.class
 core\settings\Settings.class
 core\commands\VersionCommandListener.class
 core\timer\TimerType.class

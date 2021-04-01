@@ -6,10 +6,7 @@ import core.Utils;
 import core.bungee.CoreBungeeCordClient;
 import core.commands.MainCommandListener;
 import core.permissions.PermissionConverter;
-import core.sql.MySQL;
-import core.sql.MySQLBungee;
-import core.sql.MySQLPermissions;
-import core.sql.SQLConfig;
+import core.sql.*;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.entity.Player;
@@ -20,11 +17,12 @@ import java.sql.SQLException;
 
 public final class CoreMain extends JavaPlugin {
 
-    public MySQL SQL;
+    public static MySQL SQL;
 
-    public MySQLPermissions mySQLPermissions;
-    public MySQLBungee mySQLBungee;
-    public SQLConfig sqlConfig;
+    public static MySQLPermissions mySQLPermissions;
+    public static MySQLBungee mySQLBungee;
+    public static SQLConfig sqlConfig;
+    public static MySQLRanks mySQLRanks;
 
     private TPS ticker;
 
@@ -46,10 +44,12 @@ public final class CoreMain extends JavaPlugin {
 
         this.ticker = new TPS(this);
 
-        this.SQL = new MySQL();
-        this.mySQLPermissions = new MySQLPermissions(this);
-        this.mySQLBungee = new MySQLBungee(this);
-        this.sqlConfig = new SQLConfig(this);
+        SQL = new MySQL();
+        mySQLPermissions = new MySQLPermissions(this);
+        mySQLBungee = new MySQLBungee(this);
+        sqlConfig = new SQLConfig(this);
+        mySQLRanks = new MySQLRanks(this);
+
         this.permissionConverter = new PermissionConverter(this);
 
         try {
@@ -62,8 +62,10 @@ public final class CoreMain extends JavaPlugin {
             mySQLPermissions.createTable();
             mySQLBungee.createTable();
             sqlConfig.createTable();
+            mySQLRanks.createTable();
             for (Player player : Bukkit.getOnlinePlayers()) {
                 mySQLPermissions.createPlayer(player);
+                mySQLRanks.createPlayer(player);
                 if (mySQLPermissions.getPermissions(player.getUniqueId()) == 0) {
                     mySQLPermissions.setPermissions(player.getUniqueId(), 0);
                 }
