@@ -38,6 +38,18 @@ public class Utils {
         return colorize("[&4Server Thread&f]: ");
     }
 
+    public static String getDebugPrefix() {
+        return colorize("[&cDebug&f]: ");
+    }
+
+    public static void sendDebugMessage(String msg) {
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (CoreMain.mySQLRanks.getRank(player.getUniqueId()) > 2) {
+                player.sendMessage(Utils.getDebugPrefix() + Utils.colorize(msg));
+            }
+        }
+    }
+
     public static String getChatPrefix(Player player) {
         if (player.hasPermission("core.canShowTPS")) {
             return colorize("[&c" + player.getDisplayName() + "&f]: ");
@@ -82,17 +94,27 @@ public class Utils {
         return time;
     }
 
-    public static String formatTimerTime(int seconds) {
+    public static String formatTimerTimeText(int seconds) {
         String time;
-        DecimalFormat decimalFormat = new DecimalFormat("00");
+        DecimalFormat decimalFormat = new DecimalFormat("0");
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
         int remainingSeconds = seconds % 60;
+
         String secondsFormatted = decimalFormat.format(remainingSeconds);
         String minutesFormatted = decimalFormat.format(minutes);
         String hoursFormatted = decimalFormat.format(hours);
-        time = hoursFormatted + ":" + minutesFormatted + ":" + secondsFormatted;
-        return time;
+        StringBuilder stringBuilder = new StringBuilder();
+        if (hours != 0) {
+            stringBuilder.append(hoursFormatted).append(" Stunden und ");
+        }
+        if (minutes != 0) {
+            stringBuilder.append(minutesFormatted).append(" Minuten und ");
+        }
+        if (remainingSeconds != 0) {
+            stringBuilder.append(secondsFormatted).append(" Sekunden");
+        }
+        return stringBuilder.toString();
     }
 
     public static String formatTimerTimeTicks(int ticks) {
@@ -252,9 +274,9 @@ public class Utils {
             footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
             footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
             footerList.add(Utils.colorize("&7" + Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&7ms)"));
-            if(corePlugin.SQL.isConnected()) {
+            if (CoreMain.SQL.isConnected()) {
                 footerList.add(Utils.colorize("&7" + "Datenbank ist &averbunden"));
-            }else{
+            } else {
                 footerList.add(Utils.colorize("&7" + "Datenbank ist &cgetrennt"));
             }
 

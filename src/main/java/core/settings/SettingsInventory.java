@@ -74,10 +74,11 @@ public class SettingsInventory implements Listener {
                 List<String> temp = new ArrayList<String>(setting.getDescription());
                 if (setting instanceof SettingSwitch) {
                     SettingSwitch settingSwitch = (SettingSwitch) setting;
-                    temp.add(Utils.colorize("&7Aktueller Wert: &6" + settingSwitch.getSettingValue()));
                     if (settingSwitch.getSettingValue()) {
+                        temp.add(Utils.colorize("&8Aktueller Wert: &a" + settingSwitch.getSettingValue()));
                         itemMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
                     } else {
+                        temp.add(Utils.colorize("&8Aktueller Wert: &c" + settingSwitch.getSettingValue()));
                         itemMeta.removeEnchant(Enchantment.PROTECTION_ENVIRONMENTAL);
                     }
                 } else if (setting instanceof SettingCycle) {
@@ -116,7 +117,9 @@ public class SettingsInventory implements Listener {
                     SettingSwitch settingSwitch = (SettingSwitch) getSettingfromSlot(e.getSlot());
                     if (e.getClick().isShiftClick()) {
                         if (settingSwitch.getSubSettings() != null) {
-                            e.getWhoClicked().openInventory(settingSwitch.getSubSettings().getSettingsInventory().getInventory());
+                            if (settingSwitch.getSettingValue()) {
+                                e.getWhoClicked().openInventory(settingSwitch.getSubSettings().getSettingsInventory().getInventory());
+                            }
                         }
                     } else if (e.getClick().isLeftClick()) {
                         settingSwitch.changeSettingValue();
