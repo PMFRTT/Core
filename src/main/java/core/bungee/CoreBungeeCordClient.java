@@ -3,10 +3,8 @@ package core.bungee;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import core.Utils;
 import core.core.CoreMain;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
@@ -27,17 +25,12 @@ public class CoreBungeeCordClient implements PluginMessageListener {
     }
 
     public static void moveToServer(Player player, String serverName) {
-        if (isOnline(Integer.parseInt(CoreMain.mySQLBungee.getServer(serverName.toUpperCase())))) {
+        int port = CoreMain.mySQLBungee.getPort(serverName);
+        if (isOnline(port)) {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("Connect");
             out.writeUTF(serverName);
             player.sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
-        } else {
-            ByteArrayDataOutput out = ByteStreams.newDataOutput();
-            out.writeUTF("Fallback");
-            player.sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
-            player.teleport(new Location(Bukkit.getWorld("world"), -40, 21, 88));
-            player.sendMessage(Utils.getPrefix("BungeeCord") + Utils.colorize("&cServer ist Offline!"));
         }
     }
 
@@ -48,6 +41,7 @@ public class CoreBungeeCordClient implements PluginMessageListener {
             s.close();
             return true;
         } catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }
@@ -71,7 +65,8 @@ public class CoreBungeeCordClient implements PluginMessageListener {
                     playerCount = in.readInt();
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

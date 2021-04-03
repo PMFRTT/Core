@@ -13,6 +13,8 @@ import org.bukkit.scoreboard.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Utils {
     private static CoreMain corePlugin;
@@ -20,6 +22,8 @@ public class Utils {
     public Utils(CoreMain corePlugin) {
         Utils.corePlugin = corePlugin;
     }
+
+    private static final Pattern pattern = Pattern.compile("(?<!\\\\)(#[a-fA-F0-9]{6})");
 
     private static final String[] rainbowStrings = {
             "&c", "&6", "&e", "&a", "&9", "&d", "&5"
@@ -59,10 +63,12 @@ public class Utils {
     }
 
     public static String getJoinPrefix(String pluginName, Player player) {
+        sendDebugMessage("client connected to server");
         return getPrefix(pluginName) + colorize("&a" + player.getDisplayName() + " &fhat den Server betreten!");
     }
 
     public static String getDisconnectPrefix(String pluginName, Player player) {
+        sendDebugMessage("client disconnected from server");
         return getPrefix(pluginName) + colorize("&c" + player.getDisplayName() + " &fhat den Server verlassen!");
     }
 
@@ -70,8 +76,18 @@ public class Utils {
         return "[" + colorize("&2Server") + colorize("&f]: ");
     }
 
-    public static String colorize(final String message) {
+    public static String colorize(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
+    }
+
+    public static String colorizeHex(String message) {
+        Matcher matcher = pattern.matcher(message); // Creates a matcher with the given pattern & message
+        while (matcher.find()) { // Searches the message for something that matches the pattern
+            String color = message.substring(matcher.start(), matcher.end()); // Extracts the color from the message
+            message = message.replace(color, "" + net.md_5.bungee.api.ChatColor.of(color)); // Places the color in the message
+        }
+
+        return message;
     }
 
     public static void sendMessageToEveryone(String message) {
@@ -175,8 +191,7 @@ public class Utils {
     }
 
     public static void heal(Player player) {
-
-
+        sendDebugMessage(player.getDisplayName() + "has been healed");
         BukkitTask runnable = new BukkitRunnable() {
             @Override
             public void run() {
@@ -221,7 +236,7 @@ public class Utils {
     }
 
     public static void changeGamerule(GameRule<Boolean> gameRule, boolean value) {
-
+        sendDebugMessage(gameRule.getName() + " has been set to " + value);
         for (World world : Bukkit.getWorlds()) {
             if (world != null) {
                 world.setGameRule(gameRule, value);
@@ -238,7 +253,6 @@ public class Utils {
 
     public static void createHealthDisplay(boolean enabled) {
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-
         if (enabled) {
             Objective objective = scoreboard.registerNewObjective("Leben", Criterias.HEALTH, "Leben");
             objective.setRenderType(RenderType.HEARTS);
@@ -258,7 +272,7 @@ public class Utils {
     public static void addServerInfo(String serverName, double tps) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             Date date = new Date();
-            String dateFormatted = new SimpleDateFormat("HH:mm").format(date);
+            String dateFormatted = new SimpleDateFormat("HH:mm:ss").format(date);
 
             List<String> headerList = new ArrayList<String>();
             headerList.add(Utils.colorize("&0--&8---&7---&f[&eP&aM&bF&9R&dT&cT&f-Server-Network]&7---&8---&0--&f"));
@@ -270,16 +284,18 @@ public class Utils {
 
 
             List<String> footerList = new ArrayList<String>();
-            footerList.add("   ");
-            footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
-            footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
-            footerList.add(Utils.colorize("&7" + Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&7ms)"));
-            if (CoreMain.SQL.isConnected()) {
-                footerList.add(Utils.colorize("&7" + "Datenbank ist &averbunden"));
-            } else {
-                footerList.add(Utils.colorize("&7" + "Datenbank ist &cgetrennt"));
+            if (CoreMain.mySQLRanks.getRank(player.getUniqueId()) == 4) {
+                footerList.add("   ");
+                footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
+                footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
+                footerList.add(Utils.colorize("&8" + Bukkit.getIp() + ":" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&8ms)"));
+                footerList.add(Utils.colorize("&8Verwendeter Speicher: &e" + formatToMB(getUsedMemory()) + "&8/&e" + formatToMB(getTotalMemory())));
+                if (CoreMain.SQL.isConnected()) {
+                    footerList.add(Utils.colorize("&8" + "Datenbank ist &averbunden"));
+                } else {
+                    footerList.add(Utils.colorize("&8" + "Datenbank ist &cgetrennt"));
+                }
             }
-
             String header = StringUtils.join(headerList, "\n");
             String footer = StringUtils.join(footerList, "\n");
 
@@ -320,6 +336,22 @@ public class Utils {
 
     public static Player getPlayer(UUID uuid) {
         return Bukkit.getPlayer(uuid);
+    }
+
+    public static long getUsedMemory() {
+        return getTotalMemory() - getFreeMemory();
+    }
+
+    public static long getFreeMemory() {
+        return Runtime.getRuntime().freeMemory();
+    }
+
+    public static long getTotalMemory() {
+        return Runtime.getRuntime().totalMemory();
+    }
+
+    public static long formatToMB(long bytes) {
+        return bytes / 1048576;
     }
 
 }

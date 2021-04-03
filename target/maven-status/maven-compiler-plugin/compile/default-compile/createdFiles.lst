@@ -12,6 +12,7 @@ core\sql\MySQLPermissions.class
 core\sql\SQLConnector.class
 core\TPS$1.class
 core\core\CoreSendStringPacket.class
+core\bungee\Server.class
 core\settings\Setting\Setting.class
 core\commands\WeatherCommandListener.class
 core\settings\Setting\SettingCycle.class
@@ -35,6 +36,7 @@ core\sql\SQLConfig.class
 core\permissions\Permission.class
 core\TPS.class
 core\sql\MySQLBungee.class
+core\chat\Color.class
 core\core\CoreMain$1.class
 core\commands\HealCommandListener.class
 core\commands\InvseeCommandListener.class
