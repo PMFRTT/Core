@@ -20,6 +20,7 @@ core\core\CoreResetServer.class
 core\settings\Setting\SettingSwitch.class
 core\timer\Timer.class
 core\settings\Setting\SettingClick.class
+core\debug\DebugSender.class
 core\settings\SubSettings.class
 core\core\CoreEventHandler.class
 core\Utils.class
@@ -55,4 +56,6 @@ core\core\CoreEventHandler$1.class
 core\settings\Settings.class
 core\commands\VersionCommandListener.class
 core\timer\TimerType.class
+core\debug\DebugType.class
+core\debug\DebugType$1.class
 core\sql\MySQL.class

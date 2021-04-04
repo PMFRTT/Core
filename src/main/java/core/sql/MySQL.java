@@ -1,6 +1,7 @@
 package core.sql;
 
-import org.bukkit.Bukkit;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,7 +23,7 @@ public class MySQL {
             String username = "root";
             String password = "";
             connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false", username, password);
-            Bukkit.getLogger().info("Connection to database established");
+            DebugSender.sendDebug(DebugType.DATABASE, "database connected");
             return true;
         }
         return false;
@@ -30,9 +31,9 @@ public class MySQL {
 
     public void disconnect() throws SQLException {
         if (isConnected()) {
+            DebugSender.sendDebug(DebugType.DATABASE, "database disconnected");
             connection.close();
             connection = null;
-            Bukkit.getLogger().info("Connection to database closed");
         }
     }
 

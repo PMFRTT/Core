@@ -1,6 +1,8 @@
 package core.commands;
 
 import core.Utils;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import core.permissions.Permission;
 import core.permissions.PermissionConverter;
 import org.bukkit.Bukkit;
@@ -16,7 +18,7 @@ public class DifficultyCommandListener implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         Player player = null;
-        if(sender instanceof Player){
+        if (sender instanceof Player) {
             player = (Player) sender;
         }
 
@@ -28,23 +30,29 @@ public class DifficultyCommandListener implements CommandExecutor {
                     if (args[0].equalsIgnoreCase("peaceful")) {
                         world.setDifficulty(Difficulty.PEACEFUL);
                         sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Die Schwierigkeit ist jetzt&a PEACEFUL&f!"));
+                        DebugSender.sendDebug(DebugType.SERVER, "difficulty changed");
                         return true;
                     } else if (args[0].equalsIgnoreCase("easy")) {
                         world.setDifficulty(Difficulty.EASY);
                         sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Die Schwierigkeit ist jetzt&a EINFACH&f!"));
+                        DebugSender.sendDebug(DebugType.SERVER, "difficulty changed");
                         return true;
                     } else if (args[0].equalsIgnoreCase("normal")) {
                         world.setDifficulty(Difficulty.NORMAL);
                         sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Die Schwierigkeit ist jetzt&e NORMAL&f!"));
+                        DebugSender.sendDebug(DebugType.SERVER, "difficulty changed");
                         return true;
                     } else if (args[0].equalsIgnoreCase("hard")) {
                         world.setDifficulty(Difficulty.HARD);
                         sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Die Schwierigkeit ist jetzt&c SCHWER&f!"));
+                        DebugSender.sendDebug(DebugType.SERVER, "difficulty changed");
                         return true;
                     } else {
                         sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/difficulty <peaceful, easy, normal, hard>&f um die Schwierigkeit zu ändern!"));
                         return false;
                     }
+                } else {
+                    sender.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/difficulty <peaceful, easy, normal, hard>&f um die Schwierigkeit zu ändern!"));
                 }
             } else {
                 player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&cDu verfügst nicht über die Rechte, diesen Command auszuführen!"));

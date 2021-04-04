@@ -1,6 +1,9 @@
 package core.core;
 
 import core.Utils;
+import core.chat.Color;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import core.ranks.Rank;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
@@ -36,13 +39,15 @@ public class CoreEventHandler implements Listener {
         CoreMain.SQL.connect();
         CoreMain.mySQLPermissions.createPlayer(e.getPlayer());
         CoreMain.mySQLRanks.createPlayer(e.getPlayer());
-        e.setJoinMessage(Utils.getJoinPrefix("Server", e.getPlayer()));
         Utils.addServerInfo(CoreMain.getPlugin().getName(), 0);
+        e.setJoinMessage(Utils.getJoinPrefix("Server", e.getPlayer()));
+        DebugSender.sendDebug(DebugType.SERVER, "player joined");
     }
 
     @EventHandler
     private void onPlayerDisconnect(PlayerQuitEvent e) {
         e.setQuitMessage(Utils.getDisconnectPrefix("Server", e.getPlayer()));
+        DebugSender.sendDebug(DebugType.SERVER, "player left");
     }
 
     @EventHandler
@@ -50,14 +55,15 @@ public class CoreEventHandler implements Listener {
         Player p = e.getPlayer();
 
         switch(Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(p.getUniqueId()))){
-            case OWNER -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.GOLD + "OWNER" + ChatColor.DARK_GRAY + "] " + ChatColor.GOLD + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + Utils.colorizeHex(e.getMessage()));
-            case DEV -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.AQUA + "DEV" + ChatColor.DARK_GRAY + "] " + ChatColor.AQUA + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + ChatColor.WHITE + Utils.colorizeHex(e.getMessage()));
-            case ADMIN -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "ADMIN" + ChatColor.DARK_GRAY + "] " + ChatColor.DARK_RED + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + ChatColor.WHITE + Utils.colorizeHex(e.getMessage()));
-            case PLUS -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.GREEN + "GAMER" + ChatColor.DARK_GRAY + "] " + ChatColor.GREEN + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + ChatColor.WHITE + Utils.colorizeHex(e.getMessage()));
-            case NORMAL -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.YELLOW + "NOOB" + ChatColor.DARK_GRAY + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + ChatColor.WHITE + Utils.colorizeHex(e.getMessage()));
+            case OWNER -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.GOLD + "OWNER" + ChatColor.DARK_GRAY + "] " + ChatColor.GOLD + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + Color.colorizeHex(e.getMessage()));
+            case DEV -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.AQUA + "DEV" + ChatColor.DARK_GRAY + "] " + ChatColor.AQUA + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + ChatColor.WHITE + Color.colorizeHex(e.getMessage()));
+            case ADMIN -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "ADMIN" + ChatColor.DARK_GRAY + "] " + ChatColor.DARK_RED + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + ChatColor.WHITE + Color.colorizeHex(e.getMessage()));
+            case PLUS -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.GREEN + "GAMER" + ChatColor.DARK_GRAY + "] " + ChatColor.GREEN + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + ChatColor.WHITE + Color.colorizeHex(e.getMessage()));
+            case NORMAL -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.YELLOW + "NOOB" + ChatColor.DARK_GRAY + "] " + ChatColor.YELLOW + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + ChatColor.WHITE + Color.colorizeHex(e.getMessage()));
             case BANNED -> {
                 e.setCancelled(true);
                 e.getPlayer().sendMessage(Utils.colorize("&cDu wurdest vom Chat ausgeschlossen!"));
+                DebugSender.sendDebug(DebugType.CHAT, "banned player tried to chat");
             }
         }
 

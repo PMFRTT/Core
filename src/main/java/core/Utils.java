@@ -1,6 +1,8 @@
 package core;
 
 import core.core.CoreMain;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
@@ -13,17 +15,17 @@ import org.bukkit.scoreboard.*;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Utils {
+
+    private static boolean lessthan40 = false;
+    private static boolean lessthan20 = false;
+
     private static CoreMain corePlugin;
 
     public Utils(CoreMain corePlugin) {
         Utils.corePlugin = corePlugin;
     }
-
-    private static final Pattern pattern = Pattern.compile("(?<!\\\\)(#[a-fA-F0-9]{6})");
 
     private static final String[] rainbowStrings = {
             "&c", "&6", "&e", "&a", "&9", "&d", "&5"
@@ -42,17 +44,6 @@ public class Utils {
         return colorize("[&4Server Thread&f]: ");
     }
 
-    public static String getDebugPrefix() {
-        return colorize("[&cDebug&f]: ");
-    }
-
-    public static void sendDebugMessage(String msg) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (CoreMain.mySQLRanks.getRank(player.getUniqueId()) > 2) {
-                player.sendMessage(Utils.getDebugPrefix() + Utils.colorize(msg));
-            }
-        }
-    }
 
     public static String getChatPrefix(Player player) {
         if (player.hasPermission("core.canShowTPS")) {
@@ -63,12 +54,10 @@ public class Utils {
     }
 
     public static String getJoinPrefix(String pluginName, Player player) {
-        sendDebugMessage("client connected to server");
         return getPrefix(pluginName) + colorize("&a" + player.getDisplayName() + " &fhat den Server betreten!");
     }
 
     public static String getDisconnectPrefix(String pluginName, Player player) {
-        sendDebugMessage("client disconnected from server");
         return getPrefix(pluginName) + colorize("&c" + player.getDisplayName() + " &fhat den Server verlassen!");
     }
 
@@ -78,16 +67,6 @@ public class Utils {
 
     public static String colorize(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
-    }
-
-    public static String colorizeHex(String message) {
-        Matcher matcher = pattern.matcher(message); // Creates a matcher with the given pattern & message
-        while (matcher.find()) { // Searches the message for something that matches the pattern
-            String color = message.substring(matcher.start(), matcher.end()); // Extracts the color from the message
-            message = message.replace(color, "" + net.md_5.bungee.api.ChatColor.of(color)); // Places the color in the message
-        }
-
-        return message;
     }
 
     public static void sendMessageToEveryone(String message) {
@@ -191,7 +170,7 @@ public class Utils {
     }
 
     public static void heal(Player player) {
-        sendDebugMessage(player.getDisplayName() + "has been healed");
+        DebugSender.sendDebug(DebugType.PLAYER, "player " + player.getDisplayName() + " has been healed");
         BukkitTask runnable = new BukkitRunnable() {
             @Override
             public void run() {
@@ -236,7 +215,7 @@ public class Utils {
     }
 
     public static void changeGamerule(GameRule<Boolean> gameRule, boolean value) {
-        sendDebugMessage(gameRule.getName() + " has been set to " + value);
+        DebugSender.sendDebug(DebugType.SERVER, "gamerule " + gameRule.getName() + " has been set to " + value);
         for (World world : Bukkit.getWorlds()) {
             if (world != null) {
                 world.setGameRule(gameRule, value);
@@ -289,7 +268,7 @@ public class Utils {
                 footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
                 footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
                 footerList.add(Utils.colorize("&8" + Bukkit.getIp() + ":" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&8ms)"));
-                footerList.add(Utils.colorize("&8Verwendeter Speicher: &e" + formatToMB(getUsedMemory()) + "&8/&e" + formatToMB(getTotalMemory())));
+                footerList.add(Utils.colorize("&8Verwendeter Speicher: &e" + formatToMB(getUsedMemory()) + "MiB&8/&e" + formatToMB(getTotalMemory()) + "MiB " + getMemoryUsage()));
                 if (CoreMain.SQL.isConnected()) {
                     footerList.add(Utils.colorize("&8" + "Datenbank ist &averbunden"));
                 } else {
@@ -350,8 +329,29 @@ public class Utils {
         return Runtime.getRuntime().totalMemory();
     }
 
+    public static String getMemoryUsage() {
+        return  "(" + new DecimalFormat("#.000").format(((float) getUsedMemory() / (float) getTotalMemory()) * 100) + "%)";
+    }
+
     public static long formatToMB(long bytes) {
         return bytes / 1048576;
+    }
+
+    public static void checkMemory() {
+
+        if (((float) getFreeMemory() / (float) getTotalMemory()) < 0.2 && !lessthan40) {
+            DebugSender.sendDebug(DebugType.SERVER, "free memory below 20%");
+            lessthan40 = true;
+        } else if (((float) getFreeMemory() / (float) getTotalMemory()) < 0.1 && !lessthan20) {
+            DebugSender.sendDebug(DebugType.SERVER, "free memory below &c10%");
+            lessthan20 = true;
+        } else if (((float) getFreeMemory() / (float) getTotalMemory()) > 0.2 && lessthan20) {
+            lessthan20 = false;
+        } else if (((float) getFreeMemory() / (float) getTotalMemory()) > 0.3 && lessthan40) {
+            DebugSender.sendDebug(DebugType.SERVER, "memory freed");
+            lessthan40 = false;
+            lessthan20 = false;
+        }
     }
 
 }

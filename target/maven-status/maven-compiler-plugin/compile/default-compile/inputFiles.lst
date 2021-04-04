@@ -4,7 +4,9 @@ C:\Code\Java\Bukkit\Core\src\main\java\core\ranks\Rank.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\timer\Timer.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\bungee\Server.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\commands\TimeCommandListener.java
+C:\Code\Java\Bukkit\Core\src\main\java\core\debug\DebugType.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\Scoreboard.java
+C:\Code\Java\Bukkit\Core\src\main\java\core\debug\DebugSender.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\commands\HealCommandListener.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\settings\Setting\SettingsType.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\settings\Settings.java

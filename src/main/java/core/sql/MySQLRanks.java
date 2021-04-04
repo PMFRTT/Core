@@ -1,6 +1,8 @@
 package core.sql;
 
 import core.core.CoreMain;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import org.bukkit.entity.Player;
 
 import java.sql.PreparedStatement;
@@ -21,6 +23,7 @@ public class MySQLRanks {
         try {
             preparedStatement = CoreMain.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS RANKS " + "(NAME VARCHAR(100), UUID VARCHAR(100), RANK INT(16), PRIMARY KEY (NAME))");
             preparedStatement.executeUpdate();
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -41,6 +44,7 @@ public class MySQLRanks {
                 preparedStatement1.executeUpdate();
                 setRanks(uuid, 1);
             }
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -51,6 +55,7 @@ public class MySQLRanks {
             PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM RANKS WHERE UUID=?");
             preparedStatement.setString(1, uuid.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
             return resultSet.next();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,6 +69,7 @@ public class MySQLRanks {
             preparedStatement.setInt(1, rank);
             preparedStatement.setString(2, uuid.toString());
             preparedStatement.executeUpdate();
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
         } catch (SQLException e) {
             e.printStackTrace();
         }

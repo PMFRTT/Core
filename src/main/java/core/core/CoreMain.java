@@ -5,6 +5,8 @@ import core.TPS;
 import core.Utils;
 import core.bungee.CoreBungeeCordClient;
 import core.commands.MainCommandListener;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import core.permissions.PermissionConverter;
 import core.sql.*;
 import org.bukkit.Bukkit;
@@ -90,6 +92,8 @@ public final class CoreMain extends JavaPlugin {
                 Utils.addServerInfo(serverName, ticker.getTPS());
             }
         }, 0L, 1L);
+
+        DebugSender.sendDebug(DebugType.PLUGIN, "core loaded", "Core");
     }
 
     public void onDisable() {

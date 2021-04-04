@@ -1,6 +1,8 @@
 package core.sql;
 
 import core.core.CoreMain;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,8 +19,9 @@ public class SQLConfig {
     public void createTable() {
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = plugin.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS CONFIG " + "(NAME VARCHAR(100), VALUE VARCHAR(100), PRIMARY KEY (NAME))");
+            preparedStatement = CoreMain.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS CONFIG " + "(NAME VARCHAR(100), VALUE VARCHAR(100), PRIMARY KEY (NAME))");
             preparedStatement.executeUpdate();
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -26,16 +29,17 @@ public class SQLConfig {
 
     public void addServer(String name, String port) {
         try {
-            PreparedStatement preparedStatement = plugin.SQL.getConnection().prepareStatement("SELECT * FROM SERVER WHERE NAME=?");
+            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM SERVER WHERE NAME=?");
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             if (!exists(name)) {
-                PreparedStatement preparedStatement1 = plugin.SQL.getConnection().prepareStatement("INSERT IGNORE INTO SERVER (NAME,PORT) VALUES (?,?)");
+                PreparedStatement preparedStatement1 = CoreMain.SQL.getConnection().prepareStatement("INSERT IGNORE INTO SERVER (NAME,PORT) VALUES (?,?)");
                 preparedStatement1.setString(1, name);
                 preparedStatement1.setString(2, port);
                 preparedStatement1.executeUpdate();
             }
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,9 +47,10 @@ public class SQLConfig {
 
     public boolean exists(String string) {
         try {
-            PreparedStatement preparedStatement = plugin.SQL.getConnection().prepareStatement("SELECT * FROM SERVER WHERE NAME=?");
+            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM SERVER WHERE NAME=?");
             preparedStatement.setString(1, string);
             ResultSet resultSet = preparedStatement.executeQuery();
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
             return resultSet.next();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,12 +61,13 @@ public class SQLConfig {
     public String getConfigbyName(String name){
         String value = "";
         try {
-            PreparedStatement preparedStatement = plugin.SQL.getConnection().prepareStatement("SELECT VALUE FROM CONFIG WHERE NAME=?");
+            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT VALUE FROM CONFIG WHERE NAME=?");
             preparedStatement.setString(1, name);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
                 value = resultSet.getString("VALUE");
             }
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
         } catch (SQLException e) {
             e.printStackTrace();
         }

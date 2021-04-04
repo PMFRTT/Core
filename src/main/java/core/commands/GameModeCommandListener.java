@@ -1,6 +1,8 @@
 package core.commands;
 
 import core.Utils;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import core.permissions.Permission;
 import core.permissions.PermissionConverter;
 import org.bukkit.Bukkit;
@@ -27,6 +29,7 @@ public class GameModeCommandListener implements CommandExecutor {
                                 player = Bukkit.getPlayer(args[1]);
                                 if (player.getGameMode() != GameMode.CREATIVE) {
                                     player.setGameMode(GameMode.CREATIVE);
+                                    DebugSender.sendDebug(DebugType.PLAYER, "player gamemode changed");
                                     Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Gamemode von " + Utils.colorize("&2" + player.getDisplayName() + "&f")) + " wurde von " + Utils.colorize("&1" + sender.getName() + "&f") + " auf " + Utils.colorize("&bCreative") + Utils.colorize("&f geändert!"));
                                     return true;
                                 }
@@ -34,6 +37,7 @@ public class GameModeCommandListener implements CommandExecutor {
                         } else {
                             if (player.getGameMode() != GameMode.CREATIVE) {
                                 player.setGameMode(GameMode.CREATIVE);
+                                DebugSender.sendDebug(DebugType.PLAYER, "player gamemode changed");
                                 Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Gamemode von " + Utils.colorize("&2" + player.getDisplayName() + "&f")) + " wurde auf " + Utils.colorize("&bCreative") + Utils.colorize("&f geändert!"));
                                 return true;
                             } else {
@@ -48,6 +52,7 @@ public class GameModeCommandListener implements CommandExecutor {
                                 player = Bukkit.getPlayer(args[1]);
                                 if (player.getGameMode() != GameMode.SURVIVAL) {
                                     player.setGameMode(GameMode.SURVIVAL);
+                                    DebugSender.sendDebug(DebugType.PLAYER, "player gamemode changed");
                                     Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Gamemode von " + Utils.colorize("&2" + player.getDisplayName() + "&f")) + " wurde von " + Utils.colorize("&1" + sender.getName() + "&f") + " auf " + Utils.colorize("&bSurvival") + Utils.colorize("&f geändert!"));
                                     return true;
                                 }
@@ -57,6 +62,7 @@ public class GameModeCommandListener implements CommandExecutor {
 
                             if (player.getGameMode() != GameMode.SURVIVAL) {
                                 player.setGameMode(GameMode.SURVIVAL);
+                                DebugSender.sendDebug(DebugType.PLAYER, "player gamemode changed");
                                 Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Gamemode von " + Utils.colorize("&2" + player.getDisplayName() + "&f")) + " wurde auf " + Utils.colorize("&bSurvival") + Utils.colorize("&f geändert!"));
                                 return true;
                             } else {
@@ -71,6 +77,7 @@ public class GameModeCommandListener implements CommandExecutor {
                                 player = Bukkit.getPlayer(args[1]);
                                 if (player.getGameMode() != GameMode.SPECTATOR) {
                                     player.setGameMode(GameMode.SPECTATOR);
+                                    DebugSender.sendDebug(DebugType.PLAYER, "player gamemode changed");
                                     Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Gamemode von " + Utils.colorize("&2" + player.getDisplayName() + "&f")) + " wurde von " + Utils.colorize("&1" + sender.getName() + "&f") + " auf " + Utils.colorize("&bSpectator") + Utils.colorize("&f geändert!"));
                                     return true;
                                 }
@@ -78,6 +85,7 @@ public class GameModeCommandListener implements CommandExecutor {
                         } else {
                             if (player.getGameMode() != GameMode.SPECTATOR) {
                                 player.setGameMode(GameMode.SPECTATOR);
+                                DebugSender.sendDebug(DebugType.PLAYER, "player gamemode changed");
                                 Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Gamemode von " + Utils.colorize("&2" + player.getDisplayName() + "&f")) + " wurde auf " + Utils.colorize("&bSpectator") + Utils.colorize("&f geändert!"));
                                 return true;
                             } else {
@@ -92,6 +100,7 @@ public class GameModeCommandListener implements CommandExecutor {
                                 player = Bukkit.getPlayer(args[1]);
                                 if (player.getGameMode() != GameMode.ADVENTURE) {
                                     player.setGameMode(GameMode.ADVENTURE);
+                                    DebugSender.sendDebug(DebugType.PLAYER, "player gamemode changed");
                                     Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Gamemode von " + Utils.colorize("&2" + player.getDisplayName() + "&f")) + " wurde von " + Utils.colorize("&1" + sender.getName() + "&f") + " auf " + Utils.colorize("&bAdventure") + Utils.colorize("&f geändert!"));
                                     return true;
                                 }
@@ -100,6 +109,7 @@ public class GameModeCommandListener implements CommandExecutor {
                         } else {
                             if (player.getGameMode() != GameMode.ADVENTURE) {
                                 player.setGameMode(GameMode.ADVENTURE);
+                                DebugSender.sendDebug(DebugType.PLAYER, "player gamemode changed");
                                 Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Gamemode von " + Utils.colorize("&2" + player.getDisplayName() + "&f")) + " wurde auf " + Utils.colorize("&bAdventure") + Utils.colorize("&f geändert!"));
                                 return true;
                             } else {
