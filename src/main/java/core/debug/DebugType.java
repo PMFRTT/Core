@@ -4,7 +4,7 @@ package core.debug;
 import java.util.HashMap;
 
 public enum DebugType {
-    PLAYER, SERVER, ERROR, PLUGIN, DATABASE, CHAT, BUNGEE;
+    PLAYER, SERVER, ERROR, PLUGIN, DATABASE, CHAT, BUNGEE, GUI;
 
     private static final HashMap<DebugType, String> typeColors = new HashMap<DebugType, String>() {{
         put(PLAYER, "#b5fc03");
@@ -14,6 +14,7 @@ public enum DebugType {
         put(DATABASE, "#00ffbb");
         put(CHAT, "#ff5e00");
         put(BUNGEE, "#d0ff00");
+        put(GUI, "#eb4034");
     }};
 
     public static String getDebugColor(DebugType type) {
