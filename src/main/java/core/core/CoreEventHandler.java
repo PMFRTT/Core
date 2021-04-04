@@ -14,6 +14,9 @@ import org.bukkit.advancement.Advancement;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -54,7 +57,7 @@ public class CoreEventHandler implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
 
-        switch(Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(p.getUniqueId()))){
+        switch (Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(p.getUniqueId()))) {
             case OWNER -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.GOLD + "OWNER" + ChatColor.DARK_GRAY + "] " + ChatColor.GOLD + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + Color.colorizeHex(e.getMessage()));
             case DEV -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.AQUA + "DEV" + ChatColor.DARK_GRAY + "] " + ChatColor.AQUA + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + ChatColor.WHITE + Color.colorizeHex(e.getMessage()));
             case ADMIN -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "ADMIN" + ChatColor.DARK_GRAY + "] " + ChatColor.DARK_RED + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + ChatColor.WHITE + Color.colorizeHex(e.getMessage()));
@@ -68,6 +71,27 @@ public class CoreEventHandler implements Listener {
         }
 
 
+    }
+
+    @EventHandler
+    public void onPlayerDamage(EntityDamageEvent e) {
+        if (e.getEntity() instanceof Player) {
+            DebugSender.sendDebug(DebugType.PLAYER, ((Player) e.getEntity()).getDisplayName() + " received damage");
+        }
+    }
+
+    @EventHandler
+    public void onPlayerDeath(EntityDeathEvent e){
+        if (e.getEntity() instanceof Player) {
+            DebugSender.sendDebug(DebugType.PLAYER, ((Player) e.getEntity()).getDisplayName() + " died");
+        }
+    }
+
+    @EventHandler
+    public void onPlayerHit(EntityDamageByEntityEvent e){
+        if(e.getDamager() instanceof Player){
+            DebugSender.sendDebug(DebugType.PLAYER, ((Player) e.getDamager()).getDisplayName() + " damaged " + e.getEntity().getType().name());
+        }
     }
 
     @EventHandler

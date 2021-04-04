@@ -27,24 +27,6 @@ public class SQLConfig {
         }
     }
 
-    public void addServer(String name, String port) {
-        try {
-            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM SERVER WHERE NAME=?");
-            preparedStatement.setString(1, name);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            if (!exists(name)) {
-                PreparedStatement preparedStatement1 = CoreMain.SQL.getConnection().prepareStatement("INSERT IGNORE INTO SERVER (NAME,PORT) VALUES (?,?)");
-                preparedStatement1.setString(1, name);
-                preparedStatement1.setString(2, port);
-                preparedStatement1.executeUpdate();
-            }
-            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     public boolean exists(String string) {
         try {
             PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM SERVER WHERE NAME=?");
@@ -67,7 +49,6 @@ public class SQLConfig {
             if(resultSet.next()){
                 value = resultSet.getString("VALUE");
             }
-            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
         } catch (SQLException e) {
             e.printStackTrace();
         }

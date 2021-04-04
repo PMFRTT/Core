@@ -76,6 +76,7 @@ public class MySQLPermissions {
 
     public int getPermissions(UUID uuid) {
         int permissionCode = 0;
+        DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
         try {
             PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT PERMISSIONCODE FROM PERMISSIONS WHERE UUID=?");
             preparedStatement.setString(1, uuid.toString());
@@ -83,7 +84,6 @@ public class MySQLPermissions {
             if(resultSet.next()){
                 permissionCode = resultSet.getInt("PERMISSIONCODE");
             }
-            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
         } catch (SQLException e) {
             e.printStackTrace();
         }

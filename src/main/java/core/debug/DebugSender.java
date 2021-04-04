@@ -9,17 +9,21 @@ import static core.chat.Color.colorizeHex;
 public class DebugSender {
 
     public static void sendDebug(DebugType type, String message) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (CoreMain.mySQLRanks.getRank(player.getUniqueId()) == 4) {
-                player.sendMessage(colorizeHex(getDebugPrefix(type) + message));
+        if (CoreMain.sqlConfig.getConfigbyName("debug").equals("1")) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (CoreMain.mySQLRanks.getRank(player.getUniqueId()) == 4) {
+                    player.sendMessage(colorizeHex(getDebugPrefix(type) + message));
+                }
             }
         }
     }
 
     public static void sendDebug(DebugType type, String message, String name) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (CoreMain.mySQLRanks.getRank(player.getUniqueId()) == 4) {
-                player.sendMessage(colorizeHex(getDebugPrefix(type, name) + message));
+        if (CoreMain.sqlConfig.getConfigbyName("debug").equals("1")) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (CoreMain.mySQLRanks.getRank(player.getUniqueId()) == 4) {
+                    player.sendMessage(colorizeHex(getDebugPrefix(type, name) + message));
+                }
             }
         }
     }
