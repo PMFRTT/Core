@@ -2,6 +2,8 @@ package core.timer;
 
 import core.Utils;
 import core.core.CoreSendStringPacket;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -50,6 +52,7 @@ public class Timer {
     private void init() {
         this.scheduler = this.plugin.getServer().getScheduler();
         runMainTimer();
+        DebugSender.sendDebug(DebugType.TIMER, "timer init method complete");
     }
 
     private void runMainTimer() {
@@ -96,12 +99,14 @@ public class Timer {
     public void pause() {
         if (this.running) {
             this.running = false;
+            DebugSender.sendDebug(DebugType.TIMER, "timer paused");
         }
     }
 
     public void resume() {
         if (!this.running) {
             this.running = true;
+            DebugSender.sendDebug(DebugType.TIMER, "timer resumed");
         }
     }
 
@@ -112,6 +117,7 @@ public class Timer {
     public void setSeconds(int seconds) {
         this.seconds = seconds;
         this.ticks = seconds * 20;
+        DebugSender.sendDebug(DebugType.TIMER, "timer set to " + seconds + " seconds");
     }
 
     public void addSeconds(int seconds) {

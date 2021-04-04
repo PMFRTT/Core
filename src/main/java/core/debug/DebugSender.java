@@ -35,10 +35,7 @@ public class DebugSender {
 
     private static String getDebugPrefix(DebugType type, String name) {
         String color = DebugType.getDebugColor(type);
-        if (type.equals(DebugType.PLUGIN)) {
-            return "[" + color + type.toString() + " - " + name + "&f]: &8";
-        }
-        return "[" + color + type.toString() + "&f]: &8";
+        return "[" + color + type.toString() + " - " + name + "&f]: &8";
     }
 
 }

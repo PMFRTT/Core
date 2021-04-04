@@ -1,5 +1,7 @@
 package core.core;
 
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import net.minecraft.server.v1_16_R3.ChatMessageType;
 import net.minecraft.server.v1_16_R3.IChatBaseComponent;
 import net.minecraft.server.v1_16_R3.PacketPlayOutChat;
@@ -25,7 +27,7 @@ public class CoreSendStringPacket {
     @SuppressWarnings("deprecation")
     public static void sendPacketToTitle(Player p, String title, String subtitle) {
         p.sendTitle(title, subtitle);
-
+        DebugSender.sendDebug(DebugType.GUI, "title packet sent", "Title");
     }
 
 }
