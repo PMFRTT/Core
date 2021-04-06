@@ -12,13 +12,16 @@ core\sql\MySQLPermissions.class
 core\sql\SQLConnector.class
 core\TPS$1.class
 core\core\CoreSendStringPacket.class
+core\bungee\Server.class
 core\settings\Setting\Setting.class
 core\commands\WeatherCommandListener.class
+core\ranks\RankUpdater.class
 core\settings\Setting\SettingCycle.class
 core\core\CoreResetServer.class
 core\settings\Setting\SettingSwitch.class
 core\timer\Timer.class
 core\settings\Setting\SettingClick.class
+core\debug\DebugSender.class
 core\settings\SubSettings.class
 core\core\CoreEventHandler.class
 core\Utils.class
@@ -30,11 +33,13 @@ core\scoreboard\ScoreboardType.class
 core\sql\MySQLRanks.class
 core\commands\HubCommandListener.class
 core\core\CoreMain.class
+core\ranks\RankUpdater$1.class
 core\permissions\Permission$2.class
 core\sql\SQLConfig.class
 core\permissions\Permission.class
 core\TPS.class
 core\sql\MySQLBungee.class
+core\chat\Color.class
 core\core\CoreMain$1.class
 core\commands\HealCommandListener.class
 core\commands\InvseeCommandListener.class
@@ -53,4 +58,6 @@ core\core\CoreEventHandler$1.class
 core\settings\Settings.class
 core\commands\VersionCommandListener.class
 core\timer\TimerType.class
+core\debug\DebugType.class
+core\debug\DebugType$1.class
 core\sql\MySQL.class

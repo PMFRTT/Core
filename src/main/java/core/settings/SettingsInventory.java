@@ -1,6 +1,8 @@
 package core.settings;
 
 import core.Utils;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import core.settings.Setting.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -63,6 +65,7 @@ public class SettingsInventory implements Listener {
     }
 
     private void buildInventory() {
+        DebugSender.sendDebug(DebugType.GUI, "building settings gui", "Settings");
         int i = 0;
         if (!this.settings.getSettingsList().isEmpty()) {
             for (Setting setting : this.settings.getSettingsList()) {
@@ -111,6 +114,7 @@ public class SettingsInventory implements Listener {
         if (Objects.equals(e.getClickedInventory(), this.inventory)) {
             e.setCancelled(true);
             if (this.usableSlots.contains(e.getSlot())) {
+                DebugSender.sendDebug(DebugType.SETTINGS, "setting clicked");
                 if (Objects.requireNonNull(e.getCurrentItem()).getType().equals(Material.BARRIER)) {
                     e.getWhoClicked().openInventory(settings.getMasterSettings().getSettingsInventory().getInventory());
                 } else if (getSettingfromSlot(e.getSlot()).getType().equals(SettingsType.SWITCH)) {

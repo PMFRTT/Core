@@ -1,6 +1,8 @@
 package core;
 
 import core.core.CoreMain;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
@@ -15,6 +17,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Utils {
+
+    private static boolean lessthan40 = false;
+    private static boolean lessthan20 = false;
+
     private static CoreMain corePlugin;
 
     public Utils(CoreMain corePlugin) {
@@ -38,17 +44,6 @@ public class Utils {
         return colorize("[&4Server Thread&f]: ");
     }
 
-    public static String getDebugPrefix() {
-        return colorize("[&cDebug&f]: ");
-    }
-
-    public static void sendDebugMessage(String msg) {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (CoreMain.mySQLRanks.getRank(player.getUniqueId()) > 2) {
-                player.sendMessage(Utils.getDebugPrefix() + Utils.colorize(msg));
-            }
-        }
-    }
 
     public static String getChatPrefix(Player player) {
         if (player.hasPermission("core.canShowTPS")) {
@@ -70,7 +65,7 @@ public class Utils {
         return "[" + colorize("&2Server") + colorize("&f]: ");
     }
 
-    public static String colorize(final String message) {
+    public static String colorize(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
 
@@ -175,8 +170,7 @@ public class Utils {
     }
 
     public static void heal(Player player) {
-
-
+        DebugSender.sendDebug(DebugType.PLAYER, "player " + player.getDisplayName() + " has been healed");
         BukkitTask runnable = new BukkitRunnable() {
             @Override
             public void run() {
@@ -221,7 +215,7 @@ public class Utils {
     }
 
     public static void changeGamerule(GameRule<Boolean> gameRule, boolean value) {
-
+        DebugSender.sendDebug(DebugType.SERVER, "gamerule " + gameRule.getName() + " has been set to " + value);
         for (World world : Bukkit.getWorlds()) {
             if (world != null) {
                 world.setGameRule(gameRule, value);
@@ -238,7 +232,6 @@ public class Utils {
 
     public static void createHealthDisplay(boolean enabled) {
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-
         if (enabled) {
             Objective objective = scoreboard.registerNewObjective("Leben", Criterias.HEALTH, "Leben");
             objective.setRenderType(RenderType.HEARTS);
@@ -258,7 +251,7 @@ public class Utils {
     public static void addServerInfo(String serverName, double tps) {
         for (Player player : Bukkit.getOnlinePlayers()) {
             Date date = new Date();
-            String dateFormatted = new SimpleDateFormat("HH:mm").format(date);
+            String dateFormatted = new SimpleDateFormat("HH:mm:ss").format(date);
 
             List<String> headerList = new ArrayList<String>();
             headerList.add(Utils.colorize("&0--&8---&7---&f[&eP&aM&bF&9R&dT&cT&f-Server-Network]&7---&8---&0--&f"));
@@ -273,11 +266,12 @@ public class Utils {
             footerList.add("   ");
             footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
             footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
-            footerList.add(Utils.colorize("&7" + Bukkit.getIp() + "&f:&7" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&7ms)"));
+            footerList.add(Utils.colorize("&8" + Bukkit.getIp() + ":" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&8ms)"));
+            footerList.add(Utils.colorize("&8Verwendeter Speicher: &e" + formatToMB(getUsedMemory()) + "MiB&8/&e" + formatToMB(getTotalMemory()) + "MiB " + getMemoryUsage()));
             if (CoreMain.SQL.isConnected()) {
-                footerList.add(Utils.colorize("&7" + "Datenbank ist &averbunden"));
+                footerList.add(Utils.colorize("&8" + "Datenbank ist &averbunden"));
             } else {
-                footerList.add(Utils.colorize("&7" + "Datenbank ist &cgetrennt"));
+                footerList.add(Utils.colorize("&8" + "Datenbank ist &cgetrennt"));
             }
 
             String header = StringUtils.join(headerList, "\n");
@@ -320,6 +314,43 @@ public class Utils {
 
     public static Player getPlayer(UUID uuid) {
         return Bukkit.getPlayer(uuid);
+    }
+
+    public static long getUsedMemory() {
+        return getTotalMemory() - getFreeMemory();
+    }
+
+    public static long getFreeMemory() {
+        return Runtime.getRuntime().freeMemory();
+    }
+
+    public static long getTotalMemory() {
+        return Runtime.getRuntime().totalMemory();
+    }
+
+    public static String getMemoryUsage() {
+        return "(" + new DecimalFormat("#.000").format(((float) getUsedMemory() / (float) getTotalMemory()) * 100) + "%)";
+    }
+
+    public static long formatToMB(long bytes) {
+        return bytes / 1048576;
+    }
+
+    public static void checkMemory() {
+
+        if (((float) getFreeMemory() / (float) getTotalMemory()) < 0.2 && !lessthan40) {
+            DebugSender.sendDebug(DebugType.SERVER, "free memory below 20%");
+            lessthan40 = true;
+        } else if (((float) getFreeMemory() / (float) getTotalMemory()) < 0.1 && !lessthan20) {
+            DebugSender.sendDebug(DebugType.SERVER, "free memory below &c10%");
+            lessthan20 = true;
+        } else if (((float) getFreeMemory() / (float) getTotalMemory()) > 0.2 && lessthan20) {
+            lessthan20 = false;
+        } else if (((float) getFreeMemory() / (float) getTotalMemory()) > 0.3 && lessthan40) {
+            DebugSender.sendDebug(DebugType.SERVER, "memory freed");
+            lessthan40 = false;
+            lessthan20 = false;
+        }
     }
 
 }

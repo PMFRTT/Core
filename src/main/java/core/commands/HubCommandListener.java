@@ -17,8 +17,7 @@ public class HubCommandListener implements CommandExecutor {
 
         if (command.getLabel().equalsIgnoreCase("hub") || command.getLabel().equalsIgnoreCase("lobby") || command.getLabel().equalsIgnoreCase("l")) {
             assert player != null;
-
-            CoreBungeeCordClient.moveToServer(player, "Lobby");
+            CoreBungeeCordClient.moveToServer(player, "LobbyServer");
             return true;
         }
 

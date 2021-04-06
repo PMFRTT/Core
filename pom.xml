@@ -6,7 +6,7 @@
 
     <groupId>com.github.PMFRTT</groupId>
     <artifactId>Core</artifactId>
-    <version>16.5.31</version>
+    <version>16.5.32-dev</version>
     <packaging>jar</packaging>
 
     <name>Core</name>
@@ -56,14 +56,20 @@
         </resources>
     </build>
 
+
+    <repositories>
+        <repository>
+            <id>spigotmc-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
     <dependencies>
         <!--Spigot API and NMS -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>1.16.5-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/lib/Spigot.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

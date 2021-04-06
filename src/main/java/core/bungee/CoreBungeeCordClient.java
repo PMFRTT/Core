@@ -3,10 +3,10 @@ package core.bungee;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import core.Utils;
 import core.core.CoreMain;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 
@@ -27,17 +27,13 @@ public class CoreBungeeCordClient implements PluginMessageListener {
     }
 
     public static void moveToServer(Player player, String serverName) {
-        if (isOnline(Integer.parseInt(CoreMain.mySQLBungee.getServer(serverName.toUpperCase())))) {
+        int port = CoreMain.mySQLBungee.getPort(serverName);
+        if (isOnline(port)) {
             ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("Connect");
             out.writeUTF(serverName);
             player.sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
-        } else {
-            ByteArrayDataOutput out = ByteStreams.newDataOutput();
-            out.writeUTF("Fallback");
-            player.sendPluginMessage(corePlugin, "BungeeCord", out.toByteArray());
-            player.teleport(new Location(Bukkit.getWorld("world"), -40, 21, 88));
-            player.sendMessage(Utils.getPrefix("BungeeCord") + Utils.colorize("&cServer ist Offline!"));
+            DebugSender.sendDebug(DebugType.BUNGEE, player.getName() + " moved to server " + serverName);
         }
     }
 
@@ -46,8 +42,11 @@ public class CoreBungeeCordClient implements PluginMessageListener {
             Socket s = new Socket();
             s.connect(new InetSocketAddress(ADDRESS, port), 10);
             s.close();
+            DebugSender.sendDebug(DebugType.BUNGEE, "server on port " + port + " is online");
             return true;
         } catch (IOException e) {
+            e.printStackTrace();
+            DebugSender.sendDebug(DebugType.BUNGEE, "server on port " + port + " could not be reached");
             return false;
         }
     }
@@ -71,7 +70,8 @@ public class CoreBungeeCordClient implements PluginMessageListener {
                     playerCount = in.readInt();
                 }
             }
-        } catch (Exception ignored) {
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

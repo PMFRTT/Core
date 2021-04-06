@@ -1,6 +1,8 @@
 package core.commands;
 
 import core.Utils;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import core.permissions.Permission;
 import core.permissions.PermissionConverter;
 import org.bukkit.Bukkit;
@@ -29,18 +31,22 @@ public class TimeCommandListener implements CommandExecutor {
                             if (args[1].equalsIgnoreCase("morning")) {
                                 Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Es ist jetzt &6Morgen!"));
                                 world.setTime(0);
+                                DebugSender.sendDebug(DebugType.SERVER, "time was changed");
                                 return true;
                             } else if (args[1].equalsIgnoreCase("day")) {
                                 Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Es ist jetzt &bMittag!"));
                                 world.setTime(6000);
+                                DebugSender.sendDebug(DebugType.SERVER, "time was changed");
                                 return true;
                             } else if (args[1].equalsIgnoreCase("evening")) {
                                 Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Es ist jetzt &9Abend!"));
                                 world.setTime(12000);
+                                DebugSender.sendDebug(DebugType.SERVER, "time was changed");
                                 return true;
                             } else if (args[1].equalsIgnoreCase("night")) {
                                 Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Es ist jetzt &8Nacht!"));
                                 world.setTime(18000);
+                                DebugSender.sendDebug(DebugType.SERVER, "time was changed");
                                 return true;
                             } else if (args[1] != null || args[1] == "") {
                                 try {
@@ -49,6 +55,7 @@ public class TimeCommandListener implements CommandExecutor {
                                     world.setTime(setTimeTo);
                                 } catch (NumberFormatException e) {
                                 }
+                                DebugSender.sendDebug(DebugType.SERVER, "time was changed");
                                 return true;
                             } else {
                                 player.sendMessage(Utils.getServerPrefix() + Utils.colorize("Verwende &6/time set <morning, day, evening, night>&f um die Zeit zu ändern!"));
@@ -66,6 +73,7 @@ public class TimeCommandListener implements CommandExecutor {
                         } catch (NumberFormatException e) {
                             player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&c" + args[1] + "ist keine Zahl!"));
                         }
+                        DebugSender.sendDebug(DebugType.SERVER, "time was changed");
                         return true;
                     }
                 } else {

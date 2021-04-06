@@ -5,7 +5,10 @@ import core.TPS;
 import core.Utils;
 import core.bungee.CoreBungeeCordClient;
 import core.commands.MainCommandListener;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import core.permissions.PermissionConverter;
+import core.ranks.RankUpdater;
 import core.sql.*;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
@@ -23,6 +26,8 @@ public final class CoreMain extends JavaPlugin {
     public static MySQLBungee mySQLBungee;
     public static SQLConfig sqlConfig;
     public static MySQLRanks mySQLRanks;
+    public static RankUpdater rankUpdater;
+
 
     private TPS ticker;
 
@@ -44,6 +49,9 @@ public final class CoreMain extends JavaPlugin {
 
         this.ticker = new TPS(this);
 
+        rankUpdater = new RankUpdater(this);
+        rankUpdater.startUpdater();
+
         SQL = new MySQL();
         mySQLPermissions = new MySQLPermissions(this);
         mySQLBungee = new MySQLBungee(this);
@@ -59,10 +67,10 @@ public final class CoreMain extends JavaPlugin {
         }
 
         if (SQL.isConnected()) {
+            mySQLRanks.createTable();
             mySQLPermissions.createTable();
             mySQLBungee.createTable();
             sqlConfig.createTable();
-            mySQLRanks.createTable();
             for (Player player : Bukkit.getOnlinePlayers()) {
                 mySQLPermissions.createPlayer(player);
                 mySQLRanks.createPlayer(player);
@@ -90,6 +98,9 @@ public final class CoreMain extends JavaPlugin {
                 Utils.addServerInfo(serverName, ticker.getTPS());
             }
         }, 0L, 1L);
+
+
+        DebugSender.sendDebug(DebugType.PLUGIN, "core loaded", "Core");
     }
 
     public void onDisable() {
