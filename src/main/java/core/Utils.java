@@ -264,14 +264,16 @@ public class Utils {
 
             List<String> footerList = new ArrayList<String>();
             footerList.add("   ");
-            footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
-            footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
-            footerList.add(Utils.colorize("&8" + Bukkit.getIp() + ":" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&8ms)"));
-            footerList.add(Utils.colorize("&8Verwendeter Speicher: &e" + formatToMB(getUsedMemory()) + "MiB&8/&e" + formatToMB(getTotalMemory()) + "MiB " + getMemoryUsage()));
-            if (CoreMain.SQL.isConnected()) {
-                footerList.add(Utils.colorize("&8" + "Datenbank ist &averbunden"));
-            } else {
-                footerList.add(Utils.colorize("&8" + "Datenbank ist &cgetrennt"));
+            if (CoreMain.rankUpdater.isDev(player)) {
+                footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
+                footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
+                footerList.add(Utils.colorize("&8" + Bukkit.getIp() + ":" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&8ms)"));
+                footerList.add(Utils.colorize("&8Verwendeter Speicher: &e" + formatToMB(getUsedMemory()) + "MiB&8/&e" + formatToMB(getTotalMemory()) + "MiB " + getMemoryUsage()));
+                if (CoreMain.SQL.isConnected()) {
+                    footerList.add(Utils.colorize("&8" + "Datenbank ist &averbunden"));
+                } else {
+                    footerList.add(Utils.colorize("&8" + "Datenbank ist &cgetrennt"));
+                }
             }
 
             String header = StringUtils.join(headerList, "\n");

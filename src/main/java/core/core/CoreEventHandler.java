@@ -36,6 +36,7 @@ public class CoreEventHandler implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) throws SQLException, ClassNotFoundException {
+        CoreMain.rankUpdater.updateAll();
         CoreMain.SQL.connect();
         CoreMain.mySQLPermissions.createPlayer(e.getPlayer());
         CoreMain.mySQLRanks.createPlayer(e.getPlayer());
