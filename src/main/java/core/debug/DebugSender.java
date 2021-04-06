@@ -23,6 +23,7 @@ public class DebugSender {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (CoreMain.rankUpdater.isDev(player)) {
                     player.sendMessage(colorizeHex(getDebugPrefix(type, name) + message));
+
                 }
             }
         }
