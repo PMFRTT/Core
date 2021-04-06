@@ -11,7 +11,7 @@ public class DebugSender {
     public static void sendDebug(DebugType type, String message) {
         if (CoreMain.sqlConfig.getConfigbyName("debug").equals("1")) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (CoreMain.mySQLRanks.getRank(player.getUniqueId()) == 4) {
+                if (CoreMain.rankUpdater.isDev(player)) {
                     player.sendMessage(colorizeHex(getDebugPrefix(type) + message));
                 }
             }
@@ -21,7 +21,7 @@ public class DebugSender {
     public static void sendDebug(DebugType type, String message, String name) {
         if (CoreMain.sqlConfig.getConfigbyName("debug").equals("1")) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (CoreMain.mySQLRanks.getRank(player.getUniqueId()) == 4) {
+                if (CoreMain.rankUpdater.isDev(player)) {
                     player.sendMessage(colorizeHex(getDebugPrefix(type, name) + message));
                 }
             }

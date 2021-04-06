@@ -15,6 +15,7 @@ core\core\CoreSendStringPacket.class
 core\bungee\Server.class
 core\settings\Setting\Setting.class
 core\commands\WeatherCommandListener.class
+core\ranks\RankUpdater.class
 core\settings\Setting\SettingCycle.class
 core\core\CoreResetServer.class
 core\settings\Setting\SettingSwitch.class
@@ -32,6 +33,7 @@ core\scoreboard\ScoreboardType.class
 core\sql\MySQLRanks.class
 core\commands\HubCommandListener.class
 core\core\CoreMain.class
+core\ranks\RankUpdater$1.class
 core\permissions\Permission$2.class
 core\sql\SQLConfig.class
 core\permissions\Permission.class

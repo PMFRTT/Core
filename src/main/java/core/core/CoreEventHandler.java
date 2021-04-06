@@ -17,10 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerAdvancementDoneEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 
 import java.sql.SQLException;
 
@@ -78,6 +75,11 @@ public class CoreEventHandler implements Listener {
         if (e.getEntity() instanceof Player) {
             DebugSender.sendDebug(DebugType.PLAYER, ((Player) e.getEntity()).getDisplayName() + " received damage");
         }
+    }
+
+    @EventHandler
+    public void getPlayerFlying(PlayerToggleFlightEvent e){
+        DebugSender.sendDebug(DebugType.PLAYER, e.getPlayer().getDisplayName() + " set flying to " + !e.getPlayer().isFlying());
     }
 
     @EventHandler

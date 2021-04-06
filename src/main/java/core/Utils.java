@@ -263,18 +263,17 @@ public class Utils {
 
 
             List<String> footerList = new ArrayList<String>();
-            if (CoreMain.mySQLRanks.getRank(player.getUniqueId()) == 4) {
-                footerList.add("   ");
-                footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
-                footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
-                footerList.add(Utils.colorize("&8" + Bukkit.getIp() + ":" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&8ms)"));
-                footerList.add(Utils.colorize("&8Verwendeter Speicher: &e" + formatToMB(getUsedMemory()) + "MiB&8/&e" + formatToMB(getTotalMemory()) + "MiB " + getMemoryUsage()));
-                if (CoreMain.SQL.isConnected()) {
-                    footerList.add(Utils.colorize("&8" + "Datenbank ist &averbunden"));
-                } else {
-                    footerList.add(Utils.colorize("&8" + "Datenbank ist &cgetrennt"));
-                }
+            footerList.add("   ");
+            footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
+            footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
+            footerList.add(Utils.colorize("&8" + Bukkit.getIp() + ":" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&8ms)"));
+            footerList.add(Utils.colorize("&8Verwendeter Speicher: &e" + formatToMB(getUsedMemory()) + "MiB&8/&e" + formatToMB(getTotalMemory()) + "MiB " + getMemoryUsage()));
+            if (CoreMain.SQL.isConnected()) {
+                footerList.add(Utils.colorize("&8" + "Datenbank ist &averbunden"));
+            } else {
+                footerList.add(Utils.colorize("&8" + "Datenbank ist &cgetrennt"));
             }
+
             String header = StringUtils.join(headerList, "\n");
             String footer = StringUtils.join(footerList, "\n");
 
@@ -330,7 +329,7 @@ public class Utils {
     }
 
     public static String getMemoryUsage() {
-        return  "(" + new DecimalFormat("#.000").format(((float) getUsedMemory() / (float) getTotalMemory()) * 100) + "%)";
+        return "(" + new DecimalFormat("#.000").format(((float) getUsedMemory() / (float) getTotalMemory()) * 100) + "%)";
     }
 
     public static long formatToMB(long bytes) {

@@ -23,7 +23,7 @@ public class MySQLPermissions {
         try {
             preparedStatement = CoreMain.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS PERMISSIONS " + "(NAME VARCHAR(100), UUID VARCHAR(100), PERMISSIONCODE INT(16), PRIMARY KEY (NAME))");
             preparedStatement.executeUpdate();
-            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed (create)", "Permissions");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -43,7 +43,7 @@ public class MySQLPermissions {
                 preparedStatement1.setString(2, uuid.toString());
                 preparedStatement1.executeUpdate();
             }
-            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed (create)", "Permissions");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -54,7 +54,7 @@ public class MySQLPermissions {
             PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM PERMISSIONS WHERE UUID=?");
             preparedStatement.setString(1, uuid.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
-            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed (exists)", "Permissions");
             return resultSet.next();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class MySQLPermissions {
             preparedStatement.setInt(1, permissionCode);
             preparedStatement.setString(2, uuid.toString());
             preparedStatement.executeUpdate();
-            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed (set)", "Permissions");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,7 +76,7 @@ public class MySQLPermissions {
 
     public int getPermissions(UUID uuid) {
         int permissionCode = 0;
-        DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
+        DebugSender.sendDebug(DebugType.DATABASE, "database was accessed (get)", "Permissions");
         try {
             PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT PERMISSIONCODE FROM PERMISSIONS WHERE UUID=?");
             preparedStatement.setString(1, uuid.toString());

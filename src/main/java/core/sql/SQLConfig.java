@@ -21,7 +21,7 @@ public class SQLConfig {
         try {
             preparedStatement = CoreMain.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS CONFIG " + "(NAME VARCHAR(100), VALUE VARCHAR(100), PRIMARY KEY (NAME))");
             preparedStatement.executeUpdate();
-            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed (create)", "Config");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -32,7 +32,7 @@ public class SQLConfig {
             PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM SERVER WHERE NAME=?");
             preparedStatement.setString(1, string);
             ResultSet resultSet = preparedStatement.executeQuery();
-            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed");
+            DebugSender.sendDebug(DebugType.DATABASE, "database was accessed (exists)", "Config");
             return resultSet.next();
         } catch (SQLException e) {
             e.printStackTrace();
