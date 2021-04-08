@@ -39,27 +39,4 @@ commands :
     aliases: [r]
   reboot:
   sql:
-permissions:
-  core.*:
-    children:
-      core.canChangeGamemode: true
-      core.canChangeWeather: true
-      core.canChangeTime: true
-      core.canHeal: true
-      core.canChangeDifficulty: true
-      core.canShowTPS: true
-      core.canSeeInv: true
-  core.canChangeGamemode:
-    default: false
-  core.canChangeWeather:
-    default: false
-  core.canChangeTime:
-    default: false
-  core.canHeal:
-    default: false
-  core.canChangeDifficulty:
-    default: false
-  core.canShowTPS:
-    default: false
-  core.canSeeInv:
-    default: false
+  bug:
