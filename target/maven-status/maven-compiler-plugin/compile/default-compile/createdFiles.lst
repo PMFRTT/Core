@@ -27,6 +27,7 @@ core\core\CoreEventHandler.class
 core\Utils.class
 core\ranks\Rank.class
 core\bungee\CoreBungeeCordClient.class
+core\commands\BugCommandExecutor.class
 core\commands\DifficultyCommandListener.class
 core\scoreboard\Scoreboard.class
 core\scoreboard\ScoreboardType.class
