@@ -40,3 +40,4 @@ commands :
   reboot:
   sql:
   bug:
+  schedule:

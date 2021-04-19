@@ -1,5 +1,6 @@
 core\settings\PluginSettings.class
 core\commands\MainCommandListener.class
+core\commands\ScheduleCommandListener.class
 core\commands\TimeCommandListener.class
 core\commands\PingCommandListener.class
 core\commands\TeleportCommandListener.class
@@ -36,6 +37,7 @@ core\commands\HubCommandListener.class
 core\core\CoreMain.class
 core\ranks\RankUpdater$1.class
 core\permissions\Permission$2.class
+core\hotbar\HotbarScheduler$1.class
 core\sql\SQLConfig.class
 core\permissions\Permission.class
 core\TPS.class
@@ -44,6 +46,7 @@ core\chat\Color.class
 core\core\CoreMain$1.class
 core\commands\HealCommandListener.class
 core\commands\InvseeCommandListener.class
+core\hotbar\HotbarManager.class
 core\commands\GameModeCommandListener.class
 core\Utils$1.class
 core\commands\SQLCommandListener.class
@@ -55,6 +58,7 @@ core\sql\SQLConnector$1.class
 core\timer\Timer$1.class
 core\permissions\Permission$1.class
 core\core\CoreResetServer$1.class
+core\hotbar\HotbarScheduler.class
 core\core\CoreEventHandler$1.class
 core\settings\Settings.class
 core\commands\VersionCommandListener.class

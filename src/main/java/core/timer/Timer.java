@@ -4,7 +4,6 @@ import core.Utils;
 import core.core.CoreSendStringPacket;
 import core.debug.DebugSender;
 import core.debug.DebugType;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -25,6 +24,8 @@ public class Timer {
 
     private final Plugin plugin;
     private BukkitScheduler scheduler;
+
+    private String msg = "";
 
     private Player player;
     private String timerReady;
@@ -59,7 +60,6 @@ public class Timer {
         scheduler.scheduleSyncRepeatingTask(this.plugin, new Runnable() {
             @Override
             public void run() {
-                String msg = null;
                 if (running) {
                     if (timerType.equals(TimerType.INCREASING)) {
                         ticks++;
@@ -86,11 +86,6 @@ public class Timer {
                     }
                 } else {
                     msg = Utils.colorize(pausedString);
-                }
-                if (!hidden) {
-                    for (Player player : Bukkit.getOnlinePlayers()) {
-                        CoreSendStringPacket.sendPacketToHotbar(player, msg);
-                    }
                 }
             }
         }, 0, 1);
@@ -143,6 +138,10 @@ public class Timer {
 
     public boolean getSingle() {
         return this.single;
+    }
+
+    public String getTimerMessage(){
+        return this.msg;
     }
 
 }
