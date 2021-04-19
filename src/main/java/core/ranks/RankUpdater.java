@@ -11,17 +11,21 @@ import java.util.HashMap;
 public class RankUpdater {
 
     private final CoreMain coreMain;
-    private final HashMap<Player, Rank> playerRanks = new HashMap<Player, Rank>();
+    private final HashMap<String, Rank> playerRanks = new HashMap<String, Rank>();
 
     public RankUpdater(CoreMain coreMain) {
         this.coreMain = coreMain;
     }
 
     public void startUpdater() {
+       updateAll();
+        updater();
+    }
+
+    public void updateAll(){
         for (Player player : Bukkit.getOnlinePlayers()) {
             addPlayer(player);
         }
-        updater();
     }
 
     private void updater() {
@@ -39,30 +43,30 @@ public class RankUpdater {
     public void addPlayer(Player player) {
         if (CoreMain.mySQLRanks != null) {
             if (containsPlayer(player)) {
-                if (playerRanks.get(player) != Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(player.getUniqueId()))) {
-                    playerRanks.put(player, Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(player.getUniqueId())));
+                if (playerRanks.get(player.getDisplayName()) != Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(player.getUniqueId()))) {
+                    playerRanks.put(player.getDisplayName(), Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(player.getUniqueId())));
                 }
             } else {
-                playerRanks.put(player, Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(player.getUniqueId())));
+                playerRanks.put(player.getDisplayName(), Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(player.getUniqueId())));
             }
         }else{
-            playerRanks.put(player, Rank.DEV);
+            playerRanks.put(player.getDisplayName(), Rank.DEV);
         }
     }
 
     public boolean isDev(Player player) {
         if (containsPlayer(player)) {
-            return playerRanks.get(player) == Rank.DEV;
+            return playerRanks.get(player.getDisplayName()) == Rank.DEV;
         }
         return false;
     }
 
     private boolean containsPlayer(Player player) {
-        return playerRanks.containsKey(player);
+        return playerRanks.containsKey(player.getDisplayName());
     }
 
     public Rank getRank(Player player) {
-        return playerRanks.get(player);
+        return playerRanks.get(player.getDisplayName());
     }
 
 }

@@ -2,6 +2,8 @@ package core.core;
 
 import core.Utils;
 import core.bungee.CoreBungeeCordClient;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -16,7 +18,8 @@ public class CoreResetServer {
     }
 
     public static void resetServer(String serverName, Boolean resetPositions) {
-
+        DebugSender.sendDebug(DebugType.SERVER, "server will be resetting");
+        DebugSender.sendDebug(DebugType.BUNGEE, "moving all players");
         File locations = null;
         closePlayerConnection(serverName);
 
@@ -40,7 +43,7 @@ public class CoreResetServer {
 
     private static void closePlayerConnection(String serverName) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            CoreBungeeCordClient.moveToServer(player, "Lobby");
+            CoreBungeeCordClient.moveToServer(player, "LOBBYSERVER");
             CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("Fallback Server"), Utils.colorize("Bitte warte, während der &b" + serverName + "-Server &fneustartet"));
         }
     }

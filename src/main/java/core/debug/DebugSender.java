@@ -23,10 +23,22 @@ public class DebugSender {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (CoreMain.rankUpdater.isDev(player)) {
                     player.sendMessage(colorizeHex(getDebugPrefix(type, name) + message));
+
                 }
             }
         }
     }
+
+    public static void sendDebug(DebugType type, String message, String name, String thread) {
+        if (CoreMain.sqlConfig.getConfigbyName("debug").equals("1")) {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (CoreMain.rankUpdater.isDev(player)) {
+                    player.sendMessage(colorizeHex(getDebugPrefix(type, name, thread) + message));
+                }
+            }
+        }
+    }
+
 
     private static String getDebugPrefix(DebugType type) {
         String color = DebugType.getDebugColor(type);
@@ -36,6 +48,11 @@ public class DebugSender {
     private static String getDebugPrefix(DebugType type, String name) {
         String color = DebugType.getDebugColor(type);
         return "[" + color + type.toString() + " - " + name + "&f]: &8";
+    }
+
+    private static String getDebugPrefix(DebugType type, String name, String thread) {
+        String color = DebugType.getDebugColor(type);
+        return "[" + color + type.toString() + " - " + name + "&8" + thread + "&f]: &8";
     }
 
 }

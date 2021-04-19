@@ -21,6 +21,8 @@ public class MainCommandListener {
     private VersionCommandListener versionCommandListener;
     private CorePermissionCommandListener corePermissionCommandListener;
     private SQLCommandListener sqlCommandListener;
+    private BugCommandExecutor bugCommandExecutor;
+    private ScheduleCommandListener scheduleCommandListener;
 
     public MainCommandListener(CoreMain main) {
         this.main = main;
@@ -41,6 +43,8 @@ public class MainCommandListener {
         versionCommandListener = new VersionCommandListener(this.main);
         corePermissionCommandListener = new CorePermissionCommandListener(this.main);
         sqlCommandListener = new SQLCommandListener();
+        bugCommandExecutor = new BugCommandExecutor();
+        scheduleCommandListener = new ScheduleCommandListener();
 
     }
 
@@ -61,6 +65,8 @@ public class MainCommandListener {
         Objects.requireNonNull(this.main.getCommand("invsee")).setExecutor(invseeCommandListener);
         Objects.requireNonNull(this.main.getCommand("teleport")).setExecutor(teleportCommandListener);
         Objects.requireNonNull(this.main.getCommand("sql")).setExecutor(sqlCommandListener);
+        Objects.requireNonNull(this.main.getCommand("bug")).setExecutor(bugCommandExecutor);
+        Objects.requireNonNull(this.main.getCommand("schedule")).setExecutor(scheduleCommandListener);
     }
 
 }
