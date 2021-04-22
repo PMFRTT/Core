@@ -2,6 +2,7 @@ package core.hotbar;
 
 import core.core.CoreSendStringPacket;
 import core.timer.Timer;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -15,7 +16,7 @@ public class HotbarScheduler {
     private final List<String> scheduledMessages = new ArrayList<String>();
     private boolean hasScheduledMessage = false;
     private int schedulerTimeout = 0;
-    private final Player player;
+    private final String playerName;
 
     private final Plugin plugin;
     private String defaultMessage;
@@ -24,18 +25,18 @@ public class HotbarScheduler {
     private boolean running = false;
     private boolean timed = false;
 
-    public HotbarScheduler(Plugin plugin, String defaultMessage, Player player) {
+    public HotbarScheduler(Plugin plugin, String defaultMessage, String playerName) {
         this.plugin = plugin;
         this.defaultMessage = defaultMessage;
         this.timed = false;
-        this.player = player;
+        this.playerName = playerName;
     }
 
-    public HotbarScheduler(Plugin plugin, Timer timer, Player player) {
+    public HotbarScheduler(Plugin plugin, Timer timer, String playerName) {
         this.plugin = plugin;
         this.timer = timer;
         this.timed = true;
-        this.player = player;
+        this.playerName = playerName;
     }
 
     public void scheduleMessage(String message) {
@@ -67,6 +68,7 @@ public class HotbarScheduler {
             @Override
             public void run() {
                 if (running) {
+                    Player player = Bukkit.getPlayer(playerName);
                     if (hasScheduledMessage) {
                         if (schedulerTimeout != 0) {
                             CoreSendStringPacket.sendPacketToHotbar(player, scheduledMessages.get(0));
