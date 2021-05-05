@@ -5,24 +5,25 @@ import org.bukkit.Material;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SettingCycle extends Setting {
+public class SettingCycle extends Setting<Integer> {
 
     List<Integer> values;
     int index = 0;
-    int value;
     List<String> mappedValues;
     List<Material> mappedMaterials;
 
     public SettingCycle(String name, ArrayList<String> description, Material material, List<Integer> values) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
+        super.value = values.get(0);
     }
 
     public SettingCycle(String name, ArrayList<String> description, Material material, List<Integer> values, List<String> mappedValues) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
-        this.value = values.get(1);
+        super.value = values.get(1);
         this.mappedValues = mappedValues;
+        super.value = values.get(0);
     }
 
     public SettingCycle(String name, ArrayList<String> description, Material material, List<Integer> values, List<String> mappedValues, List<Material> mappedMaterials) {
@@ -31,6 +32,7 @@ public class SettingCycle extends Setting {
         this.value = values.get(1);
         this.mappedValues = mappedValues;
         this.mappedMaterials = mappedMaterials;
+        super.value = values.get(0);
     }
 
     public void cycleUp() {
@@ -65,18 +67,18 @@ public class SettingCycle extends Setting {
         }else return super.getMaterial();
     }
 
+    @Override
+    public Integer getValue() {
+        return this.value;
+    }
+
     public ArrayList<String> getDescription() {
         return super.getDescription();
     }
 
-    public int getValue() {
-        value = getValues().get(getIndex());
-        return this.value;
-    }
-
     public String getValueAsString() {
         if (this.mappedValues == null) {
-            return String.valueOf(getValue());
+            return String.valueOf(value);
         } else {
             return this.mappedValues.get(this.getIndex());
         }

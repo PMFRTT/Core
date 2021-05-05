@@ -3,7 +3,10 @@ package core.settings;
 import core.Utils;
 import core.debug.DebugSender;
 import core.debug.DebugType;
-import core.settings.Setting.*;
+import core.settings.Setting.Setting;
+import core.settings.Setting.SettingCycle;
+import core.settings.Setting.SettingSwitch;
+import core.settings.Setting.SettingsType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -76,26 +79,32 @@ public class SettingsInventory implements Listener {
                 itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                 List<String> temp = new ArrayList<String>(setting.getDescription());
                 if (setting instanceof SettingSwitch) {
-                    SettingSwitch settingSwitch = (SettingSwitch) setting;
-                    if (settingSwitch.getSettingValue()) {
-                        temp.add(Utils.colorize("&8Aktueller Wert: &a" + settingSwitch.getSettingValue()));
+                    if ((Boolean)setting.getValue()) {
+                        temp.add(Utils.colorize("&8Aktueller Wert: &a" + setting.getValue()));
                         itemMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
                     } else {
-                        temp.add(Utils.colorize("&8Aktueller Wert: &c" + settingSwitch.getSettingValue()));
+                        temp.add(Utils.colorize("&8Aktueller Wert: &c" + setting.getValue()));
                         itemMeta.removeEnchant(Enchantment.PROTECTION_ENVIRONMENTAL);
                     }
                 } else if (setting instanceof SettingCycle) {
                     SettingCycle settingCycle = (SettingCycle) setting;
                     itemMeta.setDisplayName(setting.getName());
                     temp.add(Utils.colorize("&8Aktueller Wert: &6" + settingCycle.getValueAsString()));
-                } else if (setting instanceof SettingClick) {
-
                 }
                 itemMeta.setLore(temp);
                 itemStack.setItemMeta(itemMeta);
                 this.inventory.setItem(this.usableSlots.get(i), itemStack);
                 this.slotSettingsMap.put(this.usableSlots.get(i), setting);
                 i++;
+            }
+            for (int j = 0; j < 45; j++) {
+                if (inventory.getItem(j) == null) {
+                    ItemStack empty = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+                    ItemMeta emptyMeta = empty.getItemMeta();
+                    emptyMeta.setDisplayName("--");
+                    empty.setItemMeta(emptyMeta);
+                    inventory.setItem(j, empty);
+                }
             }
         }
     }
@@ -121,7 +130,7 @@ public class SettingsInventory implements Listener {
                     SettingSwitch settingSwitch = (SettingSwitch) getSettingfromSlot(e.getSlot());
                     if (e.getClick().isShiftClick()) {
                         if (settingSwitch.getSubSettings() != null) {
-                            if (settingSwitch.getSettingValue()) {
+                            if (settingSwitch.getValue()) {
                                 e.getWhoClicked().openInventory(settingSwitch.getSubSettings().getSettingsInventory().getInventory());
                             }
                         }

@@ -61,6 +61,7 @@ core\core\CoreResetServer$1.class
 core\hotbar\HotbarScheduler.class
 core\core\CoreEventHandler$1.class
 core\settings\Settings.class
+core\hotbar\HotbarScheduler$2.class
 core\commands\VersionCommandListener.class
 core\timer\TimerType.class
 core\debug\DebugType.class

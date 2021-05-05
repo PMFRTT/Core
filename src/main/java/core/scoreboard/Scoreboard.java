@@ -80,4 +80,8 @@ public class Scoreboard {
         return this.titles.get(0);
     }
 
+    public List<String> getTitles(){
+        return this.titles;
+    }
+
 }

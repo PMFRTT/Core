@@ -8,4 +8,9 @@ public class SettingClick extends Setting {
     public SettingClick(String name, ArrayList<String> description, SettingsType type, Material material) {
         super(name, description, type, material);
     }
+
+    @Override
+    public Object getValue() {
+        return null;
+    }
 }

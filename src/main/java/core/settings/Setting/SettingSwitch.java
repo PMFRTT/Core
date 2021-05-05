@@ -5,9 +5,8 @@ import org.bukkit.Material;
 
 import java.util.ArrayList;
 
-public class SettingSwitch extends Setting {
+public class SettingSwitch extends Setting<Boolean> {
 
-    private boolean enabled;
     private SubSettings subSettings;
 
     public SettingSwitch(String name, ArrayList<String> description, Material material, boolean enabled) {
@@ -29,16 +28,17 @@ public class SettingSwitch extends Setting {
         return this.subSettings;
     }
 
-    public boolean getSettingValue() {
-        return this.enabled;
-    }
-
     public String getName() {
         return super.getName();
     }
 
     public Material getMaterial() {
         return super.getMaterial();
+    }
+
+    @Override
+    public Boolean getValue() {
+        return this.enabled;
     }
 
     public ArrayList<String> getDescription() {
