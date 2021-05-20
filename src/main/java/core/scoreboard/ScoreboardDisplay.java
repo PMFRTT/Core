@@ -46,18 +46,32 @@ public class ScoreboardDisplay {
     }
 
     private Integer i = 0;
+    private Integer j = 0;
+    private String title = "";
 
-    public void enableTitlesList(Scoreboard scoreboard) {
+    public void enableTitlesList(Scoreboard scoreboard, Integer cycleDuration) {
         if (scoreboard.getType() == ScoreboardType.MULTI_TITLE) {
             Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
-                renderScoreboard(scoreboard, scoreboard.getTitles().get(i));
-                i++;
+                if (scoreboard.getTitles().get(i) != title) {
+                    renderScoreboard(scoreboard, scoreboard.getTitles().get(i));
+                    title = scoreboard.getTitles().get(i);
+                    i = scoreboard.getTitles().indexOf(title);
+                }
+                j++;
+                if(j >= cycleDuration){
+                    i++;
+                    j = 0;
+                }
                 if (i > scoreboard.getTitles().size() - 1) {
                     i = 0;
                 }
-            }, 0, 240);
-        }
-        else System.err.println("tried enabling multiline, when scoreboard is not of type multiline (core.scoreboard.ScoreboardsDisplay:62)");
+            }, 0, 1);
+        } else
+            System.err.println("tried enabling multiline, when scoreboard is not of type multiline (core.scoreboard.ScoreboardsDisplay:62)");
+    }
+
+    public Integer getTitleIndex(){
+        return i;
     }
 
 }

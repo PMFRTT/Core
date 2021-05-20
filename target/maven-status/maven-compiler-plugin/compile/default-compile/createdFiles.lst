@@ -35,6 +35,7 @@ core\scoreboard\ScoreboardType.class
 core\sql\MySQLRanks.class
 core\commands\HubCommandListener.class
 core\core\CoreMain.class
+core\hotbar\HotbarEventHandler.class
 core\ranks\RankUpdater$1.class
 core\permissions\Permission$2.class
 core\hotbar\HotbarScheduler$1.class

@@ -116,13 +116,13 @@ public class HotbarScheduler {
         this.scheduledMessages.clear();
     }
 
-    public void scheduleRepeatingMessage(String message, Integer distanceBetweenMessages, Integer duration){
+    public void scheduleRepeatingMessage(String message, Integer distanceBetweenMessages, Integer duration, Integer delay){
         Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
             @Override
             public void run() {
                 scheduleMessage(message, duration);
             }
-        }, 0, distanceBetweenMessages);
+        }, delay, distanceBetweenMessages);
     }
 
 }

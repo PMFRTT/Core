@@ -84,4 +84,8 @@ public class Scoreboard {
         return this.titles;
     }
 
+    public void setTitles(ArrayList<String> titles){
+        this.titles = titles;
+    }
+
 }

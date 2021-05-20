@@ -46,6 +46,7 @@ C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreMain.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\sql\SQLConnector.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreResetServer.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\bungee\CoreBungeeCordClient.java
+C:\Code\Java\Bukkit\Core\src\main\java\core\hotbar\HotbarEventHandler.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\commands\InvseeCommandListener.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\sql\MySQLRanks.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\sql\MySQLBungee.java

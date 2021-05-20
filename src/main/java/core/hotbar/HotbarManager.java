@@ -31,6 +31,10 @@ public class HotbarManager {
         hotbarSchedulers.put(player.getDisplayName(), hotbarScheduler);
     }
 
+    public boolean contains(Player player){
+        return hotbarSchedulers.containsKey(player.getDisplayName());
+    }
+
     public HashMap<String, HotbarScheduler> getAllSchedulers(){
         return hotbarSchedulers;
     }
