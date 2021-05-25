@@ -13,7 +13,7 @@ public abstract class Settings {
     private String PluginName = " ";
     private static final List<Setting> SettingsList = new ArrayList<Setting>();
     public List<Setting> SettingsListPerSetting = new ArrayList<Setting>();
-    private final HashMap<String, Setting> SettingsMap = new HashMap<String, Setting>();
+    private static final HashMap<String, Setting> SettingsMap = new HashMap<String, Setting>();
     private final SettingsInventory settingsInventory;
     private PluginSettings masterSettings = null;
     private final boolean isMasterSettings;
@@ -35,52 +35,56 @@ public abstract class Settings {
 
     public void addSetting(String name, ArrayList<String> description, Material material, List<Integer> values) {
         SettingCycle setting = new SettingCycle(name, description, material, values);
-        this.SettingsMap.put(name, setting);
+        SettingsMap.put(name, setting);
         SettingsList.add(setting);
         SettingsListPerSetting.add(setting);
     }
 
     public void addSetting(String name, ArrayList<String> description, Material material, List<Integer> values, List<String> mappedValues) {
         SettingCycle setting = new SettingCycle(name, description, material, values, mappedValues);
-        this.SettingsMap.put(name, setting);
+        SettingsMap.put(name, setting);
         SettingsList.add(setting);
         SettingsListPerSetting.add(setting);
     }
 
     public void addSetting(String name, ArrayList<String> description, Material material, List<Integer> values, List<String> mappedValues, List<Material> mappedMaterials) {
         SettingCycle setting = new SettingCycle(name, description, material, values, mappedValues, mappedMaterials);
-        this.SettingsMap.put(name, setting);
+        SettingsMap.put(name, setting);
         SettingsList.add(setting);
         SettingsListPerSetting.add(setting);
     }
 
     public void addSetting(String name, ArrayList<String> description, Material material, boolean enabled) {
         SettingSwitch setting = new SettingSwitch(name, description, material, enabled);
-        this.SettingsMap.put(name, setting);
+        SettingsMap.put(name, setting);
         SettingsList.add(setting);
         SettingsListPerSetting.add(setting);
     }
 
     public void addSetting(String name, ArrayList<String> description, Material material, boolean enabled, SubSettings subSettings) {
         SettingSwitch setting = new SettingSwitch(name, description, material, enabled, subSettings);
-        this.SettingsMap.put(name, setting);
+        SettingsMap.put(name, setting);
         SettingsList.add(setting);
         SettingsListPerSetting.add(setting);
     }
 
     public void addSetting(String name, ArrayList<String> description, Material material){
         SettingClick setting = new SettingClick(name, description, SettingsType.CLICK, material);
-        this.SettingsMap.put(name, setting);
+        SettingsMap.put(name, setting);
         SettingsList.add(setting);
         SettingsListPerSetting.add(setting);
     }
 
+    public void addSetting(String name, ArrayList<String> description, Material material, SubSettings subSettings){
+        SettingClick setting = new SettingClick(name, description, SettingsType.CLICK, material, subSettings);
+        SettingsMap.put(name, setting);
+        SettingsList.add(setting);
+        SettingsListPerSetting.add(setting);
+    }
+
+
     public Setting getSettingbyName(String name) {
-        if (SettingsMap.containsKey(name)) {
-            return this.SettingsMap.get(name);
-        } else {
-            return null;
-        }
+        return SettingsMap.getOrDefault(name, null);
     }
 
     public String getPluginName() {
@@ -92,7 +96,7 @@ public abstract class Settings {
     }
 
     public HashMap<String, Setting> getSettingsMap() {
-        return this.SettingsMap;
+        return SettingsMap;
     }
 
     public List<Setting> getSettingsList() {

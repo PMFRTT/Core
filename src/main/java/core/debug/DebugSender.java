@@ -8,11 +8,20 @@ import static core.chat.Color.colorizeHex;
 
 public class DebugSender {
 
+    private static final Integer DEBUGTIMEOUT = 50;
+
     public static void sendDebug(DebugType type, String message) {
         if (CoreMain.sqlConfig.getConfigbyName("debug").equals("1")) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (CoreMain.rankUpdater.isDev(player)) {
                     player.sendMessage(colorizeHex(getDebugPrefix(type) + message));
+                }
+            }
+        }
+        else if(CoreMain.sqlConfig.getConfigbyName("debug").equals("2")){
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (CoreMain.rankUpdater.isDev(player)) {
+                    CoreMain.hotbarManager.getHotbarScheduler(player).scheduleMessage(colorizeHex(getDebugPrefix(type) + message), DEBUGTIMEOUT);
                 }
             }
         }
@@ -27,6 +36,13 @@ public class DebugSender {
                 }
             }
         }
+        else if(CoreMain.sqlConfig.getConfigbyName("debug").equals("2")){
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (CoreMain.rankUpdater.isDev(player)) {
+                    CoreMain.hotbarManager.getHotbarScheduler(player).scheduleMessage(colorizeHex(getDebugPrefix(type, name) + message), DEBUGTIMEOUT);
+                }
+            }
+        }
     }
 
     public static void sendDebug(DebugType type, String message, String name, String thread) {
@@ -34,6 +50,12 @@ public class DebugSender {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (CoreMain.rankUpdater.isDev(player)) {
                     player.sendMessage(colorizeHex(getDebugPrefix(type, name, thread) + message));
+                }
+            }
+        }else if(CoreMain.sqlConfig.getConfigbyName("debug").equals("2")){
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                if (CoreMain.rankUpdater.isDev(player)) {
+                    CoreMain.hotbarManager.getHotbarScheduler(player).scheduleMessage(colorizeHex(getDebugPrefix(type, name, thread) + message), DEBUGTIMEOUT);
                 }
             }
         }

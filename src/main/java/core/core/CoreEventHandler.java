@@ -4,6 +4,7 @@ import core.Utils;
 import core.chat.Color;
 import core.debug.DebugSender;
 import core.debug.DebugType;
+import core.hotbar.HotbarScheduler;
 import core.ranks.Rank;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
@@ -40,6 +41,7 @@ public class CoreEventHandler implements Listener {
         CoreMain.SQL.connect();
         CoreMain.mySQLPermissions.createPlayer(e.getPlayer());
         CoreMain.mySQLRanks.createPlayer(e.getPlayer());
+        CoreMain.hotbarManager.createHotbarScheduler(e.getPlayer(), new HotbarScheduler(corePlugin, "", e.getPlayer().getDisplayName()));
         Utils.addServerInfo(CoreMain.getPlugin().getName(), 0);
         e.setJoinMessage(Utils.getJoinPrefix("Server", e.getPlayer()));
         DebugSender.sendDebug(DebugType.SERVER, "player joined");

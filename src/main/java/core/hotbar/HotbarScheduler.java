@@ -2,6 +2,7 @@ package core.hotbar;
 
 import core.core.CoreSendStringPacket;
 import core.timer.Timer;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -12,10 +13,12 @@ import java.util.List;
 
 public class HotbarScheduler {
 
+    private final Integer TIMEOUT_TICKS = 30;
+
     private final List<String> scheduledMessages = new ArrayList<String>();
+    private final List<Integer> scheduledTimeouts = new ArrayList<Integer>();
     private boolean hasScheduledMessage = false;
-    private int schedulerTimeout = 0;
-    private final Player player;
+    private final String playerName;
 
     private final Plugin plugin;
     private String defaultMessage;
@@ -24,24 +27,26 @@ public class HotbarScheduler {
     private boolean running = false;
     private boolean timed = false;
 
-    public HotbarScheduler(Plugin plugin, String defaultMessage, Player player) {
+    public HotbarScheduler(Plugin plugin, String defaultMessage, String playerName) {
         this.plugin = plugin;
         this.defaultMessage = defaultMessage;
         this.timed = false;
-        this.player = player;
+        this.playerName = playerName;
     }
 
-    public HotbarScheduler(Plugin plugin, Timer timer, Player player) {
+    public HotbarScheduler(Plugin plugin, Timer timer, String playerName) {
         this.plugin = plugin;
         this.timer = timer;
         this.timed = true;
-        this.player = player;
+        this.playerName = playerName;
     }
 
-    public void scheduleMessage(String message) {
-        this.scheduledMessages.add(message);
-        this.schedulerTimeout = 100;
-        this.hasScheduledMessage = true;
+    public void scheduleMessage(String message, Integer timeout) {
+        if (!this.scheduledMessages.contains(message)) {
+            this.scheduledMessages.add(message);
+            this.scheduledTimeouts.add(timeout);
+            this.hasScheduledMessage = true;
+        }
     }
 
     public void startScheduler(boolean resume) {
@@ -52,6 +57,16 @@ public class HotbarScheduler {
             }
             runScheduler();
         }
+    }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+        this.timed = true;
+    }
+
+    public void removeTimer() {
+        this.timer = null;
+        this.timed = false;
     }
 
     public void killScheduler(boolean clear) {
@@ -66,30 +81,29 @@ public class HotbarScheduler {
         BukkitTask runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                if (running) {
-                    if (hasScheduledMessage) {
-                        if (schedulerTimeout != 0) {
-                            CoreSendStringPacket.sendPacketToHotbar(player, scheduledMessages.get(0));
-                            schedulerTimeout--;
-                        } else {
-                            scheduledMessages.remove(0);
-                            if (!scheduledMessages.isEmpty()) {
-                                schedulerTimeout = 100;
-                                hasScheduledMessage = true;
+                if (Bukkit.getPlayer(playerName) != null) {
+                    if (running) {
+                        Player player = Bukkit.getPlayer(playerName);
+                        assert player != null;
+                        if (hasScheduledMessage) {
+                            if (scheduledTimeouts.get(0) != 0) {
+                                CoreSendStringPacket.sendPacketToHotbar(player, scheduledMessages.get(0));
+                                scheduledTimeouts.set(0, scheduledTimeouts.get(0) - 1);
                             } else {
-                                hasScheduledMessage = false;
+                                scheduledMessages.remove(0);
+                                scheduledTimeouts.remove(0);
+                                hasScheduledMessage = !scheduledMessages.isEmpty();
+                            }
+                        } else {
+                            if (timed) {
+                                CoreSendStringPacket.sendPacketToHotbar(player, timer.getTimerMessage());
+                            } else {
+                                CoreSendStringPacket.sendPacketToHotbar(player, defaultMessage);
                             }
                         }
                     } else {
-                        assert player != null;
-                        if (timed) {
-                            CoreSendStringPacket.sendPacketToHotbar(player, timer.getTimerMessage());
-                        } else {
-                            CoreSendStringPacket.sendPacketToHotbar(player, defaultMessage);
-                        }
+                        cancel();
                     }
-                } else {
-                    cancel();
                 }
             }
 
@@ -102,5 +116,13 @@ public class HotbarScheduler {
         this.scheduledMessages.clear();
     }
 
+    public void scheduleRepeatingMessage(String message, Integer distanceBetweenMessages, Integer duration, Integer delay){
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+                scheduleMessage(message, duration);
+            }
+        }, delay, distanceBetweenMessages);
+    }
 
 }

@@ -7,6 +7,7 @@ import core.bungee.CoreBungeeCordClient;
 import core.commands.MainCommandListener;
 import core.debug.DebugSender;
 import core.debug.DebugType;
+import core.hotbar.HotbarManager;
 import core.permissions.PermissionConverter;
 import core.ranks.RankUpdater;
 import core.sql.*;
@@ -27,6 +28,8 @@ public final class CoreMain extends JavaPlugin {
     public static SQLConfig sqlConfig;
     public static MySQLRanks mySQLRanks;
     public static RankUpdater rankUpdater;
+
+    public static HotbarManager hotbarManager;
 
 
     private TPS ticker;
@@ -57,6 +60,8 @@ public final class CoreMain extends JavaPlugin {
         mySQLBungee = new MySQLBungee(this);
         sqlConfig = new SQLConfig(this);
         mySQLRanks = new MySQLRanks(this);
+
+        hotbarManager = new HotbarManager(this);
 
         this.permissionConverter = new PermissionConverter(this);
 

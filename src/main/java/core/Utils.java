@@ -3,6 +3,9 @@ package core;
 import core.core.CoreMain;
 import core.debug.DebugSender;
 import core.debug.DebugType;
+import core.settings.Setting.Setting;
+import core.settings.Setting.SettingsType;
+import core.settings.Settings;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
@@ -30,7 +33,6 @@ public class Utils {
     private static final String[] rainbowStrings = {
             "&c", "&6", "&e", "&a", "&9", "&d", "&5"
     };
-
 
     public static String getPrefix(String pluginName) {
         return colorize("[&2" + pluginName + "&f]: ");
@@ -161,12 +163,34 @@ public class Utils {
     }
 
     public static String getRainbowString(String message) {
-        String coloredMessage = "";
+        StringBuilder coloredMessage = new StringBuilder();
         Random random = new Random();
         for (Character c : message.toCharArray()) {
-            coloredMessage = coloredMessage + rainbowStrings[random.nextInt(rainbowStrings.length)] + c;
+            coloredMessage.append(rainbowStrings[random.nextInt(rainbowStrings.length)]).append(c);
         }
-        return coloredMessage;
+        return coloredMessage.toString();
+    }
+
+    public static boolean convertToBoolean(int i) {
+        return i == 1;
+    }
+
+    public static Integer getSettingValueInt(Settings settings, String name) {
+        Setting setting = settings.getSettingbyName(name);
+        assert setting != null;
+        if (setting.getType().equals(SettingsType.CYCLE)) {
+            return (Integer) setting.getValue();
+        }
+        return null;
+    }
+
+    public static Boolean getSettingValueBool(Settings settings, String name) {
+        Setting setting = settings.getSettingbyName(name);
+        assert setting != null;
+        if (setting.getType().equals(SettingsType.SWITCH)) {
+            return (Boolean) setting.getValue();
+        }
+        return null;
     }
 
     public static void heal(Player player) {
@@ -265,14 +289,16 @@ public class Utils {
             List<String> footerList = new ArrayList<String>();
             footerList.add("   ");
             if (CoreMain.rankUpdater.isDev(player)) {
-                footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
-                footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
-                footerList.add(Utils.colorize("&8" + Bukkit.getIp() + ":" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&8ms)"));
-                footerList.add(Utils.colorize("&8Verwendeter Speicher: &e" + formatToMB(getUsedMemory()) + "MiB&8/&e" + formatToMB(getTotalMemory()) + "MiB " + getMemoryUsage()));
-                if (CoreMain.SQL.isConnected()) {
-                    footerList.add(Utils.colorize("&8" + "Datenbank ist &averbunden"));
-                } else {
-                    footerList.add(Utils.colorize("&8" + "Datenbank ist &cgetrennt"));
+                if (CoreMain.sqlConfig.getConfigbyName("debug").equals("1") || CoreMain.sqlConfig.getConfigbyName("debug").equals("3")) {
+                    footerList.add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
+                    footerList.add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.#").format(tps) + "&8 Ticks per second"));
+                    footerList.add(Utils.colorize("&8" + Bukkit.getIp() + ":" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&8ms)"));
+                    footerList.add(Utils.colorize("&8Verwendeter Speicher: &e" + formatToMB(getUsedMemory()) + "MiB&8/&e" + formatToMB(getTotalMemory()) + "MiB " + getMemoryUsage()));
+                    if (CoreMain.SQL.isConnected()) {
+                        footerList.add(Utils.colorize("&8" + "Datenbank ist &averbunden"));
+                    } else {
+                        footerList.add(Utils.colorize("&8" + "Datenbank ist &cgetrennt"));
+                    }
                 }
             }
 
