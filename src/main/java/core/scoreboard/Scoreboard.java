@@ -11,6 +11,8 @@ public class Scoreboard {
     private final Integer displayTimeMultiTitle;
     private final ScoreboardType type;
 
+    private String title = "";
+
     public Scoreboard(ScoreboardType type, List<String> titles, Integer displayTimeMultiTitle) {
         this.type = type;
         this.titles = titles;
@@ -77,7 +79,7 @@ public class Scoreboard {
     }
 
     public String getTitle() {
-        return this.titles.get(0);
+        return this.title;
     }
 
     public List<String> getTitles(){
@@ -86,6 +88,10 @@ public class Scoreboard {
 
     public void setTitles(ArrayList<String> titles){
         this.titles = titles;
+    }
+
+    public void setTitle(String title){
+        this.title = title;
     }
 
 }

@@ -12,6 +12,9 @@ public class SettingCycle extends Setting<Integer> {
     List<String> mappedValues;
     List<Material> mappedMaterials;
 
+    private Boolean blockUP = false;
+    private Boolean blockDO = false;
+
     public SettingCycle(String name, ArrayList<String> description, Material material, List<Integer> values) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
@@ -36,24 +39,28 @@ public class SettingCycle extends Setting<Integer> {
     }
 
     public void cycleUp() {
-        if (super.getType() == SettingsType.CYCLE) {
-            if (this.index < values.size() - 1) {
-                index++;
-            } else {
-                index = 0;
+        if (!this.blockUP) {
+            if (super.getType() == SettingsType.CYCLE) {
+                if (this.index < values.size() - 1) {
+                    index++;
+                } else {
+                    index = 0;
+                }
+                value = values.get(index);
             }
-            value = values.get(index);
         }
     }
 
     public void cycleDown() {
-        if (super.getType() == SettingsType.CYCLE) {
-            if (this.index > 0) {
-                index--;
-            } else {
-                index = values.size() - 1;
+        if (!this.blockDO) {
+            if (super.getType() == SettingsType.CYCLE) {
+                if (this.index > 0) {
+                    index--;
+                } else {
+                    index = values.size() - 1;
+                }
+                value = values.get(index);
             }
-            value = values.get(index);
         }
     }
 
@@ -64,7 +71,7 @@ public class SettingCycle extends Setting<Integer> {
     public Material getMaterial() {
         if (this.mappedMaterials != null) {
             return this.mappedMaterials.get(this.index);
-        }else return super.getMaterial();
+        } else return super.getMaterial();
     }
 
     @Override
@@ -90,6 +97,28 @@ public class SettingCycle extends Setting<Integer> {
 
     public int getIndex() {
         return this.index;
+    }
+
+    public void blockCycleUP(Boolean block, String blockDescription) {
+        if (this.blockUP != block) {
+            this.blockUP = block;
+            if (block) {
+                this.getDescription().add(blockDescription);
+            } else {
+                this.getDescription().remove(this.getDescription().size() - 1);
+            }
+        }
+    }
+
+    public void blockCycleDO(Boolean block, String blockDescription) {
+        if (this.blockDO != block) {
+            this.blockDO = block;
+            if (block) {
+                this.getDescription().add(blockDescription);
+            } else {
+                this.getDescription().remove(this.getDescription().size() - 1);
+            }
+        }
     }
 
 }

@@ -75,6 +75,14 @@ public abstract class Settings {
         SettingsListPerSetting.add(setting);
     }
 
+    public void addSetting(String name, ArrayList<String> description, Material material, SubSettings subSettings){
+        SettingClick setting = new SettingClick(name, description, SettingsType.CLICK, material, subSettings);
+        SettingsMap.put(name, setting);
+        SettingsList.add(setting);
+        SettingsListPerSetting.add(setting);
+    }
+
+
     public Setting getSettingbyName(String name) {
         return SettingsMap.getOrDefault(name, null);
     }

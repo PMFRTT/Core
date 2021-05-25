@@ -44,4 +44,8 @@ public class Score {
         return this.suffix;
     }
 
+    public String getFullContent(){
+        return getPrefix() + getContent() + getSuffix();
+    }
+
 }

@@ -17,8 +17,8 @@ public class HotbarManager {
         init();
     }
 
-    private void init(){
-        for(Player player : Bukkit.getOnlinePlayers()){
+    public void init() {
+        for (Player player : Bukkit.getOnlinePlayers()) {
             createHotbarScheduler(player, new HotbarScheduler(plugin, "", player.getDisplayName()));
         }
     }
@@ -28,14 +28,16 @@ public class HotbarManager {
     }
 
     public void createHotbarScheduler(Player player, HotbarScheduler hotbarScheduler) {
-        hotbarSchedulers.put(player.getDisplayName(), hotbarScheduler);
+        if (!contains(player)) {
+            hotbarSchedulers.put(player.getDisplayName(), hotbarScheduler);
+        }
     }
 
-    public boolean contains(Player player){
+    public boolean contains(Player player) {
         return hotbarSchedulers.containsKey(player.getDisplayName());
     }
 
-    public HashMap<String, HotbarScheduler> getAllSchedulers(){
+    public HashMap<String, HotbarScheduler> getAllSchedulers() {
         return hotbarSchedulers;
     }
 

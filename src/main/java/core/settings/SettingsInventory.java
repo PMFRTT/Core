@@ -3,10 +3,7 @@ package core.settings;
 import core.Utils;
 import core.debug.DebugSender;
 import core.debug.DebugType;
-import core.settings.Setting.Setting;
-import core.settings.Setting.SettingCycle;
-import core.settings.Setting.SettingSwitch;
-import core.settings.Setting.SettingsType;
+import core.settings.Setting.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -79,7 +76,7 @@ public class SettingsInventory implements Listener {
                 itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
                 List<String> temp = new ArrayList<String>(setting.getDescription());
                 if (setting instanceof SettingSwitch) {
-                    if ((Boolean)setting.getValue()) {
+                    if ((Boolean) setting.getValue()) {
                         temp.add(Utils.colorize("&8Aktueller Wert: &a" + setting.getValue()));
                         itemMeta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
                     } else {
@@ -90,6 +87,8 @@ public class SettingsInventory implements Listener {
                     SettingCycle settingCycle = (SettingCycle) setting;
                     itemMeta.setDisplayName(setting.getName());
                     temp.add(Utils.colorize("&8Aktueller Wert: &6" + settingCycle.getValueAsString()));
+                } else if (setting instanceof  SettingClick){
+                   temp.add(Utils.colorize("&8Aktueller Wert: &6" + setting.value));
                 }
                 itemMeta.setLore(temp);
                 itemStack.setItemMeta(itemMeta);
@@ -136,6 +135,14 @@ public class SettingsInventory implements Listener {
                         }
                     } else if (e.getClick().isLeftClick()) {
                         settingSwitch.changeSettingValue();
+                    }
+                } else if (getSettingfromSlot(e.getSlot()).getType().equals(SettingsType.CLICK)) {
+                    SettingClick setting = (SettingClick) getSettingfromSlot(e.getSlot());
+
+                    if (e.getClick().isShiftClick()) {
+                        if (setting.getSubSettings() != null) {
+                            e.getWhoClicked().openInventory(setting.getSubSettings().getSettingsInventory().getInventory());
+                        }
                     }
                 } else {
                     SettingCycle settingCycle = (SettingCycle) getSettingfromSlot(e.getSlot());
