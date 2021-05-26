@@ -1,9 +1,11 @@
+core\settings\presets\PresetInventory$3.class
 core\settings\PluginSettings.class
 core\commands\MainCommandListener.class
 core\commands\ScheduleCommandListener.class
 core\commands\TimeCommandListener.class
 core\commands\PingCommandListener.class
 core\commands\TeleportCommandListener.class
+core\settings\presets\PresetInventory.class
 core\scoreboard\Scoreboard$1.class
 core\scoreboard\ScoreboardDisplay.class
 core\settings\SettingsInventory$1.class
@@ -32,6 +34,7 @@ core\commands\BugCommandExecutor.class
 core\commands\DifficultyCommandListener.class
 core\scoreboard\Scoreboard.class
 core\scoreboard\ScoreboardType.class
+core\settings\presets\PresetInventory$2.class
 core\sql\MySQLRanks.class
 core\commands\HubCommandListener.class
 core\core\CoreMain.class
@@ -47,6 +50,7 @@ core\chat\Color.class
 core\core\CoreMain$1.class
 core\commands\HealCommandListener.class
 core\commands\InvseeCommandListener.class
+core\settings\presets\PresetInventory$1.class
 core\hotbar\HotbarManager.class
 core\commands\GameModeCommandListener.class
 core\Utils$1.class
@@ -57,6 +61,7 @@ core\permissions\CorePermissionCommandListener.class
 core\permissions\PermissionConverter.class
 core\sql\SQLConnector$1.class
 core\timer\Timer$1.class
+core\settings\presets\PresetHandler.class
 core\permissions\Permission$1.class
 core\core\CoreResetServer$1.class
 core\hotbar\HotbarScheduler.class

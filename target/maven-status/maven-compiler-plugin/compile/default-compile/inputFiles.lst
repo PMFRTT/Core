@@ -18,6 +18,7 @@ C:\Code\Java\Bukkit\Core\src\main\java\core\hotbar\HotbarScheduler.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\commands\WeatherCommandListener.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\settings\SubSettings.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\commands\GameModeCommandListener.java
+C:\Code\Java\Bukkit\Core\src\main\java\core\settings\presets\PresetInventory.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\sql\MySQL.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\commands\MainCommandListener.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\Utils.java
@@ -44,6 +45,7 @@ C:\Code\Java\Bukkit\Core\src\main\java\core\settings\PluginSettings.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\ScoreboardDisplay.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreMain.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\sql\SQLConnector.java
+C:\Code\Java\Bukkit\Core\src\main\java\core\settings\presets\PresetHandler.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreResetServer.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\bungee\CoreBungeeCordClient.java
 C:\Code\Java\Bukkit\Core\src\main\java\core\hotbar\HotbarEventHandler.java

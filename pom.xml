@@ -6,7 +6,7 @@
 
     <groupId>com.github.PMFRTT</groupId>
     <artifactId>Core</artifactId>
-    <version>16.5.32-dev</version>
+    <version>16.5.40-dev</version>
     <packaging>jar</packaging>
 
     <name>Core</name>
