@@ -1,6 +1,8 @@
 package core.settings;
 
 import core.settings.Setting.*;
+import core.settings.presets.PresetHandler;
+import core.settings.presets.PresetInventory;
 import org.bukkit.Material;
 import org.bukkit.plugin.Plugin;
 
@@ -11,6 +13,9 @@ import java.util.List;
 public abstract class Settings {
 
     private String PluginName = " ";
+
+    private final Plugin plugin;
+
     private static final List<Setting> SettingsList = new ArrayList<Setting>();
     public List<Setting> SettingsListPerSetting = new ArrayList<Setting>();
     private static final HashMap<String, Setting> SettingsMap = new HashMap<String, Setting>();
@@ -19,18 +24,29 @@ public abstract class Settings {
     private final boolean isMasterSettings;
     private static final List<Settings> subSettings = new ArrayList<Settings>();
 
+    private final PresetHandler presetHandler;
+    private final PresetInventory presetInventory;
+
+
     public Settings(String name, Plugin plugin, PluginSettings masterSettings) {
+        this.plugin = plugin;
         this.PluginName = name;
         this.masterSettings = masterSettings;
         this.isMasterSettings = false;
         settingsInventory = new SettingsInventory(this, plugin);
         subSettings.add(this);
+        presetHandler = new PresetHandler(this, plugin);
+        this.presetInventory = new PresetInventory(plugin, this);
     }
 
     public Settings(String name, Plugin plugin) {
+        this.plugin = plugin;
         this.PluginName = name;
         this.isMasterSettings = true;
         settingsInventory = new SettingsInventory(this, plugin);
+        presetHandler = new PresetHandler(this, plugin);
+        this.presetInventory = new PresetInventory(plugin, this);
+
     }
 
     public void addSetting(String name, ArrayList<String> description, Material material, List<Integer> values) {
@@ -68,14 +84,14 @@ public abstract class Settings {
         SettingsListPerSetting.add(setting);
     }
 
-    public void addSetting(String name, ArrayList<String> description, Material material){
+    public void addSetting(String name, ArrayList<String> description, Material material) {
         SettingClick setting = new SettingClick(name, description, SettingsType.CLICK, material);
         SettingsMap.put(name, setting);
         SettingsList.add(setting);
         SettingsListPerSetting.add(setting);
     }
 
-    public void addSetting(String name, ArrayList<String> description, Material material, SubSettings subSettings){
+    public void addSetting(String name, ArrayList<String> description, Material material, SubSettings subSettings) {
         SettingClick setting = new SettingClick(name, description, SettingsType.CLICK, material, subSettings);
         SettingsMap.put(name, setting);
         SettingsList.add(setting);
@@ -113,11 +129,19 @@ public abstract class Settings {
         } else return this;
     }
 
-    public List<Settings> getSubSettings(){
+    public List<Settings> getSubSettings() {
         return subSettings;
     }
 
-    public List<Setting> getAllSettings(){
+    public List<Setting> getAllSettings() {
         return Settings.SettingsList;
+    }
+
+    public PresetHandler getPresetHandler() {
+        return this.presetHandler;
+    }
+
+    public PresetInventory getPresetInventory() {
+        return presetInventory;
     }
 }

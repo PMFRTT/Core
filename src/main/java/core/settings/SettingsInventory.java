@@ -24,6 +24,7 @@ import java.util.Objects;
 public class SettingsInventory implements Listener {
 
     Settings settings;
+
     private final Plugin plugin;
     private final Inventory inventory;
     private final HashMap<Integer, Setting> slotSettingsMap = new HashMap<Integer, Setting>();
@@ -87,8 +88,8 @@ public class SettingsInventory implements Listener {
                     SettingCycle settingCycle = (SettingCycle) setting;
                     itemMeta.setDisplayName(setting.getName());
                     temp.add(Utils.colorize("&8Aktueller Wert: &6" + settingCycle.getValueAsString()));
-                } else if (setting instanceof  SettingClick){
-                   temp.add(Utils.colorize("&8Aktueller Wert: &6" + setting.value));
+                } else if (setting instanceof SettingClick) {
+                    temp.add(Utils.colorize("&8Aktueller Wert: &6" + setting.value));
                 }
                 itemMeta.setLore(temp);
                 itemStack.setItemMeta(itemMeta);
@@ -96,7 +97,7 @@ public class SettingsInventory implements Listener {
                 this.slotSettingsMap.put(this.usableSlots.get(i), setting);
                 i++;
             }
-            for (int j = 0; j < 45; j++) {
+            for (int j = 0; j < 44; j++) {
                 if (inventory.getItem(j) == null) {
                     ItemStack empty = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
                     ItemMeta emptyMeta = empty.getItemMeta();
@@ -104,6 +105,13 @@ public class SettingsInventory implements Listener {
                     empty.setItemMeta(emptyMeta);
                     inventory.setItem(j, empty);
                 }
+            }
+            if (inventory.getItem(44) == null) {
+                ItemStack empty = new ItemStack(Material.COMMAND_BLOCK);
+                ItemMeta emptyMeta = empty.getItemMeta();
+                emptyMeta.setDisplayName("Presets");
+                empty.setItemMeta(emptyMeta);
+                inventory.setItem(44, empty);
             }
         }
     }
@@ -117,9 +125,14 @@ public class SettingsInventory implements Listener {
         return this.slotSettingsMap.getOrDefault(slot, null);
     }
 
+
+
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        if (Objects.equals(e.getClickedInventory(), this.inventory)) {
+        if (e.getSlot() == 44) {
+            e.getWhoClicked().closeInventory();
+            e.getWhoClicked().openInventory(settings.getPresetInventory().getInventory());
+        } else if (Objects.equals(e.getClickedInventory(), this.inventory)) {
             e.setCancelled(true);
             if (this.usableSlots.contains(e.getSlot())) {
                 DebugSender.sendDebug(DebugType.SETTINGS, "setting clicked");
