@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class PresetInventory implements Listener {
 
@@ -47,7 +48,7 @@ public class PresetInventory implements Listener {
             ItemStack itemStack = new ItemStack(Material.COMMAND_BLOCK);
             ItemMeta itemMeta = itemStack.getItemMeta();
             itemMeta.setDisplayName(file.getName());
-            ArrayList<String> lore = new ArrayList<>(){{
+            ArrayList<String> lore = new ArrayList<>() {{
                 add(Utils.colorize("&7Linksklick: &aLade&7 dieses Preset"));
                 add(Utils.colorize("&7Shift + Linksklick: &cLösche&7 dieses Preset"));
                 add(Utils.colorize("&7Mittlere Maustaste: Erhalte eine &ePreview"));
@@ -81,7 +82,7 @@ public class PresetInventory implements Listener {
         ItemStack itemStack = new ItemStack(Material.BOOK);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Utils.colorize("&aSpeichern"));
-        ArrayList<String> lore = new ArrayList<>(){{
+        ArrayList<String> lore = new ArrayList<>() {{
             add(Utils.colorize("&aSpeichere&7 deine aktuellen"));
             add(Utils.colorize("&7Einstellungen als Preset ab!"));
         }};
@@ -94,7 +95,7 @@ public class PresetInventory implements Listener {
         ItemStack itemStack = new ItemStack(Material.HONEYCOMB);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(Utils.colorize("&eAktualisieren"));
-        ArrayList<String> lore = new ArrayList<>(){{
+        ArrayList<String> lore = new ArrayList<>() {{
             add(Utils.colorize("&7Werden nicht alle Presets angezeigt?"));
             add(Utils.colorize("&7Hier kannst du alle Presets &eaktualisieren&7!"));
         }};
@@ -104,22 +105,27 @@ public class PresetInventory implements Listener {
     }
 
     private List<File> getAllPresets(PresetHandler presetHandler) {
+
+        List<File> allFiles = new ArrayList<File>();
+
         File directory = new File(presetHandler.getFullDirectory());
         File[] files = directory.listFiles();
-        assert files != null;
-        return Arrays.asList(files);
+
+        allFiles = Arrays.asList(Objects.requireNonNull(files));
+        return allFiles;
+
     }
 
     @EventHandler
     public void onInventoryClickEvent(InventoryClickEvent e) throws IOException {
         if (e.getClickedInventory() == this.inventory) {
-            if (e.getSlot() == 44 && e.getCurrentItem().getType() == Material.BARRIER) {
+            if (e.getSlot() == 44 && e.getCurrentItem().getType() == Material.BARRIER && e.getCurrentItem().getItemMeta().getDisplayName().equals(Utils.colorize("&4Zurück"))) {
                 e.getWhoClicked().closeInventory();
                 e.getWhoClicked().openInventory(settings.getMasterSettings().getSettingsInventory().getInventory());
             } else if (e.getSlot() == 43 && e.getCurrentItem().getType() == Material.BOOK) {
                 settings.getPresetHandler().savePreset();
                 updateInventory();
-            }else if (e.getSlot() == 42 && e.getCurrentItem().getType() == Material.HONEYCOMB) {
+            } else if (e.getSlot() == 42 && e.getCurrentItem().getType() == Material.HONEYCOMB) {
                 inventory.clear();
                 updateInventory();
             } else if (e.getCurrentItem().getType() == Material.COMMAND_BLOCK) {
@@ -128,9 +134,9 @@ public class PresetInventory implements Listener {
                     inventory.setItem(getAllPresets(settings.getPresetHandler()).size(), null);
                     inventory.setItem(e.getSlot(), null);
                     updateInventory();
-                } else if(e.getClick().isLeftClick()){
+                } else if (e.getClick().isLeftClick()) {
                     settings.getPresetHandler().readPresets(e.getCurrentItem().getItemMeta().getDisplayName());
-                }else if(e.getClick().equals(ClickType.MIDDLE)){
+                } else if (e.getClick().equals(ClickType.MIDDLE)) {
                     e.getWhoClicked().closeInventory();
                     settings.getPresetHandler().printPreset((Player) e.getWhoClicked(), e.getCurrentItem().getItemMeta().getDisplayName());
                 }

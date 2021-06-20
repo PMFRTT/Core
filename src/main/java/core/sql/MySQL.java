@@ -21,7 +21,7 @@ public class MySQL {
             String port = "3306";
             String database = "pmfrtt_core_network";
             String username = "root";
-            String password = "";
+            String password = "xxTtu5+Q";
             connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=false", username, password);
             DebugSender.sendDebug(DebugType.DATABASE, "database connected");
             return true;

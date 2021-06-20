@@ -1,6 +1,8 @@
 package core.scoreboard;
 
 import core.Utils;
+import core.debug.DebugSender;
+import core.debug.DebugType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -28,22 +30,28 @@ public class ScoreboardDisplay {
 
     public void renderScoreboard() {
         if (needsUpdate()) {
+            DebugSender.sendDebug(DebugType.GUI, "rendered sidelist", "Sidelist");
             org.bukkit.scoreboard.Scoreboard scoreboardBukkit = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
             Objective objective = scoreboardBukkit.registerNewObjective(plugin.getName(), "dummy", Utils.colorize(scoreboard.getTitle()));
             for (Score score : scoreboard.getScores()) {
+
                 String prefix = "";
+
                 if (score.getPrefix() != null) {
                     prefix = score.getPrefix();
                 }
+
                 String suffix = "";
                 if (score.getSuffix() != null) {
                     suffix = score.getSuffix();
                 }
+
                 String fullString = Utils.colorize(prefix + score.getContent() + suffix);
                 String cutString = fullString.substring(0, Math.min(fullString.length(), 37));
                 if (fullString.length() > 38) {
                     cutString = cutString + "...";
                 }
+
                 org.bukkit.scoreboard.Score bukkitScore = objective.getScore(cutString);
                 bukkitScore.setScore(score.getValue());
             }
@@ -62,11 +70,11 @@ public class ScoreboardDisplay {
             Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
                 if (scoreboard.getTitles().get(i) != title) {
                     scoreboard.setTitle(scoreboard.getTitles().get(i));
-                    renderScoreboard();
                     title = scoreboard.getTitles().get(i);
                     i = scoreboard.getTitles().indexOf(title);
                 }
                 j++;
+                renderScoreboard();
                 if (j >= cycleDuration) {
                     i++;
                     j = 0;
@@ -76,18 +84,18 @@ public class ScoreboardDisplay {
                 }
             }, 0, 1);
         } else
-            System.err.println("tried enabling multiline, when scoreboard is not of type multiline (core.scoreboard.ScoreboardsDisplay:62)");
+            System.out.println("tried enabling multiline, when scoreboard is not of type multiline (core.scoreboard.ScoreboardsDisplay:62)");
     }
 
     public Integer getTitleIndex() {
         return i;
     }
 
-    public void setScoreboard(Scoreboard scoreboard){
+    public void setScoreboard(Scoreboard scoreboard) {
         this.scoreboard = scoreboard;
     }
 
-    public Scoreboard getScoreboard(){
+    public Scoreboard getScoreboard() {
         return this.scoreboard;
     }
 
@@ -103,21 +111,24 @@ public class ScoreboardDisplay {
         }
     }
 
+    private String currentTitle = "";
+
     private boolean needsUpdate() {
         if (scoreboard != null) {
-            boolean returnValue = false;
-            for (Score score : scoreboard.getScores()) {
-                if (!scores.contains(score.getFullContent())) {
-                    returnValue = true;
+            boolean returnValue = !currentTitle.equals(scoreboard.getTitles().get(i));
+            if (!returnValue) {
+                for (Score score : scoreboard.getScores()) {
+                    if (!scores.contains(score.getFullContent())) {
+                        returnValue = true;
+                        break;
+                    }
                 }
             }
-            if (!title.equals(scoreboard.getTitle())) {
-                returnValue = true;
-            }
+            currentTitle = scoreboard.getTitles().get(i);
             return returnValue;
         } else {
             return false;
         }
     }
-
 }
+

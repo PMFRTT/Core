@@ -108,5 +108,12 @@ public class PresetHandler {
         return location.substring(0, location.length() - plugin.getName().length()) + "/config/core/presets/" + plugin.getName() + "/";
     }
 
+    public void createDirectory(){
+        File directory = new File(getFullDirectory());
+        if(!directory.exists()){
+            directory.mkdirs();
+        }
+    }
+
 
 }

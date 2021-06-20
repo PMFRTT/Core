@@ -6,7 +6,7 @@
 
     <groupId>com.github.PMFRTT</groupId>
     <artifactId>Core</artifactId>
-    <version>16.5.40-dev</version>
+    <version>17.0.0-dev</version>
     <packaging>jar</packaging>
 
     <name>Core</name>
@@ -62,14 +62,20 @@
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+        <repository>
+            <id>sonatype</id>
+            <url>https://oss.sonatype.org/content/groups/public/</url>
+        </repository>
     </repositories>
+
     <dependencies>
         <!--Spigot API and NMS -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <version>1.17-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/libs/spigot.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
@@ -78,10 +84,14 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
+            <groupId>org.knowm.xchange</groupId>
+            <artifactId>xchange-core</artifactId>
+            <version>5.0.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.knowm.xchange</groupId>
+            <artifactId>xchange-stream-coinbasepro</artifactId>
+            <version>5.0.8</version>
         </dependency>
     </dependencies>
 </project>

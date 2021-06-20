@@ -6,43 +6,69 @@ import core.debug.DebugType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.ArrayList;
+
 public class TPS {
 
-    private static int tps;
+    private static float tps;
+    private static float tickTime;
     private static CoreMain main;
     private static boolean below18 = false;
     private static boolean below10 = false;
 
-    public TPS(CoreMain main) {
+    private static final  ArrayList<Float> recentTickRate = new ArrayList<Float>();
+    private static final  ArrayList<Float> recentTickTime = new ArrayList<Float>();
+
+
+    public TPS(CoreMain main){
         TPS.main = main;
         calculateTPS();
     }
 
-    private void calculateTPS() {
+    private void calculateTPS(){
+
         BukkitTask runnable = new BukkitRunnable() {
+
             long sec;
-            long currentSec;
-            int ticks;
+            long oldsec;
+
 
             @Override
             public void run() {
-                sec = (System.currentTimeMillis() / 1000);
+                sec = System.currentTimeMillis();
+                tickTime = sec - oldsec;
+                tps = 1000 / tickTime;
 
-                if (currentSec == sec) {
-                    ticks++;
-                } else {
-                    currentSec = sec;
-                    tps = (tps == 0 ? ticks : (((tps + ticks) + 1) / 2));
-                    ticks = 0;
+                if(recentTickRate.size() > 20){
+                    recentTickRate.remove(0);
                 }
+                if(recentTickTime.size() > 20){
+                    recentTickTime.remove(0);
+                }
+                recentTickTime.add(tickTime);
+                recentTickRate.add(1000 / tickTime);
+
+                oldsec = System.currentTimeMillis();
             }
         }.runTaskTimer(main, 0L, 1L);
     }
 
-    public int getTPS() {
+    public float getTPS() {
         checkTPS();
         Utils.checkMemory();
         return tps;
+    }
+
+    public float getTickTime(){
+        return tickTime;
+    }
+
+    public double getRecentTickRate(){
+        return recentTickRate.stream().mapToDouble(d -> d).average().orElse(0.0);
+    }
+
+    public double getRecentTickTime(){
+        return recentTickTime.stream().mapToDouble(d -> d).average().orElse(0.0);
     }
 
     private void checkTPS() {

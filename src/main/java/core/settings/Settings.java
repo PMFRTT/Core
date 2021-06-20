@@ -37,6 +37,7 @@ public abstract class Settings {
         subSettings.add(this);
         presetHandler = new PresetHandler(this, plugin);
         this.presetInventory = new PresetInventory(plugin, this);
+        presetHandler.createDirectory();
     }
 
     public Settings(String name, Plugin plugin) {
@@ -46,7 +47,7 @@ public abstract class Settings {
         settingsInventory = new SettingsInventory(this, plugin);
         presetHandler = new PresetHandler(this, plugin);
         this.presetInventory = new PresetInventory(plugin, this);
-
+        presetHandler.createDirectory();
     }
 
     public void addSetting(String name, ArrayList<String> description, Material material, List<Integer> values) {
