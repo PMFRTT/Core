@@ -21,7 +21,15 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.spigotmc:spigot:1.16.5-R0.1-SNAPSHOT" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: org.spigotmc:spigot:1.17-R0.1-SNAPSHOT">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/main/resources/libs/spigot-1.17.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Maven: org.jetbrains:annotations:21.0.1" level="project" />
   </component>
 </module>

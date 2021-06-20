@@ -8,7 +8,7 @@ import core.settings.Setting.SettingsType;
 import core.settings.Settings;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -311,7 +311,7 @@ public class Utils {
 
     public static int getPlayerPing(Player player) {
         CraftPlayer pingablePlayer = (CraftPlayer) player;
-        return pingablePlayer.getHandle().ping;
+        return pingablePlayer.getPing();
     }
 
     public static boolean isPlayer(UUID uuid) {

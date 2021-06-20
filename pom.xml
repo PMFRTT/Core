@@ -6,7 +6,7 @@
 
     <groupId>com.github.PMFRTT</groupId>
     <artifactId>Core</artifactId>
-    <version>16.5.40-dev</version>
+    <version>17.0.0-dev</version>
     <packaging>jar</packaging>
 
     <name>Core</name>
@@ -68,8 +68,9 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <version>1.17-R0.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/libs/spigot-1.17.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.jetbrains</groupId>
