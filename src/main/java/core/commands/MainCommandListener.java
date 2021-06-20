@@ -23,6 +23,7 @@ public class MainCommandListener {
     private SQLCommandListener sqlCommandListener;
     private BugCommandExecutor bugCommandExecutor;
     private ScheduleCommandListener scheduleCommandListener;
+    private MoneyCommandListener moneyCommandListener;
 
     public MainCommandListener(CoreMain main) {
         this.main = main;
@@ -45,6 +46,7 @@ public class MainCommandListener {
         sqlCommandListener = new SQLCommandListener();
         bugCommandExecutor = new BugCommandExecutor();
         scheduleCommandListener = new ScheduleCommandListener();
+        moneyCommandListener = new MoneyCommandListener(this.main);
 
     }
 
@@ -67,6 +69,7 @@ public class MainCommandListener {
         Objects.requireNonNull(this.main.getCommand("sql")).setExecutor(sqlCommandListener);
         Objects.requireNonNull(this.main.getCommand("bug")).setExecutor(bugCommandExecutor);
         Objects.requireNonNull(this.main.getCommand("schedule")).setExecutor(scheduleCommandListener);
+        Objects.requireNonNull(this.main.getCommand("money")).setExecutor(moneyCommandListener);
     }
 
 }

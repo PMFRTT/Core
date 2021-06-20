@@ -10,12 +10,12 @@ import org.bukkit.entity.Player;
 public class CoreSendStringPacket {
 
     public static void sendPacketToHotbar(Player p, String text) {
-       p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(Utils.colorize(text)));
+        p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(Utils.colorize(text)));
     }
 
     @SuppressWarnings("deprecation")
-    public static void sendPacketToTitle(Player p, String title, String subtitle) {
-        p.sendTitle(title, subtitle);
+    public static void sendPacketToTitle(Player player, String title, String subtitle) {
+        player.sendTitle(title, subtitle);
         DebugSender.sendDebug(DebugType.GUI, "title packet sent", "Title");
     }
 

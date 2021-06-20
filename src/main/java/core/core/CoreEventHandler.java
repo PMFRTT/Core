@@ -42,7 +42,7 @@ public class CoreEventHandler implements Listener {
         CoreMain.mySQLPermissions.createPlayer(e.getPlayer());
         CoreMain.mySQLRanks.createPlayer(e.getPlayer());
         CoreMain.hotbarManager.createHotbarScheduler(e.getPlayer(), new HotbarScheduler(corePlugin, "", e.getPlayer().getDisplayName()));
-        Utils.addServerInfo(CoreMain.getPlugin().getName(), 0);
+        Utils.addServerInfo(CoreMain.getPlugin().getName(), 0, 0);
         e.setJoinMessage(Utils.getJoinPrefix("Server", e.getPlayer()));
         DebugSender.sendDebug(DebugType.SERVER, "player joined");
     }
