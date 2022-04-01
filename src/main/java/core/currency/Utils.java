@@ -1,19 +1,13 @@
 package core.currency;
 
-import java.text.DecimalFormat;
-
 public class Utils {
 
-    public static String formatCurrencyString(double f, Currency currency) {
+    /*public static String formatCurrencyString(double f, Currency currency) {
         if (currency == Currency.USD) {
             return new DecimalFormat("0.00").format(f);
         }
         return new DecimalFormat("0.######").format(f);
-    }
-
-    public static void addCurrency(Currency currency, float amount) {
-
-    }
+    }*/
 
     public static String getSkullURL(Integer value) {
         return switch (value) {

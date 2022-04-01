@@ -5,7 +5,6 @@ import core.TPS;
 import core.Utils;
 import core.bungee.CoreBungeeCordClient;
 import core.commands.MainCommandListener;
-import core.currency.invest.ExchangeCore;
 import core.currency.invest.InventoryList;
 import core.debug.DebugSender;
 import core.debug.DebugType;
@@ -30,7 +29,6 @@ public final class CoreMain extends JavaPlugin {
     public static SQLConfig sqlConfig;
     public static MySQLRanks mySQLRanks;
     public static RankUpdater rankUpdater;
-    public static MySQLCurrency mySQLMoney;
 
     public static HotbarManager hotbarManager;
 
@@ -65,11 +63,10 @@ public final class CoreMain extends JavaPlugin {
         mySQLBungee = new MySQLBungee(this);
         sqlConfig = new SQLConfig(this);
         mySQLRanks = new MySQLRanks(this);
-        mySQLMoney = new MySQLCurrency();
 
         hotbarManager = new HotbarManager(this);
 
-        inventoryList = new InventoryList(this);
+        //inventoryList = new InventoryList(this);
 
         this.permissionConverter = new PermissionConverter(this);
 
@@ -84,11 +81,9 @@ public final class CoreMain extends JavaPlugin {
             mySQLPermissions.createTable();
             mySQLBungee.createTable();
             sqlConfig.createTable();
-            mySQLMoney.createTable();
             for (Player player : Bukkit.getOnlinePlayers()) {
                 mySQLPermissions.createPlayer(player);
                 mySQLRanks.createPlayer(player);
-                mySQLMoney.createPlayer(player);
                 if (mySQLPermissions.getPermissions(player.getUniqueId()) == 0) {
                     mySQLPermissions.setPermissions(player.getUniqueId(), 0);
                 }
@@ -98,7 +93,7 @@ public final class CoreMain extends JavaPlugin {
         }
 
 
-        ExchangeCore.connect(this);
+        //ExchangeCore.connect(this);
 
 
         CoreBungeeCordClient bungeeCordClient = new CoreBungeeCordClient(this);

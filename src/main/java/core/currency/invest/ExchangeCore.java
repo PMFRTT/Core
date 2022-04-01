@@ -1,5 +1,5 @@
 package core.currency.invest;
-
+/*
 import info.bitrich.xchangestream.coinbasepro.CoinbaseProStreamingExchange;
 import info.bitrich.xchangestream.core.ProductSubscription;
 import info.bitrich.xchangestream.core.ProductSubscription.ProductSubscriptionBuilder;
@@ -13,12 +13,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-
+*/
 
 public class ExchangeCore {
-
+/*
     private static StreamingExchange exchange = null;
-    public static boolean enabled = false;
 
     private static final List<CurrencyPair> allCurrencyPairs = new ArrayList<CurrencyPair>() {{
         add(CurrencyPair.BTC_USD);
@@ -51,20 +50,13 @@ public class ExchangeCore {
     }};
 
     public static void connect(Plugin plugin) {
-
-        if (Arrays.asList(plugin.getServer().getPluginManager().getPlugins()).contains(plugin.getServer().getPluginManager().getPlugin("Lobby"))) {
-            enabled = true;
+        exchange = StreamingExchangeFactory.INSTANCE.createExchange(CoinbaseProStreamingExchange.class.getName());
+        ProductSubscriptionBuilder productSubscriptionBuilder = ProductSubscription.create();
+        for (CurrencyPair currencyPair : allCurrencyPairs) {
+            productSubscriptionBuilder.addTicker(currencyPair).addTrades(currencyPair);
         }
-
-        if (enabled) {
-            exchange = StreamingExchangeFactory.INSTANCE.createExchange(CoinbaseProStreamingExchange.class.getName());
-            ProductSubscriptionBuilder productSubscriptionBuilder = ProductSubscription.create();
-            for (CurrencyPair currencyPair : allCurrencyPairs) {
-                productSubscriptionBuilder.addTicker(currencyPair).addTrades(currencyPair);
-            }
-            exchange.connect(productSubscriptionBuilder.build()).blockingAwait();
-            createTickers();
-        }
+        exchange.connect(productSubscriptionBuilder.build()).blockingAwait();
+        createTickers();
     }
 
     private static void createTickers() {
@@ -110,5 +102,5 @@ public class ExchangeCore {
         }
         return 0;
     }
-
+*/
 }

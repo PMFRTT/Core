@@ -1,26 +1,9 @@
 package core.currency.invest;
 
-import core.Utils;
-import core.core.CoreMain;
-import core.currency.Currency;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
-import org.knowm.xchange.currency.CurrencyPair;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class InvestingInventory implements Listener {
-
+/*
     private final Inventory inventory = Bukkit.createInventory(null, 45, "Trading");
 
     private final HashMap<Currency, Float> amountCache = new HashMap<Currency, Float>();
@@ -69,7 +52,7 @@ public class InvestingInventory implements Listener {
 
     public void updateCache() {
         for (Currency currency : Currency.values()) {
-            amountCache.put(currency, CoreMain.mySQLMoney.getCurrency(player.getUniqueId(), currency));
+            //amountCache.put(currency, CoreMain.mySQLMoney.getCurrency(player.getUniqueId(), currency));
         }
     }
 
@@ -155,7 +138,7 @@ public class InvestingInventory implements Listener {
         if (e.getClickedInventory() == inventory) {
             if (e.getCurrentItem().getType().equals(Material.IRON_INGOT)) {
                 InventoryList.getCurrencyInventory(player).setCurrency(Currency.getCurrency(e.getCurrentItem().getItemMeta().getDisplayName()));
-                player.openInventory(new CurrencyInventory(plugin, player).getInventory());
+                player.openInventory(InventoryList.getCurrencyInventory(player).getInventory());
             }
             e.setCancelled(true);
         }
@@ -173,5 +156,5 @@ public class InvestingInventory implements Listener {
         total +=amountCache.get(Currency.USD);
         return total;
     }
-
+*/
 }
