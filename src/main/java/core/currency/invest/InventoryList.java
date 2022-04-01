@@ -1,13 +1,7 @@
 package core.currency.invest;
 
-import core.core.CoreMain;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
-
-import java.util.HashMap;
-
 public class InventoryList {
-
+/*
     public static HashMap<String, InvestingInventory> investingInventoryHashMap = new HashMap<String, InvestingInventory>();
     public static HashMap<String, CurrencyInventory> currencyInventoryHashMap = new HashMap<String, CurrencyInventory>();
 
@@ -30,5 +24,5 @@ public class InventoryList {
         }
         return investingInventoryHashMap.get(player.getDisplayName());
     }
-
+*/
 }

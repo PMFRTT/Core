@@ -1,17 +1,7 @@
 package core.sql;
 
-import core.core.CoreMain;
-import core.currency.Currency;
-import core.debug.DebugSender;
-import core.debug.DebugType;
-import org.bukkit.entity.Player;
-
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.UUID;
-
 public class MySQLCurrency {
+    /*
 
 
     public void createTable() {
@@ -88,6 +78,7 @@ public class MySQLCurrency {
 
     public void addCurrency(Player player, double amount, Currency currency) {
         setCurrency(player.getUniqueId(), currency, getCurrency(player.getUniqueId(), currency) + amount);
+        player.sendMessage(Utils.getPrefix("Money") + Utils.colorize("Du hast &a" + core.currency.Utils.formatCurrencyString(amount, currency) + "&f " + Currency.getCurrencySymbol(currency) + " erhalten!"));
     }
 
     public boolean convertCurrencies(Player player, Currency currencyfrom, double amountfrom, Currency currencyto, double amountto){
@@ -98,5 +89,5 @@ public class MySQLCurrency {
         }
         else return false;
     }
-
+*/
 }

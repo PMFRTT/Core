@@ -8,7 +8,7 @@ import core.settings.Setting.SettingsType;
 import core.settings.Settings;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.v1_17_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;

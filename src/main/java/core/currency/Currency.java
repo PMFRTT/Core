@@ -1,8 +1,9 @@
 package core.currency;
 
-import org.knowm.xchange.currency.CurrencyPair;
+//import org.knowm.xchange.currency.CurrencyPair;
 
 public enum Currency {
+    /*
     USD, BTC, ETH, DOGE, ETC, LTC, ADA, ZEC;
 
     public static String getCurrencyName(Currency currency) {
@@ -47,5 +48,5 @@ public enum Currency {
         }
         return getCurrencyName(currency);
     }
-
+*/
 }

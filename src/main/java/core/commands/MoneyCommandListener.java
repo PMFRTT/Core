@@ -1,9 +1,6 @@
 package core.commands;
 
-import core.Utils;
 import core.core.CoreMain;
-import core.currency.Currency;
-import core.currency.invest.InventoryList;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -26,7 +23,7 @@ public class MoneyCommandListener implements CommandExecutor {
             player = (Player) sender;
         }
 
-        if(command.getLabel().equalsIgnoreCase("money")){
+        /*if(command.getLabel().equalsIgnoreCase("money")){
             if(args.length == 0){
                 player.sendMessage(Utils.getPrefix("Geld") + Utils.colorize("Du hast &a" + core.currency.Utils.formatCurrencyString(CoreMain.mySQLMoney.getCurrency(player.getUniqueId(), Currency.USD), Currency.USD) + "€!"));
             }else if(args.length == 1){
@@ -34,7 +31,7 @@ public class MoneyCommandListener implements CommandExecutor {
                     player.openInventory(InventoryList.getInvestingInventory(player).getInventory());
                 }
             }
-        }
+        }*/
 
         return false;
     }

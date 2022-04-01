@@ -1,28 +1,9 @@
 package core.currency.invest;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-import core.Utils;
-import core.core.CoreMain;
-import core.currency.Currency;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.plugin.Plugin;
-import org.knowm.xchange.currency.CurrencyPair;
-
-import java.lang.reflect.Field;
-import java.util.*;
 
 public class CurrencyInventory implements Listener {
-
+/*
     private final Plugin plugin;
     private final Player player;
     private Currency currency = Currency.ETH;
@@ -341,4 +322,5 @@ public class CurrencyInventory implements Listener {
             }
         }, 0, 1);
     }
+*/
 }

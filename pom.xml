@@ -6,7 +6,7 @@
 
     <groupId>com.github.PMFRTT</groupId>
     <artifactId>Core</artifactId>
-    <version>17.0.0-dev</version>
+    <version>18.2.0-dev</version>
     <packaging>jar</packaging>
 
     <name>Core</name>
@@ -73,7 +73,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.17-R0.1-SNAPSHOT</version>
+            <version>1.18.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -81,16 +81,6 @@
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-core</artifactId>
-            <version>5.0.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-stream-coinbasepro</artifactId>
-            <version>5.0.8</version>
         </dependency>
     </dependencies>
 </project>
