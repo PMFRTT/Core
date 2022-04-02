@@ -99,25 +99,15 @@ public class SettingCycle extends Setting<Integer> {
         return this.index;
     }
 
-    public void blockCycleUP(Boolean block, String blockDescription) {
+    public void blockCycleUP(Boolean block) {
         if (this.blockUP != block) {
             this.blockUP = block;
-            if (block) {
-                this.getDescription().add(blockDescription);
-            } else {
-                this.getDescription().remove(this.getDescription().size() - 1);
-            }
         }
     }
 
-    public void blockCycleDO(Boolean block, String blockDescription) {
+    public void blockCycleDO(Boolean block) {
         if (this.blockDO != block) {
             this.blockDO = block;
-            if (block) {
-                this.getDescription().add(blockDescription);
-            } else {
-                this.getDescription().remove(this.getDescription().size() - 1);
-            }
         }
     }
 
