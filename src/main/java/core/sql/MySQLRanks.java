@@ -1,5 +1,6 @@
 package core.sql;
 
+import core.core.CoreHandler;
 import core.core.CoreMain;
 import core.debug.DebugSender;
 import core.debug.DebugType;
@@ -12,16 +13,13 @@ import java.util.UUID;
 
 public class MySQLRanks {
 
-    private final CoreMain plugin;
+    private final CoreMain plugin = CoreHandler.getMain();
 
-    public MySQLRanks(CoreMain plugin) {
-        this.plugin = plugin;
-    }
 
     public void createTable() {
         PreparedStatement preparedStatement;
         try {
-            preparedStatement = CoreMain.SQL.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS RANKS " + "(NAME VARCHAR(100), UUID VARCHAR(100), RANK INT(16), PRIMARY KEY (NAME))");
+            preparedStatement = CoreHandler.getSQL().getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS RANKS " + "(NAME VARCHAR(100), UUID VARCHAR(100), RANK INT(16), PRIMARY KEY (NAME))");
             preparedStatement.executeUpdate();
             DebugSender.sendDebug(DebugType.DATABASE, "database was accessed (create)", "Ranks");
         } catch (SQLException throwables) {
@@ -33,12 +31,12 @@ public class MySQLRanks {
         try {
             String name = player.getName();
             UUID uuid = player.getUniqueId();
-            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM RANKS WHERE UUID=?");
+            PreparedStatement preparedStatement = CoreHandler.getSQL().getConnection().prepareStatement("SELECT * FROM RANKS WHERE UUID=?");
             preparedStatement.setString(1, uuid.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             if (!exists(uuid)) {
-                PreparedStatement preparedStatement1 = CoreMain.SQL.getConnection().prepareStatement("INSERT IGNORE INTO RANKS (NAME,UUID) VALUES (?,?)");
+                PreparedStatement preparedStatement1 = CoreHandler.getSQL().getConnection().prepareStatement("INSERT IGNORE INTO RANKS (NAME,UUID) VALUES (?,?)");
                 preparedStatement1.setString(1, name);
                 preparedStatement1.setString(2, uuid.toString());
                 preparedStatement1.executeUpdate();
@@ -52,7 +50,7 @@ public class MySQLRanks {
 
     public boolean exists(UUID uuid) {
         try {
-            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT * FROM RANKS WHERE UUID=?");
+            PreparedStatement preparedStatement = CoreHandler.getSQL().getConnection().prepareStatement("SELECT * FROM RANKS WHERE UUID=?");
             preparedStatement.setString(1, uuid.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
             DebugSender.sendDebug(DebugType.DATABASE, "database was accessed (exists)", "Ranks");
@@ -65,7 +63,7 @@ public class MySQLRanks {
 
     public void setRanks(UUID uuid, int rank) {
         try {
-            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("UPDATE RANKS SET RANK=? WHERE UUID=?");
+            PreparedStatement preparedStatement = CoreHandler.getSQL().getConnection().prepareStatement("UPDATE RANKS SET RANK=? WHERE UUID=?");
             preparedStatement.setInt(1, rank);
             preparedStatement.setString(2, uuid.toString());
             preparedStatement.executeUpdate();
@@ -78,7 +76,7 @@ public class MySQLRanks {
     public int getRank(UUID uuid) {
         int permissionCode = 0;
         try {
-            PreparedStatement preparedStatement = CoreMain.SQL.getConnection().prepareStatement("SELECT RANK FROM RANKS WHERE UUID=?");
+            PreparedStatement preparedStatement = CoreHandler.getSQL().getConnection().prepareStatement("SELECT RANK FROM RANKS WHERE UUID=?");
             preparedStatement.setString(1, uuid.toString());
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){

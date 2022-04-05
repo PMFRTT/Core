@@ -1,8 +1,11 @@
 package core;
 
+import core.config.ConfigHandler;
+import core.core.CoreHandler;
 import core.core.CoreMain;
 import core.debug.DebugSender;
 import core.debug.DebugType;
+import core.ranks.RankUpdater;
 import core.settings.Setting.Setting;
 import core.settings.Setting.SettingsType;
 import core.settings.Settings;
@@ -26,11 +29,7 @@ public class Utils {
     private static boolean lessthan40 = false;
     private static boolean lessthan20 = false;
 
-    private static CoreMain corePlugin;
-
-    public Utils(CoreMain corePlugin) {
-        Utils.corePlugin = corePlugin;
-    }
+    private static final CoreMain corePlugin = CoreHandler.getMain();
 
     private static final String[] rainbowStrings = {
             "&c", "&6", "&e", "&a", "&9", "&d", "&5"
@@ -292,13 +291,13 @@ public class Utils {
 
             List<String> footerList = new ArrayList<String>() {{
                 add("   ");
-                if (CoreMain.rankUpdater.isDev(player)) {
-                    if (CoreMain.sqlConfig.getConfigbyName("debug").equals("1") || CoreMain.sqlConfig.getConfigbyName("debug").equals("3")) {
+                if (RankUpdater.isDev(player)) {
+                    if (ConfigHandler.getDataset().getConfigbyName("debug").equals("1") || ConfigHandler.getDataset().getConfigbyName("debug").equals("3")) {
                         add(Utils.colorize("&8Server-Software: &e" + Bukkit.getServer().getVersion()));
                         add(Utils.colorize("&8Server-TPS: &e" + new DecimalFormat("#.00").format(tps) + "&8 Ticks per second (&e" + new DecimalFormat("#.00").format(tickTime) + "&8ms)"));
                         add(Utils.colorize("&8" + Bukkit.getIp() + ":" + Bukkit.getServer().getPort() + " (&e" + getPlayerPing(player) + "&8ms)"));
                         add(Utils.colorize("&8Verwendeter Speicher: &e" + formatToMB(getUsedMemory()) + "MiB&8/&e" + formatToMB(getTotalMemory()) + "MiB " + getMemoryUsage()));
-                        if (CoreMain.SQL.isConnected()) {
+                        if (CoreHandler.getSQL().isConnected()) {
                             add(Utils.colorize("&8" + "Datenbank ist &averbunden"));
                         } else {
                             add(Utils.colorize("&8" + "Datenbank ist &cgetrennt"));

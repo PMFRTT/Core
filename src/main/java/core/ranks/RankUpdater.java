@@ -1,5 +1,6 @@
 package core.ranks;
 
+import core.core.CoreHandler;
 import core.core.CoreMain;
 import core.debug.DebugSender;
 import core.debug.DebugType;
@@ -10,25 +11,22 @@ import java.util.HashMap;
 
 public class RankUpdater {
 
-    private final CoreMain coreMain;
-    private final HashMap<String, Rank> playerRanks = new HashMap<String, Rank>();
+    private static final CoreMain coreMain = CoreHandler.getMain();
+    private static final HashMap<String, Rank> playerRanks = new HashMap<String, Rank>();
 
-    public RankUpdater(CoreMain coreMain) {
-        this.coreMain = coreMain;
-    }
 
-    public void startUpdater() {
+    public static void startUpdater() {
        updateAll();
-        updater();
+       updater();
     }
 
-    public void updateAll(){
+    public static void updateAll(){
         for (Player player : Bukkit.getOnlinePlayers()) {
             addPlayer(player);
         }
     }
 
-    private void updater() {
+    private static void updater() {
         Bukkit.getScheduler().scheduleSyncRepeatingTask(coreMain, new Runnable() {
             @Override
             public void run() {
@@ -40,32 +38,32 @@ public class RankUpdater {
         }, 0, 600L);
     }
 
-    public void addPlayer(Player player) {
-        if (CoreMain.mySQLRanks != null) {
+    public static void addPlayer(Player player) {
+        if (RankHandler.getDataset() != null) {
             if (containsPlayer(player)) {
-                if (playerRanks.get(player.getDisplayName()) != Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(player.getUniqueId()))) {
-                    playerRanks.put(player.getDisplayName(), Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(player.getUniqueId())));
+                if (playerRanks.get(player.getDisplayName()) != Rank.convertIntToRank(RankHandler.getDataset().getRank(player.getUniqueId()))) {
+                    playerRanks.put(player.getDisplayName(), Rank.convertIntToRank(RankHandler.getDataset().getRank(player.getUniqueId())));
                 }
             } else {
-                playerRanks.put(player.getDisplayName(), Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(player.getUniqueId())));
+                playerRanks.put(player.getDisplayName(), Rank.convertIntToRank(RankHandler.getDataset().getRank(player.getUniqueId())));
             }
         }else{
             playerRanks.put(player.getDisplayName(), Rank.DEV);
         }
     }
 
-    public boolean isDev(Player player) {
+    public static boolean isDev(Player player) {
         if (containsPlayer(player)) {
             return playerRanks.get(player.getDisplayName()) == Rank.DEV;
         }
         return false;
     }
 
-    private boolean containsPlayer(Player player) {
+    private static boolean containsPlayer(Player player) {
         return playerRanks.containsKey(player.getDisplayName());
     }
 
-    public Rank getRank(Player player) {
+    public static Rank getRank(Player player) {
         return playerRanks.get(player.getDisplayName());
     }
 

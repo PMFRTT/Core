@@ -1,7 +1,7 @@
 package core.commands;
 
 import core.Utils;
-import core.core.CoreMain;
+import core.core.CoreHandler;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,7 +24,7 @@ public class SQLCommandListener implements CommandExecutor {
                 if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("connect")) {
                         try {
-                            boolean success = CoreMain.SQL.connect();
+                            boolean success = CoreHandler.getSQL().connect();
                             if(success){
                                 player.sendMessage(Utils.getServerPrefix() + Utils.colorize("Die Verbindung zur Datenbank war &aerfolgreich"));
                             }else{
@@ -35,15 +35,15 @@ public class SQLCommandListener implements CommandExecutor {
                         }
                     } else if (args[0].equalsIgnoreCase("disconnect")) {
                         try {
-                            CoreMain.SQL.disconnect();
+                            CoreHandler.getSQL().disconnect();
                             player.sendMessage(Utils.getServerPrefix() + Utils.colorize("Die Verbindung zur Datenbank wurde &cgetrennt"));
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
                     } else if (args[0].equalsIgnoreCase("reconnect")) {
                         try {
-                            CoreMain.SQL.disconnect();
-                            CoreMain.SQL.connect();
+                            CoreHandler.getSQL().disconnect();
+                            CoreHandler.getSQL().connect();
                             player.sendMessage(Utils.getServerPrefix() + Utils.colorize("Die Verbindung zur Datenbank wurde &aneu aufgebaut"));
                         } catch (ClassNotFoundException | SQLException e) {
                             e.printStackTrace();

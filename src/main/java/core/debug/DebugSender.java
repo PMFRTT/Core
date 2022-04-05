@@ -1,6 +1,8 @@
 package core.debug;
 
-import core.core.CoreMain;
+import core.config.ConfigHandler;
+import core.hotbar.HotbarManager;
+import core.ranks.RankUpdater;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -11,51 +13,51 @@ public class DebugSender {
     private static final Integer DEBUGTIMEOUT = 50;
 
     public static void sendDebug(DebugType type, String message) {
-        if (CoreMain.sqlConfig.getConfigbyName("debug").equals("1")) {
+        if (ConfigHandler.getDataset().getConfigbyName("debug").equals("1")) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (CoreMain.rankUpdater.isDev(player)) {
+                if (RankUpdater.isDev(player)) {
                     player.sendMessage(colorizeHex(getDebugPrefix(type) + message));
                 }
             }
         }
-        else if(CoreMain.sqlConfig.getConfigbyName("debug").equals("2")){
+        else if(ConfigHandler.getDataset().getConfigbyName("debug").equals("2")){
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (CoreMain.rankUpdater.isDev(player)) {
-                    CoreMain.hotbarManager.getHotbarScheduler(player).scheduleMessage(colorizeHex(getDebugPrefix(type) + message), DEBUGTIMEOUT);
+                if (RankUpdater.isDev(player)) {
+                    HotbarManager.getHotbarScheduler(player).scheduleMessage(colorizeHex(getDebugPrefix(type) + message), DEBUGTIMEOUT);
                 }
             }
         }
     }
 
     public static void sendDebug(DebugType type, String message, String name) {
-        if (CoreMain.sqlConfig.getConfigbyName("debug").equals("1")) {
+        if (ConfigHandler.getDataset().getConfigbyName("debug").equals("1")) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (CoreMain.rankUpdater.isDev(player)) {
+                if (RankUpdater.isDev(player)) {
                     player.sendMessage(colorizeHex(getDebugPrefix(type, name) + message));
 
                 }
             }
         }
-        else if(CoreMain.sqlConfig.getConfigbyName("debug").equals("2")){
+        else if(ConfigHandler.getDataset().getConfigbyName("debug").equals("2")){
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (CoreMain.rankUpdater.isDev(player)) {
-                    CoreMain.hotbarManager.getHotbarScheduler(player).scheduleMessage(colorizeHex(getDebugPrefix(type, name) + message), DEBUGTIMEOUT);
+                if (RankUpdater.isDev(player)) {
+                    HotbarManager.getHotbarScheduler(player).scheduleMessage(colorizeHex(getDebugPrefix(type, name) + message), DEBUGTIMEOUT);
                 }
             }
         }
     }
 
     public static void sendDebug(DebugType type, String message, String name, String thread) {
-        if (CoreMain.sqlConfig.getConfigbyName("debug").equals("1")) {
+        if (ConfigHandler.getDataset().getConfigbyName("debug").equals("1")) {
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (CoreMain.rankUpdater.isDev(player)) {
+                if (RankUpdater.isDev(player)) {
                     player.sendMessage(colorizeHex(getDebugPrefix(type, name, thread) + message));
                 }
             }
-        }else if(CoreMain.sqlConfig.getConfigbyName("debug").equals("2")){
+        }else if(ConfigHandler.getDataset().getConfigbyName("debug").equals("2")){
             for (Player player : Bukkit.getOnlinePlayers()) {
-                if (CoreMain.rankUpdater.isDev(player)) {
-                    CoreMain.hotbarManager.getHotbarScheduler(player).scheduleMessage(colorizeHex(getDebugPrefix(type, name, thread) + message), DEBUGTIMEOUT);
+                if (RankUpdater.isDev(player)) {
+                    HotbarManager.getHotbarScheduler(player).scheduleMessage(colorizeHex(getDebugPrefix(type, name, thread) + message), DEBUGTIMEOUT);
                 }
             }
         }

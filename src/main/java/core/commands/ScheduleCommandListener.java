@@ -1,7 +1,7 @@
 package core.commands;
 
 import core.chat.Color;
-import core.core.CoreMain;
+import core.hotbar.HotbarManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -20,7 +20,7 @@ public class ScheduleCommandListener implements CommandExecutor {
                     for (String string : Arrays.asList(args).subList(2, args.length)) {
                         stringBuilder.append(" ").append(string);
                     }
-                    CoreMain.hotbarManager.getHotbarScheduler(Objects.requireNonNull(Bukkit.getPlayer(args[0]))).scheduleMessage(Color.colorizeHex(stringBuilder.toString()), Integer.parseInt(args[2]));
+                    HotbarManager.getHotbarScheduler(Objects.requireNonNull(Bukkit.getPlayer(args[0]))).scheduleMessage(Color.colorizeHex(stringBuilder.toString()), Integer.parseInt(args[2]));
                 }
             }
         }

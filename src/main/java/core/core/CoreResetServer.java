@@ -11,11 +11,7 @@ import java.io.File;
 
 public class CoreResetServer {
 
-    private static CoreMain main;
-
-    public CoreResetServer(CoreMain main) {
-        CoreResetServer.main = main;
-    }
+    private static final CoreMain main = CoreHandler.getMain();
 
     public static void resetServer(String serverName, Boolean resetPositions) {
         DebugSender.sendDebug(DebugType.SERVER, "server will be resetting");

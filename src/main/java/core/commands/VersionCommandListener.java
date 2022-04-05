@@ -1,6 +1,7 @@
 package core.commands;
 
 import core.Utils;
+import core.config.ConfigHandler;
 import core.core.CoreMain;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -25,7 +26,7 @@ public class VersionCommandListener implements CommandExecutor {
         }
 
         if (command.getLabel().equalsIgnoreCase("core")) {
-            player.sendMessage(Utils.getPrefix("Core") + Utils.colorize("Du Verwendest &2CorePlugin (" + main.getDescription().getVersion() + ") &fDie neueste Version ist &2" + main.sqlConfig.getConfigbyName("version")));
+            player.sendMessage(Utils.getPrefix("Core") + Utils.colorize("Du Verwendest &2CorePlugin (" + main.getDescription().getVersion() + ") &fDie neueste Version ist &2" + ConfigHandler.getDataset().getConfigbyName("version")));
         }
         return false;
     }

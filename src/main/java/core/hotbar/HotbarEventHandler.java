@@ -1,5 +1,6 @@
 package core.hotbar;
 
+import core.core.CoreHandler;
 import core.core.CoreMain;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -8,21 +9,16 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class HotbarEventHandler implements Listener {
 
-    private final CoreMain corePlugin;
-
-    public HotbarEventHandler(CoreMain corePlugin) {
-        this.corePlugin = corePlugin;
-        init();
-    }
+    private final CoreMain main = CoreHandler.getMain();
 
     public void init() {
-        Bukkit.getPluginManager().registerEvents(this, corePlugin);
+        Bukkit.getPluginManager().registerEvents(this, main);
     }
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e){
-        if(CoreMain.hotbarManager.contains(e.getPlayer())){
-            CoreMain.hotbarManager.getHotbarScheduler(e.getPlayer()).startScheduler(true);
+        if(HotbarManager.contains(e.getPlayer())){
+            HotbarManager.getHotbarScheduler(e.getPlayer()).startScheduler(true);
         }
     }
 

@@ -4,8 +4,12 @@ import core.Utils;
 import core.chat.Color;
 import core.debug.DebugSender;
 import core.debug.DebugType;
+import core.hotbar.HotbarManager;
 import core.hotbar.HotbarScheduler;
+import core.permissions.PermissionHandler;
 import core.ranks.Rank;
+import core.ranks.RankHandler;
+import core.ranks.RankUpdater;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -20,29 +24,21 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.*;
 
-import java.sql.SQLException;
-
 public class CoreEventHandler implements Listener {
 
-    private final CoreMain corePlugin;
-
-    public CoreEventHandler(CoreMain corePlugin) {
-        this.corePlugin = corePlugin;
-        init();
-    }
+    private final CoreMain main = CoreHandler.getMain();
 
     public void init() {
-        Bukkit.getPluginManager().registerEvents(this, corePlugin);
+        Bukkit.getPluginManager().registerEvents(this, main);
     }
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e) throws SQLException, ClassNotFoundException {
-        CoreMain.rankUpdater.updateAll();
-        CoreMain.SQL.connect();
-        CoreMain.mySQLPermissions.createPlayer(e.getPlayer());
-        CoreMain.mySQLRanks.createPlayer(e.getPlayer());
-        CoreMain.hotbarManager.createHotbarScheduler(e.getPlayer(), new HotbarScheduler(corePlugin, "", e.getPlayer().getDisplayName()));
-        Utils.addServerInfo(CoreMain.getPlugin().getName(), 0, 0);
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        RankUpdater.updateAll();
+        PermissionHandler.getDataset().createPlayer(e.getPlayer());
+        RankHandler.getDataset().createPlayer(e.getPlayer());
+        HotbarManager.createHotbarScheduler(e.getPlayer(), new HotbarScheduler(main, "", e.getPlayer().getDisplayName()));
+        Utils.addServerInfo(CoreHandler.getGuestPlugin().getName(), 0, 0);
         e.setJoinMessage(Utils.getJoinPrefix("Server", e.getPlayer()));
         DebugSender.sendDebug(DebugType.SERVER, "player joined");
     }
@@ -57,7 +53,7 @@ public class CoreEventHandler implements Listener {
     public void onPlayerChat(AsyncPlayerChatEvent e) {
         Player p = e.getPlayer();
 
-        switch (Rank.convertIntToRank(CoreMain.mySQLRanks.getRank(p.getUniqueId()))) {
+        switch (Rank.convertIntToRank(RankHandler.getDataset().getRank(p.getUniqueId()))) {
             case OWNER -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.GOLD + "OWNER" + ChatColor.DARK_GRAY + "] " + ChatColor.GOLD + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + Color.colorizeHex(e.getMessage()));
             case DEV -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.AQUA + "DEV" + ChatColor.DARK_GRAY + "] " + ChatColor.AQUA + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + ChatColor.WHITE + Color.colorizeHex(e.getMessage()));
             case ADMIN -> e.setFormat(ChatColor.DARK_GRAY + "[" + ChatColor.DARK_RED + "ADMIN" + ChatColor.DARK_GRAY + "] " + ChatColor.DARK_RED + p.getDisplayName() + ChatColor.DARK_GRAY + ": " + ChatColor.WHITE + Color.colorizeHex(e.getMessage()));
@@ -103,7 +99,7 @@ public class CoreEventHandler implements Listener {
     public void onAdvancementGet(PlayerAdvancementDoneEvent e) {
         World world = Bukkit.getWorld("world");
         assert world != null;
-        if (world.getGameRuleValue(GameRule.ANNOUNCE_ADVANCEMENTS)) {
+        if (Boolean.TRUE.equals(world.getGameRuleValue(GameRule.ANNOUNCE_ADVANCEMENTS))) {
             Advancement a = e.getAdvancement();
             Player p = e.getPlayer();
 
