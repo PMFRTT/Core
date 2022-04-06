@@ -6,7 +6,7 @@ import java.util.HashMap;
 public enum DebugType {
     PLAYER, SERVER, ERROR, PLUGIN, DATABASE, CHAT, BUNGEE, GUI, TIMER, SETTINGS, RANK;
 
-    private static final HashMap<DebugType, String> typeColors = new HashMap<DebugType, String>() {{
+    private static final HashMap<DebugType, String> typeColors = new HashMap<>() {{
         put(PLAYER, "#b5fc03");
         put(SERVER, "#fcba03");
         put(ERROR, "FF0000");

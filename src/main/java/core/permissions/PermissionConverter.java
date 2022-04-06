@@ -4,6 +4,7 @@ import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
+@SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
 public class PermissionConverter {
 
     public static String convertIntToBinary(Integer num) {
@@ -14,17 +15,16 @@ public class PermissionConverter {
         return Integer.parseInt(string, 2);
     }
 
-    public static HashMap<Permission, Boolean> generatePermissions(String string) {
-        HashMap<Permission, Boolean> permissionBooleanHashMap = new HashMap<Permission, Boolean>();
+    public static void generatePermissions(String string) {
+        HashMap<Permission, Boolean> permissionBooleanHashMap = new HashMap<>();
         for (int i = 15; i > 15 - Permission.permissionList.size(); i--) {
             boolean value = string.charAt(i) == '1';
             permissionBooleanHashMap.put(Permission.permissionList.get(15 - i), value);
         }
-        return permissionBooleanHashMap;
     }
 
     public static HashMap<Permission, Boolean> generatePermissions(Player player) {
-        HashMap<Permission, Boolean> permissionBooleanHashMap = new HashMap<Permission, Boolean>();
+        HashMap<Permission, Boolean> permissionBooleanHashMap = new HashMap<>();
         String string = convertIntToBinary(PermissionHandler.getDataset().getPermissions(player.getUniqueId()));
         for (int i = 15; i > 15 - Permission.permissionList.size(); i--) {
             boolean value = string.charAt(i) == '1';

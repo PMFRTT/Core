@@ -6,12 +6,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
 
 public class SQLCommandListener implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         Player player = null;
         if (sender instanceof Player) {
@@ -30,7 +31,7 @@ public class SQLCommandListener implements CommandExecutor {
                             }else{
                                 player.sendMessage(Utils.getServerPrefix() + Utils.colorize("Die Verbindung zur Datenbank &bbesteht bereits"));
                             }
-                        } catch (ClassNotFoundException | SQLException e) {
+                        } catch (SQLException e) {
                             e.printStackTrace();
                         }
                     } else if (args[0].equalsIgnoreCase("disconnect")) {
@@ -45,7 +46,7 @@ public class SQLCommandListener implements CommandExecutor {
                             CoreHandler.getSQL().disconnect();
                             CoreHandler.getSQL().connect();
                             player.sendMessage(Utils.getServerPrefix() + Utils.colorize("Die Verbindung zur Datenbank wurde &aneu aufgebaut"));
-                        } catch (ClassNotFoundException | SQLException e) {
+                        } catch (SQLException e) {
                             e.printStackTrace();
                         }
                     }

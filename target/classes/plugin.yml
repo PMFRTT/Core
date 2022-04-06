@@ -30,15 +30,22 @@ commands :
   advancements:
     description: show or hide the advancement message
   invsee:
+    description: see inv of player
   ping:
+    description: get ping of player
   permissions:
+    description: set and get permissions
   setHP:
+    description: set hp of player
   teleport:
     aliases: [tp]
   reload:
     aliases: [r]
   reboot:
+    description: reboot server
   sql:
+    description: manage sql database
   bug:
+    description: report bug on GH
   schedule:
-  money:
+    description: schedule text for hotbar

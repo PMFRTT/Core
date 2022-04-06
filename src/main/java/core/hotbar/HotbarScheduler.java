@@ -11,12 +11,13 @@ import org.bukkit.scheduler.BukkitTask;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public class HotbarScheduler {
 
     private final Integer TIMEOUT_TICKS = 30;
 
-    private final List<String> scheduledMessages = new ArrayList<String>();
-    private final List<Integer> scheduledTimeouts = new ArrayList<Integer>();
+    private final List<String> scheduledMessages = new ArrayList<>();
+    private final List<Integer> scheduledTimeouts = new ArrayList<>();
     private boolean hasScheduledMessage = false;
     private final String playerName;
 
@@ -25,7 +26,7 @@ public class HotbarScheduler {
     private Timer timer = null;
 
     private boolean running = false;
-    private boolean timed = false;
+    private boolean timed;
 
     public HotbarScheduler(Plugin plugin, String defaultMessage, String playerName) {
         this.plugin = plugin;
@@ -117,12 +118,9 @@ public class HotbarScheduler {
     }
 
     public void scheduleRepeatingMessage(String message, Integer distanceBetweenMessages, Integer duration, Integer delay) {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
-            @Override
-            public void run() {
-                if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(playerName))) {
-                    scheduleMessage(message, duration);
-                }
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
+            if (Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(playerName))) {
+                scheduleMessage(message, duration);
             }
         }, delay, distanceBetweenMessages);
     }

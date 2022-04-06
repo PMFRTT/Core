@@ -12,6 +12,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@SuppressWarnings({"ResultOfMethodCallIgnored", "SameReturnValue"})
 public class PresetHandler {
 
     private final Settings settings;
@@ -24,62 +25,61 @@ public class PresetHandler {
         this.location = plugin.getDataFolder().getAbsolutePath();
     }
 
-    public boolean savePreset() throws IOException {
+    public void savePreset() {
         File directory = new File(location.substring(0, location.length() - plugin.getName().length()) + "/config/core/presets/" + plugin.getName() + "/");
         File file = new File(directory.getAbsolutePath() + "/" + getDate() + ".yml");
         try {
             if (!directory.exists()) {
+                //noinspection ResultOfMethodCallIgnored
                 directory.mkdirs();
-            } else {
             }
             if (file.exists()) {
+                //noinspection ResultOfMethodCallIgnored
                 file.delete();
             }
+            //noinspection ResultOfMethodCallIgnored
             file.createNewFile();
             FileWriter fileWriter = new FileWriter(file);
             for (Setting setting : settings.getAllSettings()) {
                 if (setting instanceof SettingCycle) {
                     fileWriter.write(setting.getName() + " : " + setting.value + "\n");
-                }else if(setting instanceof SettingSwitch){
+                }else if(null instanceof SettingSwitch){
                     fileWriter.write(setting.getName() + " : " + setting.enabled + "\n");
                 }
             }
             fileWriter.close();
-            return true;
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
-    public boolean deletePreset(String name){
+    public void deletePreset(String name){
         File directory = new File(location.substring(0, location.length() - plugin.getName().length()) + "/config/core/presets/" + plugin.getName() + "/");
         File file = new File(directory.getAbsolutePath() + "/" + name);
+        //noinspection ResultOfMethodCallIgnored
         file.delete();
-        return true;
     }
 
-    public boolean readPresets(String name) {
+    public void readPresets(String name) {
         File directory = new File(location.substring(0, location.length() - plugin.getName().length()) + "/config/core/presets/" + plugin.getName() + "/");
         File file = new File(directory.getAbsolutePath() + "/" + name);
 
         try{
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            String line = null;
+            String line;
            while((line = bufferedReader.readLine()) != null){
                String settingname = line.substring(0, line.indexOf(':') -1);
                String value = line.substring(line.indexOf(':') + 2);
                Setting setting = settings.getSettingbyName(settingname);
                if(setting instanceof SettingSwitch){
                    setting.enabled = Boolean.parseBoolean(value);
-               }else if(setting instanceof SettingCycle){
+               }else if(null instanceof SettingCycle){
                    setting.value = Integer.parseInt(value);
                }
            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return true;
     }
 
     public void printPreset(Player player, String name){
@@ -88,7 +88,7 @@ public class PresetHandler {
         try{
             player.sendMessage(Utils.getServerPrefix() + Utils.colorize("&ePreview für " + name));
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            String line = null;
+            String line;
             while((line = bufferedReader.readLine()) != null){
                 player.sendMessage(Utils.getServerPrefix() + line);
             }
@@ -111,6 +111,7 @@ public class PresetHandler {
     public void createDirectory(){
         File directory = new File(getFullDirectory());
         if(!directory.exists()){
+            //noinspection ResultOfMethodCallIgnored
             directory.mkdirs();
         }
     }

@@ -80,7 +80,7 @@ public class CoreHandler {
     public static void startSQLConnection(){
         try {
             SQL.connect();
-        } catch (ClassNotFoundException | SQLException ignored) {
+        } catch (SQLException ignored) {
 
         }
     }

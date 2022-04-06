@@ -7,6 +7,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class VersionCommandListener implements CommandExecutor {
 
@@ -18,7 +21,7 @@ public class VersionCommandListener implements CommandExecutor {
 
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         Player player = null;
         if(sender instanceof Player){
@@ -26,7 +29,7 @@ public class VersionCommandListener implements CommandExecutor {
         }
 
         if (command.getLabel().equalsIgnoreCase("core")) {
-            player.sendMessage(Utils.getPrefix("Core") + Utils.colorize("Du Verwendest &2CorePlugin (" + main.getDescription().getVersion() + ") &fDie neueste Version ist &2" + ConfigHandler.getDataset().getConfigbyName("version")));
+            Objects.requireNonNull(player).sendMessage(Utils.getPrefix("Core") + Utils.colorize("Du Verwendest &2CorePlugin (" + main.getDescription().getVersion() + ") &fDie neueste Version ist &2" + ConfigHandler.getDataset().getConfigbyName("version")));
         }
         return false;
     }

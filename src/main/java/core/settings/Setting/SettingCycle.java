@@ -1,4 +1,4 @@
-package core.settings.Setting;
+package core.settings.setting;
 
 import org.bukkit.Material;
 
@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SettingCycle extends Setting<Integer> {
 
-    List<Integer> values;
+    final List<Integer> values;
     int index = 0;
     List<String> mappedValues;
     List<Material> mappedMaterials;
@@ -24,7 +24,6 @@ public class SettingCycle extends Setting<Integer> {
     public SettingCycle(String name, ArrayList<String> description, Material material, List<Integer> values, List<String> mappedValues) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
-        super.value = values.get(1);
         this.mappedValues = mappedValues;
         super.value = values.get(0);
     }
@@ -32,7 +31,6 @@ public class SettingCycle extends Setting<Integer> {
     public SettingCycle(String name, ArrayList<String> description, Material material, List<Integer> values, List<String> mappedValues, List<Material> mappedMaterials) {
         super(name, description, SettingsType.CYCLE, material);
         this.values = values;
-        this.value = values.get(1);
         this.mappedValues = mappedValues;
         this.mappedMaterials = mappedMaterials;
         super.value = values.get(0);
@@ -64,10 +62,6 @@ public class SettingCycle extends Setting<Integer> {
         }
     }
 
-    public String getName() {
-        return super.getName();
-    }
-
     public Material getMaterial() {
         if (this.mappedMaterials != null) {
             return this.mappedMaterials.get(this.index);
@@ -77,10 +71,6 @@ public class SettingCycle extends Setting<Integer> {
     @Override
     public Integer getValue() {
         return this.value;
-    }
-
-    public ArrayList<String> getDescription() {
-        return super.getDescription();
     }
 
     public String getValueAsString() {

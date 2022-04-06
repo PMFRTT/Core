@@ -10,12 +10,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
 public class TeleportCommandListener implements CommandExecutor {
 
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         Player player = null;
         if(sender instanceof  Player){
@@ -23,16 +24,16 @@ public class TeleportCommandListener implements CommandExecutor {
         }
 
         if (command.getLabel().equalsIgnoreCase("teleport")) {
-            if (PermissionConverter.generatePermissions(player).get(Permission.TELEPORT)) {
+            if (PermissionConverter.generatePermissions(Objects.requireNonNull(player)).get(Permission.TELEPORT)) {
                 if (args.length == 1) {
                     if (Bukkit.getPlayer(args[0]) != null) {
-                        CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("Teleportiere zu"), Utils.colorize("&a" + Bukkit.getPlayer(args[0]).getDisplayName()));
+                        CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("Teleportiere zu"), Utils.colorize("&a" + Objects.requireNonNull(Bukkit.getPlayer(args[0])).getDisplayName()));
                         player.teleport(Objects.requireNonNull(Bukkit.getPlayer(args[0])));
                     }
                 } else if (args.length == 2) {
                     if (Bukkit.getPlayer(args[0]) != null && Bukkit.getPlayer(args[1]) != null) {
-                        CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("Du wurdest zu"), Utils.colorize("&a" + Bukkit.getPlayer(args[1]).getDisplayName() + " teleportiert"));
-                        Bukkit.getPlayer(args[0]).teleport(Bukkit.getPlayer(args[1]).getLocation());
+                        CoreSendStringPacket.sendPacketToTitle(player, Utils.colorize("Du wurdest zu"), Utils.colorize("&a" + Objects.requireNonNull(Bukkit.getPlayer(args[1])).getDisplayName() + " teleportiert"));
+                        Objects.requireNonNull(Bukkit.getPlayer(args[0])).teleport(Objects.requireNonNull(Bukkit.getPlayer(args[1])).getLocation());
                     }
 
                 } else if (args.length == 3) {

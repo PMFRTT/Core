@@ -1,4 +1,4 @@
-package core.settings.Setting;
+package core.settings.setting;
 
 import core.settings.SubSettings;
 import org.bukkit.Material;
@@ -28,21 +28,9 @@ public class SettingSwitch extends Setting<Boolean> {
         return this.subSettings;
     }
 
-    public String getName() {
-        return super.getName();
-    }
-
-    public Material getMaterial() {
-        return super.getMaterial();
-    }
-
     @Override
     public Boolean getValue() {
         return this.enabled;
-    }
-
-    public ArrayList<String> getDescription() {
-        return super.getDescription();
     }
 
     @Override

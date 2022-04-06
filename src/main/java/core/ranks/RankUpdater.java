@@ -12,7 +12,7 @@ import java.util.HashMap;
 public class RankUpdater {
 
     private static final CoreMain coreMain = CoreHandler.getMain();
-    private static final HashMap<String, Rank> playerRanks = new HashMap<String, Rank>();
+    private static final HashMap<String, Rank> playerRanks = new HashMap<>();
 
 
     public static void startUpdater() {
@@ -27,14 +27,11 @@ public class RankUpdater {
     }
 
     private static void updater() {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(coreMain, new Runnable() {
-            @Override
-            public void run() {
-                for (Player player : Bukkit.getOnlinePlayers()) {
-                    addPlayer(player);
-                }
-                DebugSender.sendDebug(DebugType.RANK, "updated, next update in 30");
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(coreMain, () -> {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                addPlayer(player);
             }
+            DebugSender.sendDebug(DebugType.RANK, "updated, next update in 30");
         }, 0, 600L);
     }
 

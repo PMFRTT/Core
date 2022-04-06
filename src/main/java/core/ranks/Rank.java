@@ -6,7 +6,7 @@ import java.util.HashMap;
 public enum Rank {
     OWNER, DEV, ADMIN, PLUS, NORMAL, BANNED;
 
-    public static HashMap<Integer, Rank> rankPriorities = new HashMap<Integer, Rank>() {{
+    public static final HashMap<Integer, Rank> rankPriorities = new HashMap<>() {{
         put(0, BANNED);
         put(1, NORMAL);
         put(2, PLUS);

@@ -12,7 +12,7 @@ public class MySQL {
         return (connection != null);
     }
 
-    public boolean connect() throws ClassNotFoundException, SQLException {
+    public boolean connect() throws SQLException {
         if (!isConnected()) {
             String host = "localhost";
             String port = "3306";

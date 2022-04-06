@@ -7,7 +7,7 @@ import java.util.List;
 public enum Permission {
     GAMEMODE, WEATHER, TIME, HEAL, DIFFICULTY, INVENTORY, TELEPORT, FLY, ALL;
 
-    public static List<Permission> permissionList = new ArrayList<Permission>() {{
+    public static final List<Permission> permissionList = new ArrayList<>() {{
         add(GAMEMODE);
         add(WEATHER);
         add(TIME);
@@ -18,7 +18,7 @@ public enum Permission {
         add(FLY);
     }};
 
-    public static HashMap<Permission, Integer> permissionIndexMap = new HashMap<Permission, Integer>() {{
+    public static final HashMap<Permission, Integer> permissionIndexMap = new HashMap<>() {{
         put(GAMEMODE, 15);
         put(WEATHER, 14);
         put(TIME, 13);

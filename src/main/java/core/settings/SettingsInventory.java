@@ -23,12 +23,12 @@ import java.util.Objects;
 
 public class SettingsInventory implements Listener {
 
-    Settings settings;
+    final Settings settings;
 
     private final Plugin plugin;
     private final Inventory inventory;
     private final HashMap<Integer, Setting> slotSettingsMap = new HashMap<Integer, Setting>();
-    private List<Integer> usableSlots = new ArrayList<Integer>() {{
+    private List<Integer> usableSlots = new ArrayList<>() {{
         add(0);
         add(2);
         add(4);
@@ -101,7 +101,7 @@ public class SettingsInventory implements Listener {
                 if (inventory.getItem(j) == null) {
                     ItemStack empty = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
                     ItemMeta emptyMeta = empty.getItemMeta();
-                    emptyMeta.setDisplayName("--");
+                    Objects.requireNonNull(emptyMeta).setDisplayName("--");
                     empty.setItemMeta(emptyMeta);
                     inventory.setItem(j, empty);
                 }
@@ -109,7 +109,7 @@ public class SettingsInventory implements Listener {
             if (inventory.getItem(44) == null) {
                 ItemStack empty = new ItemStack(Material.COMMAND_BLOCK);
                 ItemMeta emptyMeta = empty.getItemMeta();
-                emptyMeta.setDisplayName("Presets");
+                Objects.requireNonNull(emptyMeta).setDisplayName("Presets");
                 empty.setItemMeta(emptyMeta);
                 inventory.setItem(44, empty);
             }

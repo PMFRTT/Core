@@ -55,7 +55,7 @@ public class MySQLBungee {
     }
 
     public ArrayList<Server> getServers(){
-        ArrayList<Server> servers = new ArrayList<Server>();
+        ArrayList<Server> servers = new ArrayList<>();
         try{
             PreparedStatement preparedStatement = CoreHandler.getSQL().getConnection().prepareStatement("SELECT * FROM SERVER");
             ResultSet resultSet = preparedStatement.executeQuery();

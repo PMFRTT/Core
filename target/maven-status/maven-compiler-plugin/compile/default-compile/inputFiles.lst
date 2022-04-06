@@ -1,65 +1,64 @@
-C:\Code\Java\Bukkit\Core\src\main\java\core\settings\Setting\SettingSwitch.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\bungee\BungeeHandler.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\ranks\Rank.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\timer\Timer.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\TimeCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\Scoreboard.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\HealCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\settings\Settings.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\VersionCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreSendStringPacket.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\settings\Setting\SettingClick.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\chat\Color.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\DifficultyCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreHandler.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\permissions\Permission.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\Score.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\sql\MySQLPermissions.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\config\ServerConfig.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\settings\Setting\SettingCycle.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\PermissionCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\hotbar\HotbarScheduler.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\WeatherCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\core\EventHandler.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\settings\SubSettings.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\sql\SQLPasswordReader.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\GameModeCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\settings\presets\PresetInventory.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\sql\MySQL.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\MainCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\Utils.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\ScheduleCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreEventHandler.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\permissions\PermissionConverter.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\timer\TimerType.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\bungee\Server.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\config\ConfigHandler.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\debug\DebugType.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\debug\DebugSender.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\hotbar\HotbarManager.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\settings\Setting\SettingsType.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\TeleportCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreServerInfo.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\TPS.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\BugCommandExecutor.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\ranks\RankUpdater.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\ScoreboardType.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\settings\SettingsInventory.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\sql\SQLConfig.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\SQLCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\HubCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\settings\PluginSettings.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\ScoreboardDisplay.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreMain.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\settings\presets\PresetHandler.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\core\CoreResetServer.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\ranks\RankHandler.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\bungee\CoreBungeeCordClient.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\hotbar\HotbarEventHandler.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\InvseeCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\MoneyCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\sql\MySQLRanks.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\permissions\PermissionHandler.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\sql\MySQLBungee.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\commands\PingCommandListener.java
-C:\Code\Java\Bukkit\Core\src\main\java\core\settings\Setting\Setting.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\ranks\RankHandler.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\PingCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\debug\DebugType.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\settings\setting\Setting.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\config\ServerConfig.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\hotbar\HotbarScheduler.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\settings\setting\SettingCycle.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\sql\MySQLRanks.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\settings\PluginSettings.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\timer\Timer.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\chat\Color.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\HubCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\ranks\Rank.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\timer\TimerType.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\settings\setting\SettingSwitch.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\core\CoreHandler.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\permissions\Permission.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\Score.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\TPS.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\sql\SQLPasswordReader.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\sql\MySQLBungee.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\settings\setting\SettingsType.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\debug\DebugSender.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\Utils.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\HealCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\core\CoreSendStringPacket.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\ScoreboardDisplay.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\DifficultyCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\core\CoreResetServer.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\hotbar\HotbarManager.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\config\ConfigHandler.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\permissions\PermissionHandler.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\BugCommandExecutor.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\bungee\CoreBungeeCordClient.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\settings\SubSettings.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\core\EventHandler.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\permissions\PermissionConverter.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\sql\MySQLPermissions.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\bungee\Server.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\Scoreboard.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\settings\presets\PresetHandler.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\MainCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\ScheduleCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\settings\Settings.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\SQLCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\WeatherCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\scoreboard\ScoreboardType.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\VersionCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\settings\setting\SettingClick.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\PermissionCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\core\CoreMain.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\sql\SQLConfig.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\TeleportCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\ranks\RankUpdater.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\bungee\BungeeHandler.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\core\CoreEventHandler.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\hotbar\HotbarEventHandler.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\GameModeCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\core\CoreServerInfo.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\sql\MySQL.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\settings\presets\PresetInventory.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\InvseeCommandListener.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\settings\SettingsInventory.java
+C:\Users\Tim Jungeilges\Documents\Dokumente\Code\Java\Bukkit\Core\src\main\java\core\commands\TimeCommandListener.java

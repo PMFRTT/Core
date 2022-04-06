@@ -8,12 +8,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class HealCommandListener implements CommandExecutor {
 
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         Player player = null;
         if (sender instanceof Player) {
@@ -21,9 +24,9 @@ public class HealCommandListener implements CommandExecutor {
         }
 
         if (command.getLabel().equalsIgnoreCase("heal")) {
-            if (PermissionConverter.generatePermissions(player).get(Permission.HEAL) || sender.getName().equals("CONSOLE")) {
+            if (PermissionConverter.generatePermissions(Objects.requireNonNull(player)).get(Permission.HEAL) || sender.getName().equals("CONSOLE")) {
                 if (args.length == 0) {
-                    if (sender.getName() != "CONSOLE") {
+                    if (!sender.getName().equals("CONSOLE")) {
                         Player p = (Player) sender;
                         Utils.heal(p);
                         p.sendMessage(Utils.getServerPrefix() + Utils.colorize("Du wurdest von &b" + sender.getName() + "&f geheilt"));
@@ -40,7 +43,7 @@ public class HealCommandListener implements CommandExecutor {
                     }
                 } else if (Bukkit.getPlayer(args[0]) != null) {
                     Player toHeal = Bukkit.getPlayer(args[0]);
-                    Utils.heal(toHeal);
+                    Utils.heal(Objects.requireNonNull(toHeal));
                     toHeal.sendMessage(Utils.getServerPrefix() + Utils.colorize("Du wurdest von &b" + sender.getName() + "&f geheilt"));
                     return true;
                 }

@@ -15,8 +15,8 @@ public class TPS {
     private static boolean below18 = false;
     private static boolean below10 = false;
 
-    private static final ArrayList<Float> recentTickRate = new ArrayList<Float>();
-    private static final ArrayList<Float> recentTickTime = new ArrayList<Float>();
+    private static final ArrayList<Float> recentTickRate = new ArrayList<>();
+    private static final ArrayList<Float> recentTickTime = new ArrayList<>();
 
     private static long oldsec;
 

@@ -16,9 +16,9 @@ import java.util.Objects;
 
 public class ScoreboardDisplay {
 
-    Plugin plugin;
-    Player player;
-    BukkitScheduler scheduler;
+    final Plugin plugin;
+    final Player player;
+    final BukkitScheduler scheduler;
 
     private Scoreboard scoreboard;
 
@@ -68,7 +68,7 @@ public class ScoreboardDisplay {
     public void enableTitlesList(Integer cycleDuration) {
         if (scoreboard.getType() == ScoreboardType.MULTI_TITLE) {
             Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
-                if (scoreboard.getTitles().get(i) != title) {
+                if (!scoreboard.getTitles().get(i).equals(title)) {
                     scoreboard.setTitle(scoreboard.getTitles().get(i));
                     title = scoreboard.getTitles().get(i);
                     i = scoreboard.getTitles().indexOf(title);
@@ -100,7 +100,7 @@ public class ScoreboardDisplay {
     }
 
 
-    private final List<String> scores = new ArrayList<String>();
+    private final List<String> scores = new ArrayList<>();
 
     private void updateScoreboard() {
         if (scoreboard != null) {

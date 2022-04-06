@@ -12,7 +12,7 @@ public class SubSettings extends Settings {
 
     public SubSettings(String name, Plugin plugin, PluginSettings masterSettings) {
         super(name, plugin, masterSettings);
-        this.addSetting(Utils.colorize("&cZurück"), new ArrayList<String>(), Material.BARRIER);
+        this.addSetting(Utils.colorize("&cZurück"), new ArrayList<>(), Material.BARRIER);
     }
 
     public List<Setting> getSettings(){

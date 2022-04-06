@@ -57,36 +57,33 @@ public class Timer {
     }
 
     private void runMainTimer() {
-        scheduler.scheduleSyncRepeatingTask(this.plugin, new Runnable() {
-            @Override
-            public void run() {
-                if (running) {
-                    if (timerType.equals(TimerType.INCREASING)) {
-                        ticks++;
-                        msg = Utils.colorize(runningString + Utils.formatTimerTimeTicks(ticks));
-                        if (ticks % 20 == 0) {
-                            seconds++;
-                        }
-                    } else if (timerType.equals(TimerType.DECREASING)) {
-                        ticks--;
-                        if (single) {
-                            msg = Utils.colorize("Du hast noch &b" + Utils.formatTimerTimeTicks(ticks) + " &fZeit");
-                        } else {
-                            msg = Utils.colorize("Ihr habt noch &b" + Utils.formatTimerTimeTicks(ticks) + " &fZeit");
-                        }
-                        if (ticks % 20 == 0) {
-                            seconds--;
-                        }
-                        if (ticks == 0) {
-                            if(player != null){
-                                CoreSendStringPacket.sendPacketToTitle(player, "", timerReady);
-                            }
-                            pause();
-                        }
+        scheduler.scheduleSyncRepeatingTask(this.plugin, () -> {
+            if (running) {
+                if (timerType.equals(TimerType.INCREASING)) {
+                    ticks++;
+                    msg = Utils.colorize(runningString + Utils.formatTimerTimeTicks(ticks));
+                    if (ticks % 20 == 0) {
+                        seconds++;
                     }
-                } else {
-                    msg = Utils.colorize(pausedString);
+                } else if (timerType.equals(TimerType.DECREASING)) {
+                    ticks--;
+                    if (single) {
+                        msg = Utils.colorize("Du hast noch &b" + Utils.formatTimerTimeTicks(ticks) + " &fZeit");
+                    } else {
+                        msg = Utils.colorize("Ihr habt noch &b" + Utils.formatTimerTimeTicks(ticks) + " &fZeit");
+                    }
+                    if (ticks % 20 == 0) {
+                        seconds--;
+                    }
+                    if (ticks == 0) {
+                        if(player != null){
+                            CoreSendStringPacket.sendPacketToTitle(player, "", timerReady);
+                        }
+                        pause();
+                    }
                 }
+            } else {
+                msg = Utils.colorize(pausedString);
             }
         }, 0, 1);
     }

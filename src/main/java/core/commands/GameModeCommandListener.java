@@ -11,23 +11,26 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class GameModeCommandListener implements CommandExecutor {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         Player player = null;
         if(sender instanceof Player){
             player = (Player) sender;
         }
         if (command.getLabel().equalsIgnoreCase("gamemode")) {
-            if (PermissionConverter.generatePermissions(player).get(Permission.GAMEMODE) || sender.getName().equalsIgnoreCase("console")) {
+            if (PermissionConverter.generatePermissions(Objects.requireNonNull(player)).get(Permission.GAMEMODE) || sender.getName().equalsIgnoreCase("console")) {
                 if (args.length >= 1) {
                     if (args[0].equalsIgnoreCase("creative") || args[0].equalsIgnoreCase("c") || args[0].equalsIgnoreCase("1")) {
                         if (args.length == 2) {
                             if (args[1] != null && Bukkit.getPlayer(args[1]) != null) {
                                 player = Bukkit.getPlayer(args[1]);
-                                if (player.getGameMode() != GameMode.CREATIVE) {
+                                if (Objects.requireNonNull(player).getGameMode() != GameMode.CREATIVE) {
                                     player.setGameMode(GameMode.CREATIVE);
                                     DebugSender.sendDebug(DebugType.PLAYER, "player gamemode changed");
                                     Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Gamemode von " + Utils.colorize("&2" + player.getDisplayName() + "&f")) + " wurde von " + Utils.colorize("&1" + sender.getName() + "&f") + " auf " + Utils.colorize("&bCreative") + Utils.colorize("&f geändert!"));
@@ -50,7 +53,7 @@ public class GameModeCommandListener implements CommandExecutor {
                         if (args.length == 2) {
                             if (args[1] != null && Bukkit.getPlayer(args[1]) != null) {
                                 player = Bukkit.getPlayer(args[1]);
-                                if (player.getGameMode() != GameMode.SURVIVAL) {
+                                if (Objects.requireNonNull(player).getGameMode() != GameMode.SURVIVAL) {
                                     player.setGameMode(GameMode.SURVIVAL);
                                     DebugSender.sendDebug(DebugType.PLAYER, "player gamemode changed");
                                     Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Gamemode von " + Utils.colorize("&2" + player.getDisplayName() + "&f")) + " wurde von " + Utils.colorize("&1" + sender.getName() + "&f") + " auf " + Utils.colorize("&bSurvival") + Utils.colorize("&f geändert!"));
@@ -75,7 +78,7 @@ public class GameModeCommandListener implements CommandExecutor {
                         if (args.length == 2) {
                             if (args[1] != null && Bukkit.getPlayer(args[1]) != null) {
                                 player = Bukkit.getPlayer(args[1]);
-                                if (player.getGameMode() != GameMode.SPECTATOR) {
+                                if (Objects.requireNonNull(player).getGameMode() != GameMode.SPECTATOR) {
                                     player.setGameMode(GameMode.SPECTATOR);
                                     DebugSender.sendDebug(DebugType.PLAYER, "player gamemode changed");
                                     Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Gamemode von " + Utils.colorize("&2" + player.getDisplayName() + "&f")) + " wurde von " + Utils.colorize("&1" + sender.getName() + "&f") + " auf " + Utils.colorize("&bSpectator") + Utils.colorize("&f geändert!"));
@@ -98,7 +101,7 @@ public class GameModeCommandListener implements CommandExecutor {
                         if (args.length == 2) {
                             if (args[1] != null && Bukkit.getPlayer(args[1]) != null) {
                                 player = Bukkit.getPlayer(args[1]);
-                                if (player.getGameMode() != GameMode.ADVENTURE) {
+                                if (Objects.requireNonNull(player).getGameMode() != GameMode.ADVENTURE) {
                                     player.setGameMode(GameMode.ADVENTURE);
                                     DebugSender.sendDebug(DebugType.PLAYER, "player gamemode changed");
                                     Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Gamemode von " + Utils.colorize("&2" + player.getDisplayName() + "&f")) + " wurde von " + Utils.colorize("&1" + sender.getName() + "&f") + " auf " + Utils.colorize("&bAdventure") + Utils.colorize("&f geändert!"));

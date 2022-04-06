@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Scoreboard {
 
-    private final List<Score> scores = new ArrayList<Score>();
-    private List<String> titles = new ArrayList<String>();
+    private final List<Score> scores = new ArrayList<>();
+    private List<String> titles;
 
     private final Integer displayTimeMultiTitle;
     private final ScoreboardType type;

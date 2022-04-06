@@ -8,10 +8,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class InvseeCommandListener implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         Player player = null;
         if(sender instanceof Player){
@@ -19,10 +22,10 @@ public class InvseeCommandListener implements CommandExecutor {
         }
 
         if (command.getLabel().equalsIgnoreCase("invsee")) {
-            if (PermissionConverter.generatePermissions(player).get(Permission.INVENTORY)) {
+            if (PermissionConverter.generatePermissions(Objects.requireNonNull(player)).get(Permission.INVENTORY)) {
                 if (args.length == 1) {
                     if (Bukkit.getPlayer(args[0]) != null) {
-                        player.openInventory(Bukkit.getPlayer(args[0]).getInventory());
+                        player.openInventory(Objects.requireNonNull(Bukkit.getPlayer(args[0])).getInventory());
 
                         return true;
                     }

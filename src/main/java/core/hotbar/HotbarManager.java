@@ -11,7 +11,7 @@ public class HotbarManager {
 
     private static final CoreMain plugin = CoreHandler.getMain();
 
-    private static final HashMap<String, HotbarScheduler> hotbarSchedulers = new HashMap<String, HotbarScheduler>();
+    private static final HashMap<String, HotbarScheduler> hotbarSchedulers = new HashMap<>();
 
 
     public static void init() {

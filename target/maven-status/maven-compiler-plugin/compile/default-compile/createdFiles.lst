@@ -62,7 +62,6 @@ core\commands\GameModeCommandListener.class
 core\Utils$1.class
 core\commands\SQLCommandListener.class
 core\settings\Setting\SettingsType.class
-core\commands\MoneyCommandListener.class
 core\settings\SettingsInventory.class
 core\permissions\PermissionConverter.class
 core\timer\Timer$1.class

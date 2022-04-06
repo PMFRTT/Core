@@ -6,10 +6,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class PingCommandListener implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         Player player = null;
         if(sender instanceof Player){
@@ -23,7 +26,7 @@ public class PingCommandListener implements CommandExecutor {
                 return true;
             } else if (args.length == 1) {
                 if (Utils.isPlayer(args[0])) {
-                    sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Der Ping von &a" + Bukkit.getPlayer(args[0]).getDisplayName() + "&f ist &e" + Utils.getPlayerPing(Bukkit.getPlayer(args[0])) + "&fms"));
+                    sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Der Ping von &a" + Objects.requireNonNull(Bukkit.getPlayer(args[0])).getDisplayName() + "&f ist &e" + Utils.getPlayerPing(Bukkit.getPlayer(args[0])) + "&fms"));
                     return true;
                 } else {
                     sender.sendMessage(Utils.getPrefix("Server") + Utils.colorize("Der Spieler &c" + args[0] + " &fist nicht Online!"));

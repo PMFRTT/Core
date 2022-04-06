@@ -1,10 +1,11 @@
-package core.settings.Setting;
+package core.settings.setting;
 
 import core.settings.SubSettings;
 import org.bukkit.Material;
 
 import java.util.ArrayList;
 
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class SettingClick extends Setting {
 
     private SubSettings subSettings;

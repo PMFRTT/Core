@@ -1,4 +1,4 @@
-package core.settings.Setting;
+package core.settings.setting;
 
 import org.bukkit.Material;
 

@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
+@SuppressWarnings("UnstableApiUsage")
 public class CoreBungeeCordClient{
 
     private static final String ADDRESS = "localhost";
@@ -28,7 +29,7 @@ public class CoreBungeeCordClient{
     public static void moveToServer(Player player, String serverName) {
         int port = dataset.getPort(serverName);
         if (isOnline(port)) {
-            ByteArrayDataOutput out = ByteStreams.newDataOutput();
+            @SuppressWarnings("UnstableApiUsage") ByteArrayDataOutput out = ByteStreams.newDataOutput();
             out.writeUTF("Connect");
             out.writeUTF(serverName);
             player.sendPluginMessage(main, "BungeeCord", out.toByteArray());

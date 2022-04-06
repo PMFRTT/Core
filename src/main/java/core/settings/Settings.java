@@ -9,20 +9,21 @@ import org.bukkit.plugin.Plugin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public abstract class Settings {
 
-    private String PluginName = " ";
+    private final String PluginName;
 
     private final Plugin plugin;
 
     private static final List<Setting> SettingsList = new ArrayList<Setting>();
-    public List<Setting> SettingsListPerSetting = new ArrayList<Setting>();
+    public final List<Setting> SettingsListPerSetting = new ArrayList<Setting>();
     private static final HashMap<String, Setting> SettingsMap = new HashMap<String, Setting>();
     private final SettingsInventory settingsInventory;
     private PluginSettings masterSettings = null;
     private final boolean isMasterSettings;
-    private static final List<Settings> subSettings = new ArrayList<Settings>();
+    private static final List<Settings> subSettings = new ArrayList<>();
 
     private final PresetHandler presetHandler;
     private final PresetInventory presetInventory;
@@ -105,11 +106,7 @@ public abstract class Settings {
     }
 
     public String getPluginName() {
-        if (this.PluginName != null) {
-            return this.PluginName;
-        } else {
-            return "error";
-        }
+        return Objects.requireNonNullElse(this.PluginName, "error");
     }
 
     public HashMap<String, Setting> getSettingsMap() {

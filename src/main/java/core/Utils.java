@@ -93,7 +93,6 @@ public class Utils {
     }
 
     public static String formatTimerTimeText(int seconds) {
-        String time;
         DecimalFormat decimalFormat = new DecimalFormat("0");
         int hours = seconds / 3600;
         int minutes = (seconds % 3600) / 60;
@@ -194,6 +193,7 @@ public class Utils {
         return null;
     }
 
+    @SuppressWarnings("unused")
     public static void heal(Player player) {
         DebugSender.sendDebug(DebugType.PLAYER, "player " + player.getDisplayName() + " has been healed");
         BukkitTask runnable = new BukkitRunnable() {
@@ -227,7 +227,7 @@ public class Utils {
         Entity closestEntity = null;
         double closestDistance = 0.0;
 
-        for (Entity entity : center.getWorld().getEntities()) {
+        for (Entity entity : Objects.requireNonNull(center.getWorld()).getEntities()) {
             if (entity != player) {
                 double distance = entity.getLocation().distanceSquared(center);
                 if (closestEntity == null || distance < closestDistance) {
@@ -256,7 +256,7 @@ public class Utils {
     }
 
     public static void createHealthDisplay(boolean enabled) {
-        Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        Scoreboard scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
         if (enabled) {
             Objective objective = scoreboard.registerNewObjective("Leben", Criterias.HEALTH, "Leben");
             objective.setRenderType(RenderType.HEARTS);
@@ -279,7 +279,7 @@ public class Utils {
             Date date = new Date();
             String dateFormatted = new SimpleDateFormat("HH:mm:ss").format(date);
 
-            List<String> headerList = new ArrayList<String>() {{
+            List<String> headerList = new ArrayList<>() {{
                 add(Utils.colorize("&0--&8---&7---&f[&eP&aM&bF&9R&dT&cT&f-Server-Network]&7---&8---&0--&f"));
                 add("");
                 add(Utils.colorize("Moin &b" + player.getDisplayName() + "&f!"));
@@ -289,7 +289,7 @@ public class Utils {
             }};
 
 
-            List<String> footerList = new ArrayList<String>() {{
+            List<String> footerList = new ArrayList<>() {{
                 add("   ");
                 if (RankUpdater.isDev(player)) {
                     if (ConfigHandler.getDataset().getConfigbyName("debug").equals("1") || ConfigHandler.getDataset().getConfigbyName("debug").equals("3")) {

@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public class CoreResetServer {
 
     private static final CoreMain main = CoreHandler.getMain();
@@ -29,12 +30,7 @@ public class CoreResetServer {
             locations.delete();
         }
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(main, new Runnable() {
-            @Override
-            public void run() {
-                Bukkit.spigot().restart();
-            }
-        }, 40L);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(main, () -> Bukkit.spigot().restart(), 40L);
     }
 
     private static void closePlayerConnection(String serverName) {

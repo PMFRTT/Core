@@ -9,10 +9,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 public class WeatherCommandListener implements CommandExecutor {
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         Player player = null;
         if(sender instanceof Player){
@@ -22,7 +25,7 @@ public class WeatherCommandListener implements CommandExecutor {
         World world = Bukkit.getWorld("world");
 
         if (command.getLabel().equalsIgnoreCase("weather")) {
-            if (PermissionConverter.generatePermissions(player).get(Permission.WEATHER) || sender.getName().equalsIgnoreCase("console")) {
+            if (PermissionConverter.generatePermissions(Objects.requireNonNull(player)).get(Permission.WEATHER) || sender.getName().equalsIgnoreCase("console")) {
                 if (args.length == 1) {
                     if (args[0].equalsIgnoreCase("rain") || args[0].equalsIgnoreCase("r")) {
                         Utils.sendMessageToEveryone(Utils.getServerPrefix() + Utils.colorize("Wetter wurde auf &bRegen&f geändert!"));
