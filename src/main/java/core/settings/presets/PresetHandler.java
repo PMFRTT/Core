@@ -1,10 +1,10 @@
 package core.settings.presets;
 
 import core.Utils;
-import core.settings.Setting.Setting;
-import core.settings.Setting.SettingCycle;
-import core.settings.Setting.SettingSwitch;
 import core.settings.Settings;
+import core.settings.setting.Setting;
+import core.settings.setting.SettingCycle;
+import core.settings.setting.SettingSwitch;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -12,7 +12,7 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@SuppressWarnings({"ResultOfMethodCallIgnored", "SameReturnValue"})
+@SuppressWarnings({"ResultOfMethodCallIgnored", "SameReturnValue", "rawtypes"})
 public class PresetHandler {
 
     private final Settings settings;
@@ -25,6 +25,7 @@ public class PresetHandler {
         this.location = plugin.getDataFolder().getAbsolutePath();
     }
 
+    @SuppressWarnings("rawtypes")
     public void savePreset() {
         File directory = new File(location.substring(0, location.length() - plugin.getName().length()) + "/config/core/presets/" + plugin.getName() + "/");
         File file = new File(directory.getAbsolutePath() + "/" + getDate() + ".yml");
@@ -60,6 +61,7 @@ public class PresetHandler {
         file.delete();
     }
 
+    @SuppressWarnings("rawtypes")
     public void readPresets(String name) {
         File directory = new File(location.substring(0, location.length() - plugin.getName().length()) + "/config/core/presets/" + plugin.getName() + "/");
         File file = new File(directory.getAbsolutePath() + "/" + name);

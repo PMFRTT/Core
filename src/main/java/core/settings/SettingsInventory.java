@@ -3,7 +3,7 @@ package core.settings;
 import core.Utils;
 import core.debug.DebugSender;
 import core.debug.DebugType;
-import core.settings.Setting.*;
+import core.settings.setting.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -27,7 +27,8 @@ public class SettingsInventory implements Listener {
 
     private final Plugin plugin;
     private final Inventory inventory;
-    private final HashMap<Integer, Setting> slotSettingsMap = new HashMap<Integer, Setting>();
+    @SuppressWarnings("rawtypes")
+    private final HashMap<Integer, Setting> slotSettingsMap = new HashMap<>();
     private List<Integer> usableSlots = new ArrayList<>() {{
         add(0);
         add(2);
@@ -65,6 +66,7 @@ public class SettingsInventory implements Listener {
         Bukkit.getPluginManager().registerEvents(this, this.plugin);
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     private void buildInventory() {
         DebugSender.sendDebug(DebugType.GUI, "building settings gui", "Settings");
         int i = 0;
@@ -121,6 +123,7 @@ public class SettingsInventory implements Listener {
         return this.inventory;
     }
 
+    @SuppressWarnings("rawtypes")
     public Setting getSettingfromSlot(int slot) {
         return this.slotSettingsMap.getOrDefault(slot, null);
     }

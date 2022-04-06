@@ -6,9 +6,9 @@ import core.core.CoreMain;
 import core.debug.DebugSender;
 import core.debug.DebugType;
 import core.ranks.RankUpdater;
-import core.settings.Setting.Setting;
-import core.settings.Setting.SettingsType;
 import core.settings.Settings;
+import core.settings.setting.Setting;
+import core.settings.setting.SettingsType;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.*;
 import org.bukkit.craftbukkit.v1_18_R2.entity.CraftPlayer;
@@ -175,6 +175,7 @@ public class Utils {
         return i == 1;
     }
 
+    @SuppressWarnings("rawtypes")
     public static Integer getSettingValueInt(Settings settings, String name) {
         Setting setting = settings.getSettingbyName(name);
         assert setting != null;
@@ -184,6 +185,7 @@ public class Utils {
         return null;
     }
 
+    @SuppressWarnings("rawtypes")
     public static Boolean getSettingValueBool(Settings settings, String name) {
         Setting setting = settings.getSettingbyName(name);
         assert setting != null;

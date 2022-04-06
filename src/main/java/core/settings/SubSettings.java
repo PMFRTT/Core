@@ -1,7 +1,7 @@
 package core.settings;
 
 import core.Utils;
-import core.settings.Setting.Setting;
+import core.settings.setting.Setting;
 import org.bukkit.Material;
 import org.bukkit.plugin.Plugin;
 
@@ -15,6 +15,7 @@ public class SubSettings extends Settings {
         this.addSetting(Utils.colorize("&cZurück"), new ArrayList<>(), Material.BARRIER);
     }
 
+    @SuppressWarnings("rawtypes")
     public List<Setting> getSettings(){
         return this.getAllSettings();
     }

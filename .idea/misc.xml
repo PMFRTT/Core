@@ -1,10 +1,196 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EntryPointsManager">
+    <entry_points version="2.0">
+      <entry_point TYPE="field" FQNAME="core.chat.Color BLUE" />
+      <entry_point TYPE="field" FQNAME="core.settings.setting.SettingsType CLICK" />
+      <entry_point TYPE="field" FQNAME="core.commands.PermissionCommandListener coreMain" />
+      <entry_point TYPE="field" FQNAME="core.chat.Color GREEN" />
+      <entry_point TYPE="field" FQNAME="core.timer.Timer hidden" />
+      <entry_point TYPE="field" FQNAME="core.TPS main" />
+      <entry_point TYPE="field" FQNAME="core.sql.MySQLRanks plugin" />
+      <entry_point TYPE="field" FQNAME="core.settings.Settings plugin" />
+      <entry_point TYPE="field" FQNAME="core.sql.SQLConfig plugin" />
+      <entry_point TYPE="field" FQNAME="core.chat.Color RED" />
+      <entry_point TYPE="field" FQNAME="core.scoreboard.ScoreboardDisplay scheduler" />
+      <entry_point TYPE="field" FQNAME="core.hotbar.HotbarScheduler TIMEOUT_TICKS" />
+    </entry_points>
     <list size="2">
       <item index="0" class="java.lang.String" itemvalue="org.bukkit.event.EventHandler" />
       <item index="1" class="java.lang.String" itemvalue="net.md_5.bungee.event.EventHandler" />
     </list>
+    <pattern value="core.scoreboard.Scoreboard" method="addScore" />
+    <pattern value="core.timer.Timer" method="addSeconds" />
+    <pattern value="core.sql.MySQLBungee" method="addServer" />
+    <pattern value="core.settings.Settings" method="addSetting" />
+    <pattern value="core.settings.setting.SettingCycle" method="blockCycleDO" />
+    <pattern value="core.settings.setting.SettingCycle" method="blockCycleUP" />
+    <pattern value="core.commands.BugCommandExecutor" />
+    <pattern value="core.settings.setting.SettingSwitch" method="changeSettingValue" />
+    <pattern value="core.scoreboard.Scoreboard" method="clearScores" />
+    <pattern value="core.chat.Color" />
+    <pattern value="core.bungee.Server" method="connect" />
+    <pattern value="core.Utils" method="convertToBoolean" />
+    <pattern value="core.bungee.CoreBungeeCordClient" />
+    <pattern value="core.core.CoreEventHandler" />
+    <pattern value="core.core.CoreHandler" />
+    <pattern value="core.core.CoreMain" />
+    <pattern value="core.core.CoreResetServer" />
+    <pattern value="core.core.CoreServerInfo" />
+    <pattern value="core.Utils" method="createHealthDisplay" />
+    <pattern value="core.sql.MySQLPermissions" method="createPlayer" />
+    <pattern value="core.sql.MySQLRanks" method="createPlayer" />
+    <pattern value="core.settings.setting.SettingCycle" method="cycleDown" />
+    <pattern value="core.settings.setting.SettingCycle" method="cycleUp" />
+    <pattern value="core.debug.DebugSender" />
+    <pattern value="core.commands.DifficultyCommandListener" />
+    <pattern value="core.scoreboard.ScoreboardDisplay" method="enableTitlesList" />
+    <pattern value="core.core.EventHandler" />
+    <pattern value="core.sql.SQLConfig" method="exists" />
+    <pattern value="core.Utils" method="formatTimerTimeText" />
+    <pattern value="core.Utils" method="formatTimerTimeTicksThreeDecimal" />
+    <pattern value="core.Utils" method="formatTimerTimeTicksTwoDecimal" />
+    <pattern value="core.commands.GameModeCommandListener" />
+    <pattern value="core.hotbar.HotbarManager" method="getAllSchedulers" />
+    <pattern value="core.Utils" method="getChatPrefix" />
+    <pattern value="core.Utils" method="getClosestEntity" />
+    <pattern value="core.Utils" method="getDate" />
+    <pattern value="core.settings.setting.Setting" method="getDescription" />
+    <pattern value="core.Utils" method="getDisplayName" />
+    <pattern value="core.scoreboard.Scoreboard" method="getDisplayTimeMultiTitle" />
+    <pattern value="core.Utils" method="getErrorPrefix" />
+    <pattern value="core.settings.Settings" method="getMasterSettings" />
+    <pattern value="core.settings.setting.Setting" method="getMaterial" />
+    <pattern value="core.settings.setting.Setting" method="getName" />
+    <pattern value="core.core.CoreEventHandler" method="getPlayerFlying" />
+    <pattern value="core.bungee.Server" method="getPort" />
+    <pattern value="core.settings.Settings" method="getPresetHandler" />
+    <pattern value="core.settings.Settings" method="getPresetInventory" />
+    <pattern value="core.Utils" method="getRainbowString" />
+    <pattern value="core.ranks.RankUpdater" method="getRank" />
+    <pattern value="core.sql.MySQLRanks" method="getRank" />
+    <pattern value="core.Utils" method="getResetPrefix" />
+    <pattern value="core.scoreboard.ScoreboardDisplay" method="getScoreboard" />
+    <pattern value="core.scoreboard.Scoreboard" method="getScoreByName" />
+    <pattern value="core.timer.Timer" method="getSeconds" />
+    <pattern value="core.sql.MySQLBungee" method="getServers" />
+    <pattern value="core.settings.SubSettings" method="getSettings" />
+    <pattern value="core.settings.Settings" method="getSettingsInventory" />
+    <pattern value="core.settings.Settings" method="getSettingsList" />
+    <pattern value="core.settings.Settings" method="getSettingsMap" />
+    <pattern value="core.Utils" method="getSettingValueBool" />
+    <pattern value="core.Utils" method="getSettingValueInt" />
+    <pattern value="core.timer.Timer" method="getSingle" />
+    <pattern value="core.settings.setting.SettingClick" method="getSubSettings" />
+    <pattern value="core.settings.Settings" method="getSubSettings" />
+    <pattern value="core.settings.setting.SettingSwitch" method="getSubSettings" />
+    <pattern value="core.timer.Timer" method="getTicks" />
+    <pattern value="core.TPS" method="getTickTime" />
+    <pattern value="core.timer.Timer" method="getTimerMessage" />
+    <pattern value="core.scoreboard.ScoreboardDisplay" method="getTitleIndex" />
+    <pattern value="core.TPS" method="getTPS" />
+    <pattern value="core.settings.setting.Setting" method="getValue" />
+    <pattern value="core.settings.setting.SettingCycle" method="getValueAsString" />
+    <pattern value="core.settings.setting.SettingCycle" method="getValues" />
+    <pattern value="core.bungee.Server" method="getVersion" />
+    <pattern value="core.sql.MySQLBungee" method="getVersion" />
+    <pattern value="core.Utils" method="heal" />
+    <pattern value="core.commands.HealCommandListener" />
+    <pattern value="core.hotbar.HotbarEventHandler" />
+    <pattern value="core.hotbar.HotbarManager" />
+    <pattern value="core.hotbar.HotbarScheduler" />
+    <pattern value="core.hotbar.HotbarScheduler" method="HotbarScheduler" />
+    <pattern value="core.commands.HubCommandListener" />
+    <pattern value="core.commands.InvseeCommandListener" />
+    <pattern value="core.commands.MainCommandListener" />
+    <pattern value="core.sql.MySQLBungee" />
+    <pattern value="core.sql.MySQLPermissions" />
+    <pattern value="core.sql.MySQLRanks" />
+    <pattern value="core.permissions.Permission" />
+    <pattern value="core.commands.PingCommandListener" />
+    <pattern value="core.commands.ScheduleCommandListener" />
+    <pattern value="core.commands.SQLCommandListener" />
+    <pattern value="core.sql.SQLConfig" />
+    <pattern value="core.sql.SQLPasswordReader" />
+    <pattern value="core.commands.TeleportCommandListener" />
+    <pattern value="core.commands.TimeCommandListener" />
+    <pattern value="core.TPS" />
+    <pattern value="core.commands.WeatherCommandListener" />
+    <pattern value="core.timer.Timer" method="isPaused" />
+    <pattern value="core.Utils" method="isPlayer" />
+    <pattern value="core.hotbar.HotbarScheduler" method="killScheduler" />
+    <pattern value="core.sql.MySQL" />
+    <pattern value="core.sql.MySQL" method="MySQL" />
+    <pattern value="core.core.CoreEventHandler" method="onAdvancementGet" />
+    <pattern value="core.settings.SettingsInventory" method="onInventoryClick" />
+    <pattern value="core.settings.presets.PresetInventory" method="onInventoryClickEvent" />
+    <pattern value="core.core.CoreEventHandler" method="onPlayerChat" />
+    <pattern value="core.core.CoreEventHandler" method="onPlayerDamage" />
+    <pattern value="core.core.CoreEventHandler" method="onPlayerDeath" />
+    <pattern value="core.core.CoreEventHandler" method="onPlayerDisconnect" />
+    <pattern value="core.core.CoreEventHandler" method="onPlayerHit" />
+    <pattern value="core.core.CoreEventHandler" method="onPlayerJoin" />
+    <pattern value="core.hotbar.HotbarEventHandler" method="onPlayerJoin" />
+    <pattern value="core.commands.PermissionCommandListener" />
+    <pattern value="core.commands.PermissionCommandListener" method="PermissionCommandListener" />
+    <pattern value="core.Utils" method="playSoundForAll" />
+    <pattern value="core.settings.PluginSettings" />
+    <pattern value="core.settings.PluginSettings" method="PluginSettings" />
+    <pattern value="core.settings.presets.PresetInventory" />
+    <pattern value="core.ranks.RankUpdater" />
+    <pattern value="core.scoreboard.Scoreboard" method="removeScore" />
+    <pattern value="core.scoreboard.Scoreboard" method="removeScoreByName" />
+    <pattern value="core.hotbar.HotbarScheduler" method="removeTimer" />
+    <pattern value="core.core.CoreResetServer" method="resetServer" />
+    <pattern value="core.timer.Timer" method="resume" />
+    <pattern value="core.hotbar.HotbarScheduler" method="runScheduler" />
+    <pattern value="core.hotbar.HotbarScheduler" method="scheduleRepeatingMessage" />
+    <pattern value="core.scoreboard.Score" />
+    <pattern value="core.scoreboard.Score" method="Score" />
+    <pattern value="core.scoreboard.Scoreboard" />
+    <pattern value="core.scoreboard.Scoreboard" method="Scoreboard" />
+    <pattern value="core.scoreboard.ScoreboardDisplay" />
+    <pattern value="core.scoreboard.ScoreboardDisplay" method="ScoreboardDisplay" />
+    <pattern value="core.debug.DebugSender" method="sendDebug" />
+    <pattern value="core.bungee.Server" />
+    <pattern value="core.bungee.Server" method="Server" />
+    <pattern value="core.config.ServerConfig" />
+    <pattern value="core.config.ServerConfig" method="ServerConfig" />
+    <pattern value="core.scoreboard.Score" method="setContent" />
+    <pattern value="core.core.CoreHandler" method="setGuestPlugin" />
+    <pattern value="core.scoreboard.Score" method="setPrefix" />
+    <pattern value="core.scoreboard.ScoreboardDisplay" method="setScoreboard" />
+    <pattern value="core.timer.Timer" method="setSeconds" />
+    <pattern value="core.timer.Timer" method="setSingle" />
+    <pattern value="core.scoreboard.Score" method="setSuffix" />
+    <pattern value="core.hotbar.HotbarScheduler" method="setTimer" />
+    <pattern value="core.timer.Timer" method="setTimerType" />
+    <pattern value="core.settings.setting.Setting" />
+    <pattern value="core.settings.setting.Setting" method="Setting" />
+    <pattern value="core.settings.setting.SettingClick" />
+    <pattern value="core.settings.setting.SettingClick" method="SettingClick" />
+    <pattern value="core.settings.setting.SettingCycle" />
+    <pattern value="core.settings.setting.SettingCycle" method="SettingCycle" />
+    <pattern value="core.settings.Settings" />
+    <pattern value="core.settings.SettingsInventory" />
+    <pattern value="core.settings.SettingsInventory" method="SettingsInventory" />
+    <pattern value="core.settings.setting.SettingsType" />
+    <pattern value="core.settings.setting.SettingSwitch" />
+    <pattern value="core.settings.setting.SettingSwitch" method="SettingSwitch" />
+    <pattern value="core.scoreboard.Scoreboard" method="setTitle" />
+    <pattern value="core.scoreboard.Scoreboard" method="setTitles" />
+    <pattern value="core.scoreboard.Score" method="setValue" />
+    <pattern value="core.settings.SubSettings" />
+    <pattern value="core.settings.SubSettings" method="SubSettings" />
+    <pattern value="core.timer.Timer" />
+    <pattern value="core.timer.Timer" method="Timer" />
+    <pattern value="core.Utils" />
+    <pattern value="core.commands.VersionCommandListener" />
+    <pattern value="core.commands.VersionCommandListener" method="VersionCommandListener" />
+    <pattern value="core.settings.setting.SettingCycle" method="getMaterial" />
+    <pattern value="core.settings.setting.SettingClick" method="getValue" />
+    <pattern value="core.settings.setting.SettingCycle" method="getValue" />
+    <pattern value="core.settings.setting.SettingSwitch" method="getValue" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
