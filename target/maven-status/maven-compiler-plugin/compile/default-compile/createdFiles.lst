@@ -10,7 +10,6 @@ core\commands\TeleportCommandListener.class
 core\settings\presets\PresetInventory.class
 core\scoreboard\Scoreboard$1.class
 core\scoreboard\ScoreboardDisplay.class
-core\settings\SettingsInventory$1.class
 core\sql\SQLPasswordReader.class
 core\settings\setting\SettingsType.class
 core\Utils$3.class
@@ -19,9 +18,11 @@ core\ranks\Rank$1.class
 core\scoreboard\Score.class
 core\sql\MySQLPermissions.class
 core\core\CoreSendStringPacket.class
+core\settings\SettingsInventoryBuilder$2.class
 core\bungee\Server.class
 core\commands\WeatherCommandListener.class
 core\ranks\RankUpdater.class
+core\settings\SettingsInventoryListener.class
 core\core\CoreResetServer.class
 core\timer\Timer.class
 core\settings\setting\SettingClick.class
@@ -32,6 +33,7 @@ core\core\CoreEventHandler.class
 core\Utils.class
 core\ranks\Rank.class
 core\bungee\CoreBungeeCordClient.class
+core\settings\SettingsInventoryBuilder$1.class
 core\Utils$2.class
 core\commands\BugCommandExecutor.class
 core\core\EventHandler.class
@@ -40,6 +42,7 @@ core\settings\setting\SettingCycle.class
 core\scoreboard\Scoreboard.class
 core\scoreboard\ScoreboardType.class
 core\settings\presets\PresetInventory$2.class
+core\settings\SettingsInventoryBuilder.class
 core\sql\MySQLRanks.class
 core\commands\HubCommandListener.class
 core\core\CoreMain.class
@@ -58,12 +61,15 @@ core\settings\presets\PresetInventory$1.class
 core\hotbar\HotbarManager.class
 core\config\ServerConfig.class
 core\commands\GameModeCommandListener.class
+core\item\ItemCreator.class
 core\Utils$1.class
 core\commands\SQLCommandListener.class
 core\settings\SettingsInventory.class
 core\permissions\PermissionConverter.class
+core\core\CoreServerInfo$1.class
 core\settings\presets\PresetHandler.class
 core\permissions\Permission$1.class
+core\core\CoreResetServer$1.class
 core\hotbar\HotbarScheduler.class
 core\core\CoreEventHandler$1.class
 core\settings\Settings.class

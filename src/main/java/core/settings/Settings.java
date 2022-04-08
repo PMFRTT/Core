@@ -17,12 +17,9 @@ public abstract class Settings {
 
     private final Plugin plugin;
 
-    @SuppressWarnings("rawtypes")
-    private static final List<Setting> SettingsList = new ArrayList<>();
-    @SuppressWarnings("rawtypes")
-    public final List<Setting> SettingsListPerSetting = new ArrayList<>();
-    @SuppressWarnings("rawtypes")
-    private static final HashMap<String, Setting> SettingsMap = new HashMap<>();
+    private static final List<Setting<?>> SettingsList = new ArrayList<>();
+    public final List<Setting<?>> SettingsListPerSetting = new ArrayList<>();
+    private static final HashMap<String, Setting<?>> SettingsMap = new HashMap<>();
     private final SettingsInventory settingsInventory;
     private PluginSettings masterSettings = null;
     private final boolean isMasterSettings;
@@ -104,8 +101,7 @@ public abstract class Settings {
     }
 
 
-    @SuppressWarnings("rawtypes")
-    public Setting getSettingbyName(String name) {
+    public Setting<?> getSettingbyName(String name) {
         return SettingsMap.getOrDefault(name, null);
     }
 
@@ -113,13 +109,11 @@ public abstract class Settings {
         return Objects.requireNonNullElse(this.PluginName, "error");
     }
 
-    @SuppressWarnings("rawtypes")
-    public HashMap<String, Setting> getSettingsMap() {
+    public HashMap<String, Setting<?>> getSettingsMap() {
         return SettingsMap;
     }
 
-    @SuppressWarnings("rawtypes")
-    public List<Setting> getSettingsList() {
+    public List<Setting<?>> getSettingsList() {
         return this.SettingsListPerSetting;
     }
 
@@ -137,8 +131,7 @@ public abstract class Settings {
         return subSettings;
     }
 
-    @SuppressWarnings("rawtypes")
-    public List<Setting> getAllSettings() {
+    public List<Setting<?>> getAllSettings() {
         return Settings.SettingsList;
     }
 

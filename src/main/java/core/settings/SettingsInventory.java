@@ -1,75 +1,38 @@
 package core.settings;
 
-import core.Utils;
-import core.debug.DebugSender;
-import core.debug.DebugType;
-import core.settings.setting.*;
+import core.item.ItemCreator;
+import core.settings.setting.Setting;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
 
-public class SettingsInventory implements Listener {
+public class SettingsInventory{
 
-    final Settings settings;
+    private final Settings settings;
 
-    private final Plugin plugin;
+
+    SettingsInventoryListener settingsInventoryListener;
+
     private final Inventory inventory;
-    @SuppressWarnings("rawtypes")
     private final HashMap<Integer, Setting> slotSettingsMap = new HashMap<>();
-    private List<Integer> usableSlots = new ArrayList<>() {{
-        add(0);
-        add(2);
-        add(4);
-        add(6);
-        add(8);
-        add(18);
-        add(20);
-        add(22);
-        add(24);
-        add(26);
-        add(36);
-        add(38);
-        add(40);
-        add(42);
-        add(44);
-    }};
+
 
     public SettingsInventory(Settings settings, Plugin plugin) {
         this.settings = settings;
-        this.plugin = plugin;
         inventory = Bukkit.createInventory(null, 45, settings.getPluginName());
-        initialize();
+        settingsInventoryListener = new SettingsInventoryListener(settings, plugin, inventory);
     }
 
-    public SettingsInventory(Settings settings, List<Integer> usableSlots, Plugin plugin) {
-        this.settings = settings;
-        this.usableSlots = usableSlots;
-        this.plugin = plugin;
-        inventory = Bukkit.createInventory(null, 54, settings.getPluginName());
-        initialize();
-    }
-
-    public void initialize() {
-        Bukkit.getPluginManager().registerEvents(this, this.plugin);
-    }
-
-    @SuppressWarnings({"rawtypes", "unchecked"})
     private void buildInventory() {
-        DebugSender.sendDebug(DebugType.GUI, "building settings gui", "Settings");
-        int i = 0;
+
+        SettingsInventoryBuilder.fillInventoryBlanks(this.inventory, ItemCreator.createItemStack(Material.BLACK_STAINED_GLASS_PANE, 1, "--"));
+        SettingsInventoryBuilder.addPresetButton(this.inventory);
+        SettingsInventoryBuilder.addSettings(this. inventory, settings.getSettingsList());
+
+        /*int i = 0;
         if (!this.settings.getSettingsList().isEmpty()) {
             for (Setting setting : this.settings.getSettingsList()) {
                 ItemStack itemStack = new ItemStack(setting.getMaterial());
@@ -99,77 +62,11 @@ public class SettingsInventory implements Listener {
                 this.slotSettingsMap.put(this.usableSlots.get(i), setting);
                 i++;
             }
-            for (int j = 0; j < 44; j++) {
-                if (inventory.getItem(j) == null) {
-                    ItemStack empty = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
-                    ItemMeta emptyMeta = empty.getItemMeta();
-                    Objects.requireNonNull(emptyMeta).setDisplayName("--");
-                    empty.setItemMeta(emptyMeta);
-                    inventory.setItem(j, empty);
-                }
-            }
-            if (inventory.getItem(44) == null) {
-                ItemStack empty = new ItemStack(Material.COMMAND_BLOCK);
-                ItemMeta emptyMeta = empty.getItemMeta();
-                Objects.requireNonNull(emptyMeta).setDisplayName("Presets");
-                empty.setItemMeta(emptyMeta);
-                inventory.setItem(44, empty);
-            }
-        }
+        }*/
     }
 
     public Inventory getInventory() {
         buildInventory();
         return this.inventory;
-    }
-
-    @SuppressWarnings("rawtypes")
-    public Setting getSettingfromSlot(int slot) {
-        return this.slotSettingsMap.getOrDefault(slot, null);
-    }
-
-
-
-    @EventHandler
-    public void onInventoryClick(InventoryClickEvent e) {
-        if (e.getSlot() == 44) {
-            e.getWhoClicked().closeInventory();
-            e.getWhoClicked().openInventory(settings.getPresetInventory().getInventory());
-        } else if (Objects.equals(e.getClickedInventory(), this.inventory)) {
-            e.setCancelled(true);
-            if (this.usableSlots.contains(e.getSlot())) {
-                DebugSender.sendDebug(DebugType.SETTINGS, "setting clicked");
-                if (Objects.requireNonNull(e.getCurrentItem()).getType().equals(Material.BARRIER)) {
-                    e.getWhoClicked().openInventory(settings.getMasterSettings().getSettingsInventory().getInventory());
-                } else if (getSettingfromSlot(e.getSlot()).getType().equals(SettingsType.SWITCH)) {
-                    SettingSwitch settingSwitch = (SettingSwitch) getSettingfromSlot(e.getSlot());
-                    if (e.getClick().isShiftClick()) {
-                        if (settingSwitch.getSubSettings() != null) {
-                            if (settingSwitch.getValue()) {
-                                e.getWhoClicked().openInventory(settingSwitch.getSubSettings().getSettingsInventory().getInventory());
-                            }
-                        }
-                    } else if (e.getClick().isLeftClick()) {
-                        settingSwitch.changeSettingValue();
-                    }
-                } else if (getSettingfromSlot(e.getSlot()).getType().equals(SettingsType.CLICK)) {
-                    SettingClick setting = (SettingClick) getSettingfromSlot(e.getSlot());
-
-                    if (e.getClick().isShiftClick()) {
-                        if (setting.getSubSettings() != null) {
-                            e.getWhoClicked().openInventory(setting.getSubSettings().getSettingsInventory().getInventory());
-                        }
-                    }
-                } else {
-                    SettingCycle settingCycle = (SettingCycle) getSettingfromSlot(e.getSlot());
-                    if (e.getClick().isLeftClick()) {
-                        settingCycle.cycleUp();
-                    } else if (e.getClick().isRightClick()) {
-                        settingCycle.cycleDown();
-                    }
-                }
-                buildInventory();
-            }
-        }
     }
 }

@@ -15,8 +15,7 @@ public class SubSettings extends Settings {
         this.addSetting(Utils.colorize("&cZurück"), new ArrayList<>(), Material.BARRIER);
     }
 
-    @SuppressWarnings("rawtypes")
-    public List<Setting> getSettings(){
+    public List<Setting<?>> getSettings(){
         return this.getAllSettings();
     }
 }
